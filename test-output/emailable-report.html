@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>TestNG:  Unit Test</title>
+<style type="text/css">
+table caption,table.info_table,table.param,table.passed,table.failed {margin-bottom:10px;border:1px solid #000099;border-collapse:collapse;empty-cells:show;}
+table.info_table td,table.info_table th,table.param td,table.param th,table.passed td,table.passed th,table.failed td,table.failed th {
+border:1px solid #000099;padding:.25em .5em .25em .5em
+}
+table.param th {vertical-align:bottom}
+td.numi,th.numi,td.numi_attn {
+text-align:right
+}
+tr.total td {font-weight:bold}
+table caption {
+text-align:center;font-weight:bold;
+}
+table.passed tr.stripe td,table tr.passedodd td {background-color: #00AA00;}
+table.passed td,table tr.passedeven td {background-color: #33FF33;}
+table.passed tr.stripe td,table tr.skippedodd td {background-color: #cccccc;}
+table.passed td,table tr.skippedodd td {background-color: #dddddd;}
+table.failed tr.stripe td,table tr.failedodd td,table.param td.numi_attn {background-color: #FF3333;}
+table.failed td,table tr.failedeven td,table.param tr.stripe td.numi_attn {background-color: #DD0000;}
+tr.stripe td,tr.stripe th {background-color: #E6EBF9;}
+p.totop {font-size:85%;text-align:center;border-bottom:2px black solid}
+div.shootout {padding:2em;border:3px #4854A8 solid}
+</style>
+</head>
+<body>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">102,8 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+</table>
+<a id="summary"></a>
+<table cellspacing=0 cellpadding=0 class="passed">
+<tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Time<br/>(Msecs)</th></tr>
+<tr><th colspan="4">Default test &#8212; failed</th></tr>
+<tr class="failedodd"><td rowspan="1">insynctive.tests.CreateChecklistsTest<td><a href="#m1"><b>createChecklistTest</b>  </a></td><td class="numi">1</td><td class="numi">102088</td></tr>
+</table>
+<h1>Default test</h1>
+<a id="m1"></a><h2>insynctive.tests.CreateChecklistsTest:createChecklistTest</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">internet explorer</td>
+<td style="padding-left:.5em;padding-right:2em">11</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 8.1</td>
+</tr>
+<tr><td style="padding-left:3em" colspan="3">
+<p>Window not found. The browser window may have been closed.
+Command duration or timeout: 2.11 seconds
+Build info: version: &apos;2.46.0&apos;, revision: &apos;61506a4624b13675f24581e453592342b7485d71&apos;, time: &apos;2015-06-04 10:22:50&apos;
+System info: host: &apos;Eugenio-PC&apos;, ip: &apos;192.168.56.1&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0_20&apos;
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=38.0.5, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: d012eb9b-451a-4b24-a5c3-443ccacc37d4
+*** Element info: {Using=id, value=lnkReturn_CD}</p>
+sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+<br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+<br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+<br/>at java.lang.reflect.Constructor.newInstance(Unknown Source)
+<br/>at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+<br/>at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:605)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:358)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:399)
+<br/>at org.openqa.selenium.By$ById.findElement(By.java:215)
+<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:350)
+<br/>at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+<br/>at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+<br/>at com.sun.proxy.$Proxy7.toString(Unknown Source)
+<br/>at java.lang.String.valueOf(Unknown Source)
+<br/>at java.lang.StringBuilder.append(Unknown Source)
+<br/>at org.openqa.selenium.support.ui.ExpectedConditions$10.toString(ExpectedConditions.java:293)
+<br/>at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:224)
+<br/>at insynctive.pages.Page.waitUntilIsLoaded(Page.java:83)
+<br/>at insynctive.pages.insynctive.TemplatePage.waitEditTemplateLoad(TemplatePage.java:87)
+<br/>at insynctive.pages.insynctive.TemplatePage.addTemplate(TemplatePage.java:67)
+<br/>at insynctive.pages.insynctive.CheckListsPage.createTemplate(CheckListsPage.java:48)
+<br/>at insynctive.tests.CreateChecklistsTest.createChecklistTest(CreateChecklistsTest.java:63)
+<br/>14 lines not shown
+<p>Caused by Window not found. The browser window may have been closed.
+Build info: version: &apos;2.46.0&apos;, revision: &apos;61506a4624b13675f24581e453592342b7485d71&apos;, time: &apos;2015-06-04 10:22:50&apos;
+System info: host: &apos;Eugenio-PC&apos;, ip: &apos;192.168.56.1&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0_20&apos;
+Driver info: driver.version: unknown</p>
+&lt;anonymous class&gt;.nsCommandProcessor.prototype.execute(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12350)
+<br/>at &lt;anonymous class&gt;.Dispatcher.executeAs/&lt;(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:9089)
+<br/>at &lt;anonymous class&gt;.Resource.prototype.handle(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:9236)
+<br/>at &lt;anonymous class&gt;.Dispatcher.prototype.dispatch(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:9183)
+<br/>at &lt;anonymous class&gt;.WebDriverServer/&lt;.handle(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:12136)
+<br/>at &lt;anonymous class&gt;.createHandlerFunc/&lt;(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:2054)
+<br/>at &lt;anonymous class&gt;.ServerHandler.prototype.handleResponse(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:2387)
+<br/>at &lt;anonymous class&gt;.Connection.prototype.process(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1223)
+<br/>at &lt;anonymous class&gt;.RequestReader.prototype._handleResponse(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1677)
+<br/>at &lt;anonymous class&gt;.RequestReader.prototype._processBody(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1525)
+<br/>at &lt;anonymous class&gt;.RequestReader.prototype.onInputStreamReady(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1393)
+<br/>1 lines not shown
+</td></tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+</body></html>
