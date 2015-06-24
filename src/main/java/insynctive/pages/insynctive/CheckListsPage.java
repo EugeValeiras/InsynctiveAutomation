@@ -2,7 +2,6 @@ package insynctive.pages.insynctive;
 
 import java.io.IOException;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,7 +41,7 @@ public class CheckListsPage extends Page implements PageInterface{
 	public void createTemplate(Checklist checkList) throws IOException, InterruptedException{
 		waitUntilIsLoaded(btnTemplate);
 		btnTemplate.click();
-		swuichToIframe(iframeAddTemplate);
+		swichToIframe(iframeAddTemplate);
 		
 		TemplatePage templatePage = new TemplatePage(driver, enviroment);
 		templatePage.addTemplate(checkList);

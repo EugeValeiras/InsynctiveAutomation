@@ -5,7 +5,6 @@ import insynctive.checklist.process.Process;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -33,8 +32,6 @@ public class ChecklistReader {
 		List<Checklist> checkListListToReturn = new ArrayList<Checklist>();
 
 		for (Object checklistObject : jsonCheckLists) {
-			List<Process> checkListListProcesses = new ArrayList<Process>();
-
 			/* CheckList */
 			JSONObject jsonChecklist = (JSONObject) checklistObject;
 			JSONArray jsonChecklistProcesses = (JSONArray) jsonChecklist.get("Processes");
@@ -49,7 +46,7 @@ public class ChecklistReader {
 				String checklistProcessVersion = (String) jsonPrecess.get("Process_Version");
 				String checklistProcessName = (String) jsonPrecess.get("Process_Name");
 
-				Class processClass = null;
+				Class<?> processClass = null;
 				try {
 					processClass = Class.forName("insynctive.checklist.process."+ checklistProcessName);
 				} catch (Exception ex) {

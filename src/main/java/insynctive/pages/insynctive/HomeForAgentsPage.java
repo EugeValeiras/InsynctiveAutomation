@@ -43,6 +43,8 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	/* Person File */
 	@FindBy(id = "popupCustom_CIF-1")
 	WebElement personFIleIframe;
+	@FindBy(id = "body_txtEmail")
+	WebElement emailLink;
 
 	/* Import Persons */
 	@FindBy(id = "body_body_mainTab_TPTCR_btnImport_0_CD")
@@ -133,10 +135,13 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 				&& personFIleIframe.isDisplayed();
 	}
 	
-	public boolean checkIfPersonIsCreated(){
+	public boolean checkIfPersonIsCreated(PersonData personData){
 		try{
 			//Check if Iframe is open
 			waitUntilIsLoaded(personFIleIframe);
+//			swichToIframe(personFIleIframe);
+//			waitUntilIsLoaded(emailLink);
+//			assertElementText(emailLink, personData.getEmail());
 		} catch (Exception e){
 			return false;
 		}

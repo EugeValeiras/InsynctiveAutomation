@@ -27,7 +27,7 @@ public class Page {
         this.driver = driver;
     }
 
-    public void swuichToIframe(WebElement iframe) throws IOException, InterruptedException{
+    public void swichToIframe(WebElement iframe) throws IOException, InterruptedException{
     	waitUntilIsLoaded(iframe);
 		driver.switchTo().frame(iframe);
     }
@@ -63,7 +63,7 @@ public class Page {
         Assert.assertEquals(element.getAttribute("value"), text);
     }
 
-    public void getElementText(WebElement element, String text) {
+    public void assertElementText(WebElement element, String text) {
         Assert.assertEquals(element.getAttribute("value"), text);
     }
 

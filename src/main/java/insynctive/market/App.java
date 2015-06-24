@@ -19,6 +19,6 @@ public enum App {
 	}
 	
 	public String getName(){
-		return this.name();
+		return this.name;
 	}
 }

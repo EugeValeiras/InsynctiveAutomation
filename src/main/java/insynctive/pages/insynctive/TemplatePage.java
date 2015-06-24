@@ -66,7 +66,7 @@ public class TemplatePage extends Page implements PageInterface{
 		
 		waitEditTemplateLoad();
 		for(Process proc : checkList.getProcess()){
-			Debugger.log(proc);
+			Debugger.subLog(proc);
 			proc.createTask();
 		}
 	}

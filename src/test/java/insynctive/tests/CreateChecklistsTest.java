@@ -4,15 +4,12 @@ import insynctive.checklist.Checklist;
 import insynctive.checklist.ChecklistReader;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
-import insynctive.pages.insynctive.LoginPage;
 import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
 
 import java.lang.reflect.Method;
 
-import junit.framework.Assert;
 
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
@@ -50,7 +47,7 @@ SauceOnDemandAuthenticationProvider {
 		
 		startTest(browser, version, os);
 		
-		LoginPage loginPage = login();
+		login();
 		new HomeForAgentsPage(driver, properties.getEnviroment()).waitPageIsLoad();
 		
 		CheckListsPage checkListPage = new CheckListsPage(driver, properties.getEnviroment());

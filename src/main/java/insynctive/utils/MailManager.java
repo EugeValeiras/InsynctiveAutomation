@@ -26,7 +26,7 @@ public class MailManager {
 		try {
 			store.connect("imap.gmail.com", username, password);
 		} catch (Exception ex) {
-			throw new Exception("Fail in connection"+ ex.getMessage());
+			throw new Exception("Fail in connection" + ex.getMessage());
 		}
 
 		Folder folder = store.getFolder("INBOX");
@@ -36,20 +36,19 @@ public class MailManager {
 		boolean isMailFound = false;
 		Message confirmationMAil = null;
 
-		// Search for mail
+		// Search for mail MAX 10 runs
 		for (int i = 0; i < 10; i++) {
 			messages = folder.search(new SubjectTerm(subject),
 					folder.getMessages());
-			// Wait for 10 seconds
+			// wait for 3 seconds if message is not found
 			if (messages.length == 0) {
-				Thread.sleep(15000);
+				Thread.sleep(3000);
 			}
 		}
 
-		// Search for unread mail from God
-		// This is to avoid using the mail for which
-		// Registration is already done
-		for (Message mail : messages) {
+		// Search latests for unread mail
+		for (int index = messages.length - 1; index != 0; index--) {
+			Message mail = messages[index];
 			if (!mail.isSet(Flags.Flag.SEEN)) {
 				confirmationMAil = mail;
 				isMailFound = true;

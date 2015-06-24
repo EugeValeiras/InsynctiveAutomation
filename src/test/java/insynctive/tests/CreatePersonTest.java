@@ -3,7 +3,6 @@ package insynctive.tests;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
 import insynctive.pages.insynctive.ResetPasswordPage;
-import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
 import insynctive.utils.MailManager;
 import insynctive.utils.PersonData;
@@ -12,7 +11,6 @@ import java.lang.reflect.Method;
 
 import junit.framework.Assert;
 
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
@@ -49,7 +47,6 @@ public class CreatePersonTest extends TestSauceLabs implements SauceOnDemandSess
 	@Test(dataProvider = "hardCodedBrowsers")
 	public void loginTest(String browser, String version, String os)
 			throws Exception {
-		
 		startTest(browser, version, os);
 		
 		LoginPage loginPage = login();
@@ -65,18 +62,15 @@ public class CreatePersonTest extends TestSauceLabs implements SauceOnDemandSess
 		
 		homePage.createPerson(person);
 		
-		Assert.assertTrue(homePage.checkIfPersonIsCreated());
+		Assert.assertTrue(homePage.checkIfPersonIsCreated(person));
 	}
 	
-	//TODO
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void firstLogin(String browser, String version, String os)
 			throws Exception {
 		
-		String firstLoginToken = MailManager.getAuthLink(properties.getGmailEmail(), properties.getGmailPassword(), "Invitation to signup to Alpha 6 HR Portal");
+		String firstLoginToken = MailManager.getAuthLink(properties.getNewEmployeeEmail(), properties.getGmailPassword(), "Invitation to signup to Alpha 6 HR Portal");
 		ResetPasswordPage resetPasswordPage = new ResetPasswordPage(driver, properties.getEnviroment(), firstLoginToken);
-		
-		Debugger.log(firstLoginToken);
 		
 		resetPasswordPage.loadPage();
 		resetPasswordPage.changePassword(properties.getNewEmployeePassword());

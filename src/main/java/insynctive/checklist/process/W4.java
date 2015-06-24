@@ -17,15 +17,9 @@ public class W4 extends Page implements Process, PageInterface {
 	/* Checklist */
 	@FindBy(id = "btnActivity_CD")
 	WebElement btnAddV4Process;
-	
-	@FindBy(id = "popupCustom_CIF-1")
-	WebElement teplateiFrame;
-
-	@FindBy(id = "popupNoHeader_CIF-1")
-	WebElement w4Iframe;
 
 	/* W4 */
-	@FindBy(css = "#searchAppsResult > table > tbody > tr:nth-child(3) > td:nth-child(2) > table > tbody > tr > td > a")
+	@FindBy(css = "#searchAppsResult > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > a:nth-child(1)")
 	WebElement linkTask;
 	
 	public W4(WebDriver driver) {
@@ -39,7 +33,7 @@ public class W4 extends Page implements Process, PageInterface {
 	public void createTask() throws IOException, InterruptedException{
 		waitPageIsLoad();
 		btnAddV4Process.click();
-		swuichToIframe(w4Iframe);
+		waitUntilIsLoaded(linkTask);
 		linkTask.click();
 	}
 	
@@ -47,7 +41,7 @@ public class W4 extends Page implements Process, PageInterface {
 	public void waitPageIsLoad() throws IOException, InterruptedException {
 		waitUntilIsLoaded(btnAddV4Process);
 	}
-
+	
 	@Override
 	public void setVersion(String version) {
 		this.version = version;
