@@ -2,6 +2,7 @@ package insynctive.pages.insynctive;
 
 import java.io.IOException;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,18 @@ public class CheckListsPage extends Page implements PageInterface{
 	WebElement btnTemplate;
 	@FindBy(id = "body_body_checklistsTab_TC")
 	WebElement tabsBody;
+	@FindBy(id = "body_body_popupChecklist_lkpChoosePerson_I")
+	WebElement personName;
+	@FindBy(id = "body_body_popupChecklist_cboTemplateTransition_I")
+	WebElement checklistName;
+	@FindBy(id = "body_body_popupChecklist_btnStart")
+	WebElement startChecklist;
+	@FindBy(id = "body_body_popupChecklist_cboTemplateTransition_DDD_L_LBI4T0")
+	WebElement firstChecklist;
+	@FindBy(id= "body_body_popupChecklist_cbSkip_S_D")
+	WebElement skipChecklists;
+	@FindBy(xpath = ".//*[@id='body_body_popupChecklist_lkpChoosePerson_DDD_gv_tcrow0']/div")
+	WebElement firstName;
 	
 	/* ADD Template iFrame */
 	@FindBy(css = "#popupCustom_CIF-1")
@@ -45,6 +58,31 @@ public class CheckListsPage extends Page implements PageInterface{
 		
 		TemplatePage templatePage = new TemplatePage(driver, enviroment);
 		templatePage.addTemplate(checkList);
+	}
+	
+	public void startChecklist(String checkList, String person) throws IOException, InterruptedException
+	{
+		/* I have a couple of waits here because sometimes the name is not selected properly */
+		waitUntilIsLoaded(btnStartChecklist);
+		btnStartChecklist.click();
+		
+		driver.wait(1000);
+		personName.click();
+		driver.wait(1000);
+		personName.sendKeys(person);
+		driver.wait(1000);
+		personName.sendKeys(Keys.TAB);
+			
+		waitUntilIsLoaded(checklistName);
+		checklistName.click();
+		driver.wait(1000);
+		checklistName.sendKeys(checkList);
+		driver.wait(1000);
+		firstChecklist.click();
+
+		waitUntilIsLoaded(skipChecklists);
+		startChecklist.click();
+		
 	}
 	
 	/* Waits **/
