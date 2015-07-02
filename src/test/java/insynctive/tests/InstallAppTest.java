@@ -2,6 +2,7 @@ package insynctive.tests;
 
 import insynctive.market.App;
 import insynctive.pages.insynctive.MarketPage;
+import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
 
 import java.lang.reflect.Method;
@@ -25,7 +26,7 @@ SauceOnDemandAuthenticationProvider{
 
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getProperties("test.properties");
+		properties = InsynctiveProperties.getAllProperties(driver);
 		this.sessionName = "Install Apps";
 	}
 	
@@ -44,19 +45,15 @@ SauceOnDemandAuthenticationProvider{
 		
 		MarketPage marketPage = new MarketPage(driver);
 		
-		marketPage.installApp(App.W4, 
-				properties.getEnviroment(), 
-				properties.getLoginUsername(), 
-				properties.getLoginPassword());
-		
-		Assert.assertTrue(marketPage.isAppInstallSuccessfully());
-
-		marketPage.installApp(App.I9, 
-				properties.getEnviroment(), 
-				properties.getLoginUsername(), 
-				properties.getLoginPassword());
-		
-		Assert.assertTrue(marketPage.isAppInstallSuccessfully());
+		Debugger.log(properties.getApps());
+		for(App app : properties.getApps()){
+			marketPage.installApp(app, 
+					properties.getEnviroment(), 
+					properties.getLoginUsername(), 
+					properties.getLoginPassword());
+			
+			Assert.assertTrue(marketPage.isAppInstallSuccessfully());
+		}
 		
 	}
 }

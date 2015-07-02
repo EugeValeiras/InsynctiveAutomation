@@ -33,7 +33,7 @@ public class CreatePersonTest extends TestSauceLabs implements SauceOnDemandSess
 
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getProperties("test.properties");
+		properties = InsynctiveProperties.getAllAccountsProperties();
 		this.sessionName = "Create Person";
 	}
 

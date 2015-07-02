@@ -1,81 +1,165 @@
 package insynctive.utils;
 
+import insynctive.checklist.Checklist;
+import insynctive.market.App;
+import insynctive.tests.CreateChecklistsTest;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
-public class InsynctiveProperties {
-	
-	Properties properties = new Properties();
+import org.openqa.selenium.WebDriver;
 
+public class InsynctiveProperties {
+
+	// PROPERTIES PATH
+	private String DEFAULT_ACCOUNTS_PROPERTIES = "accounts.properties";
+	private String DEFAULT_RUNID_PROPERTIES = "run.properties";
+	private String DEFAULT_INSTALL_APPS_JSON = "installapps.json";
+	private String DEFAULT_CREATE_CHECKLISTS_JSON = "checklists_create.json";
+
+	// RUN ID
 	private String runID;
+
+	// ACCOUNTS PROPERTIES
 	private String enviroment;
 
 	private String loginUsername;
 	private String loginPassword;
-	
+
 	private String newEmployeeName;
 	private String newEmployeeLastName;
 	private String newEmployeeEmail;
 	private String newEmployeePassword;
-	
+
 	private String gmailPassword;
-	
-	private InsynctiveProperties(String propertiesFileString) throws ConfigurateException{
-		
-		getAllProperties(propertiesFileString);
+
+	// AppList
+	private List<App> apps;
+
+	// ChecklistList
+	private List<Checklist> checklists;
+
+	private InsynctiveProperties() throws ConfigurationException {
+		getRunIDAndAutoIncrement();
 	}
-	
-	public static InsynctiveProperties  getProperties(String propertiesFileString) throws ConfigurateException{
-		return new InsynctiveProperties(propertiesFileString);
+
+	public static InsynctiveProperties getAllProperties(WebDriver driver)
+			throws ConfigurationException {
+		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		try {
+			insynctiveProp.addAccountsProperties();
+			insynctiveProp.addApps();
+			insynctiveProp.addCheckLists(driver);
+		} catch (Exception ex) {
+			throw new ConfigurationException("Check Config => "
+					+ ex.getMessage());
+		}
+		return insynctiveProp;
 	}
-	
-	private void getAllProperties(String propertiesFileString) throws ConfigurateException{
-		try{
-			//Open Properties Files
-			Properties runPropertie = new Properties();
-			File fileID = new File("run.properties");
-			FileInputStream runIDFile = new FileInputStream(fileID);
-			runPropertie.load(runIDFile);
-			
-			FileInputStream fileInput = new FileInputStream(propertiesFileString);
-			properties.load(fileInput);
-			
-			//Get all properties
-			runID = runPropertie.getProperty("runID");
-			runPropertie.setProperty("runID", String.valueOf(Integer.parseInt(runID)+1));
-			
-			enviroment = properties.getProperty("environment");
-			
-			loginUsername = properties.getProperty("loginUsername");
-			loginPassword = properties.getProperty("loginPassword");
-			
-			newEmployeeName = properties.getProperty("newEmployeeName");
-			newEmployeeLastName = properties.getProperty("newEmployeeLastName");
-			String email = properties.getProperty("newEmployeeEmail");
-			newEmployeeEmail = email.split("@")[0]+"+"+runID+"@"+email.split("@")[1];
-			newEmployeePassword = properties.getProperty("newEmployeePassword");
-			
-			gmailPassword = properties.getProperty("gmailPassword");	
-			
-			//Save new Properties into File
-			OutputStream output = new FileOutputStream(fileID);
-			runPropertie.store(output, "LAST RUN");
-			
-		} catch(Exception ex){
-			throw new ConfigurateException("Check config file => " + ex.getMessage());
+
+	public static InsynctiveProperties getAllAccountsProperties()
+			throws ConfigurationException {
+		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		insynctiveProp.addAccountsProperties();
+		return insynctiveProp;
+	}
+
+	public static InsynctiveProperties getAllApps() throws Exception {
+		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		insynctiveProp.addApps();
+		return insynctiveProp;
+	}
+
+	public static InsynctiveProperties getAllChecklist(WebDriver driver)
+			throws Exception {
+		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		insynctiveProp.addCheckLists(driver);
+		return insynctiveProp;
+	}
+
+	public List<App> addApps() throws Exception {
+		AppsReader appReader = new AppsReader(DEFAULT_INSTALL_APPS_JSON);
+		apps = appReader.getApps();
+		return apps;
+	}
+
+	public List<Checklist> addCheckLists(WebDriver driver) throws Exception {
+		ChecklistReader checklistReader = new ChecklistReader(driver,
+				DEFAULT_CREATE_CHECKLISTS_JSON);
+		checklists = checklistReader.getAllCheckLists();
+		return checklists;
+	}
+
+	public void addAccountsProperties() throws ConfigurationException {
+		try {
+			// Open Properties Files
+			Properties accountsProperties = new Properties();
+			FileInputStream fileInput = new FileInputStream(
+					DEFAULT_ACCOUNTS_PROPERTIES);
+			accountsProperties.load(fileInput);
+
+			// Get all properties
+			enviroment = accountsProperties.getProperty("environment");
+
+			loginUsername = accountsProperties.getProperty("loginUsername");
+			loginPassword = accountsProperties.getProperty("loginPassword");
+
+			newEmployeeName = accountsProperties.getProperty("newEmployeeName");
+			newEmployeeLastName = accountsProperties
+					.getProperty("newEmployeeLastName");
+			String email = accountsProperties.getProperty("newEmployeeEmail");
+			newEmployeeEmail = email.split("@")[0] + "+" + runID + "@"
+					+ email.split("@")[1];
+			newEmployeePassword = accountsProperties
+					.getProperty("newEmployeePassword");
+
+			gmailPassword = accountsProperties.getProperty("gmailPassword");
+
+		} catch (Exception ex) {
+			throw new ConfigurationException("Check config file => "+ ex.getMessage());
 		}
 	}
-	
-	/* Getters and Setters */
-	public String getRunID(){
-		return runID;
+
+	public void getRunIDAndAutoIncrement() throws ConfigurationException {
+		try {
+			// Open Properties Files
+			Properties runPropertie = new Properties();
+			File fileID = new File(DEFAULT_RUNID_PROPERTIES);
+			FileInputStream runIDFile = new FileInputStream(fileID);
+			runPropertie.load(runIDFile);
+
+			// Get runID
+			runID = runPropertie.getProperty("runID");
+			runPropertie.setProperty("runID",
+					String.valueOf(Integer.parseInt(runID) + 1));
+
+			// Save new Properties into File
+			OutputStream output = new FileOutputStream(fileID);
+			runPropertie.store(output, "LAST RUN");
+		} catch (Exception ex) {
+			throw new ConfigurationException("Check config file => "+ ex.getMessage());
+		}
 	}
-	
-	public Properties getProperties() {
-		return properties;
+
+	public void addAppToList(App app) {
+		apps.add(app);
+	}
+
+	public void addChecklistToList(Checklist checklist) {
+		checklists.add(checklist);
+	}
+
+	/* Getters and Setters */
+	public String getRunID() {
+		return runID;
 	}
 
 	public String getEnviroment() {
@@ -108,5 +192,46 @@ public class InsynctiveProperties {
 
 	public String getGmailPassword() {
 		return gmailPassword;
+	}
+
+	public List<App> getApps() {
+		return apps;
+	}
+
+	public List<Checklist> getCheckLists() {
+		return checklists;
+	}
+
+	public String getRunPropertiesStringFile() {
+		return this.DEFAULT_RUNID_PROPERTIES;
+	}
+
+	public String getAccountsPropertiesStringFile() {
+		return this.DEFAULT_ACCOUNTS_PROPERTIES;
+	}
+
+	public String getInstallAppsStringFile() {
+		return this.DEFAULT_INSTALL_APPS_JSON;
+	}
+
+	public String getCreateCheckListsStringFile() {
+		return this.DEFAULT_CREATE_CHECKLISTS_JSON;
+	}
+
+	public void setRunPropertiesStringFile(String runPropertiesStringFile) {
+		this.DEFAULT_RUNID_PROPERTIES = runPropertiesStringFile;
+	}
+
+	public void setAccountPropertiesStringFile(
+			String accountPropertiesStringFile) {
+		this.DEFAULT_ACCOUNTS_PROPERTIES = accountPropertiesStringFile;
+	}
+
+	public void setInstallAppsStringFile(String installAppsStringFile) {
+		this.DEFAULT_INSTALL_APPS_JSON = installAppsStringFile;
+	}
+
+	public void setCreateChecklistsStringFile(String crateChecklistsStringFile) {
+		this.DEFAULT_CREATE_CHECKLISTS_JSON = crateChecklistsStringFile;
 	}
 }

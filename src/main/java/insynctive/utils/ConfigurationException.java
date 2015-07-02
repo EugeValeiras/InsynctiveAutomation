@@ -1,13 +1,13 @@
 package insynctive.utils;
 
-public class ConfigurateException extends Exception {
+public class ConfigurationException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ConfigurateException(String error){
+	public ConfigurationException(String error){
 		super(error);
 	}
 	

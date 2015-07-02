@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="1" passed="0">
+<testng-results skipped="2" failed="1" total="3" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="102813" started-at="2015-06-22T15:53:41Z" finished-at="2015-06-22T15:55:23Z">
+  <suite name="Default suite" duration-ms="79362" started-at="2015-07-02T09:29:31Z" finished-at="2015-07-02T09:30:51Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="102813" started-at="2015-06-22T15:53:41Z" finished-at="2015-06-22T15:55:23Z">
-      <class name="insynctive.tests.CreateChecklistsTest">
-        <test-method status="PASS" signature="tearUp()" name="tearUp" is-config="true" duration-ms="42" started-at="2015-06-22T15:53:41Z" finished-at="2015-06-22T15:53:41Z">
+    <test name="Default test" duration-ms="79362" started-at="2015-07-02T09:29:31Z" finished-at="2015-07-02T09:30:51Z">
+      <class name="insynctive.tests.CreatePersonTest">
+        <test-method status="PASS" signature="tearUp()" name="tearUp" is-config="true" duration-ms="411" started-at="2015-07-02T09:29:31Z" finished-at="2015-07-02T09:29:32Z">
         </test-method>
-        <test-method status="FAIL" signature="createChecklistTest(java.lang.String, java.lang.String, java.lang.String)" name="createChecklistTest" duration-ms="102088" started-at="2015-06-22T15:53:41Z" finished-at="2015-06-22T15:55:23Z">
+        <test-method status="FAIL" signature="loginTest(java.lang.String, java.lang.String, java.lang.String)" name="loginTest" duration-ms="77177" started-at="2015-07-02T09:29:32Z" finished-at="2015-07-02T09:30:49Z">
           <params>
             <param index="0">
               <value>
@@ -27,26 +27,28 @@
               </value>
             </param>
           </params>
-          <exception class="org.openqa.selenium.NoSuchWindowException">
+          <exception class="org.openqa.selenium.NoSuchElementException">
             <message>
-              <![CDATA[Window not found. The browser window may have been closed.
-Command duration or timeout: 2.11 seconds
+              <![CDATA[Unable to locate element: {"method":"id","selector":"login_UserName_I"}
+Command duration or timeout: 38.74 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.46.0', revision: '61506a4624b13675f24581e453592342b7485d71', time: '2015-06-04 10:22:50'
 System info: host: 'Eugenio-PC', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_20'
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=38.0.5, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: d012eb9b-451a-4b24-a5c3-443ccacc37d4
-*** Element info: {Using=id, value=lnkReturn_CD}]]>
+Session ID: a15e198d-47cf-4eb8-8ad4-dbbb6f69a3d1
+*** Element info: {Using=id, value=login_UserName_I}]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchWindowException: Window not found. The browser window may have been closed.
-Command duration or timeout: 2.11 seconds
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"id","selector":"login_UserName_I"}
+Command duration or timeout: 38.74 seconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.46.0', revision: '61506a4624b13675f24581e453592342b7485d71', time: '2015-06-04 10:22:50'
 System info: host: 'Eugenio-PC', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_20'
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=38.0.5, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: d012eb9b-451a-4b24-a5c3-443ccacc37d4
-*** Element info: {Using=id, value=lnkReturn_CD}
+Session ID: a15e198d-47cf-4eb8-8ad4-dbbb6f69a3d1
+*** Element info: {Using=id, value=login_UserName_I}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
@@ -60,16 +62,11 @@ Session ID: d012eb9b-451a-4b24-a5c3-443ccacc37d4
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:350)
 	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
 	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-	at com.sun.proxy.$Proxy7.toString(Unknown Source)
-	at java.lang.String.valueOf(Unknown Source)
-	at java.lang.StringBuilder.append(Unknown Source)
-	at org.openqa.selenium.support.ui.ExpectedConditions$10.toString(ExpectedConditions.java:293)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:224)
-	at insynctive.pages.Page.waitUntilIsLoaded(Page.java:83)
-	at insynctive.pages.insynctive.TemplatePage.waitEditTemplateLoad(TemplatePage.java:87)
-	at insynctive.pages.insynctive.TemplatePage.addTemplate(TemplatePage.java:67)
-	at insynctive.pages.insynctive.CheckListsPage.createTemplate(CheckListsPage.java:48)
-	at insynctive.tests.CreateChecklistsTest.createChecklistTest(CreateChecklistsTest.java:63)
+	at com.sun.proxy.$Proxy7.clear(Unknown Source)
+	at insynctive.pages.insynctive.LoginPage.setText_LoginField(LoginPage.java:63)
+	at insynctive.pages.insynctive.LoginPage.login(LoginPage.java:39)
+	at insynctive.tests.TestSauceLabs.login(TestSauceLabs.java:82)
+	at insynctive.tests.CreatePersonTest.loginTest(CreatePersonTest.java:52)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -83,24 +80,23 @@ Session ID: d012eb9b-451a-4b24-a5c3-443ccacc37d4
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 	at java.lang.Thread.run(Unknown Source)
-Caused by: org.openqa.selenium.NoSuchWindowException: Window not found. The browser window may have been closed.
+Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"id","selector":"login_UserName_I"}
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '2.46.0', revision: '61506a4624b13675f24581e453592342b7485d71', time: '2015-06-04 10:22:50'
 System info: host: 'Eugenio-PC', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_20'
 Driver info: driver.version: unknown
-	at <anonymous class>.nsCommandProcessor.prototype.execute(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12350)
-	at <anonymous class>.Dispatcher.executeAs/<(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:9089)
-	at <anonymous class>.Resource.prototype.handle(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:9236)
-	at <anonymous class>.Dispatcher.prototype.dispatch(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:9183)
-	at <anonymous class>.WebDriverServer/<.handle(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:12136)
-	at <anonymous class>.createHandlerFunc/<(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:2054)
-	at <anonymous class>.ServerHandler.prototype.handleResponse(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:2387)
-	at <anonymous class>.Connection.prototype.process(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1223)
-	at <anonymous class>.RequestReader.prototype._handleResponse(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1677)
-	at <anonymous class>.RequestReader.prototype._processBody(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1525)
-	at <anonymous class>.RequestReader.prototype.onInputStreamReady(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous37366258914035243webdriver-profile/extensions/fxdriver@googlecode.com/components/httpd.js:1393)
+	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10299)
+	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10308)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12282)
+	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12287)
+	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12229)
 ]]>
             </full-stacktrace>
           </exception>
+        </test-method>
+        <test-method status="SKIP" signature="createPersonTest(java.lang.String, java.lang.String, java.lang.String)" name="createPersonTest" duration-ms="1" started-at="2015-07-02T09:30:51Z" depends-on-methods="insynctive.tests.CreatePersonTest.loginTest" finished-at="2015-07-02T09:30:51Z">
+        </test-method>
+        <test-method status="SKIP" signature="firstLogin(java.lang.String, java.lang.String, java.lang.String)" name="firstLogin" duration-ms="1" started-at="2015-07-02T09:30:51Z" depends-on-methods="insynctive.tests.CreatePersonTest.createPersonTest" finished-at="2015-07-02T09:30:51Z">
         </test-method>
       </class>
     </test>

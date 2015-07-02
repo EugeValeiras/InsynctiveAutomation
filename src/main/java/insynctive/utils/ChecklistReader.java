@@ -1,5 +1,6 @@
-package insynctive.checklist;
+package insynctive.utils;
 
+import insynctive.checklist.Checklist;
 import insynctive.checklist.process.Process;
 
 import java.io.FileReader;
@@ -16,12 +17,12 @@ public class ChecklistReader {
 
 	WebDriver driver;
 	JSONParser parser = new JSONParser();
-	JSONArray jsonCheckLists;
+	JSONArray jsonCheckList;
 
-	public ChecklistReader(WebDriver driver) {
+	public ChecklistReader(WebDriver driver, String checkListStringFile) {
 		this.driver = driver;
 		try {
-			jsonCheckLists = (JSONArray) parser.parse(new FileReader("checklists_create.conf"));
+			jsonCheckList = (JSONArray) parser.parse(new FileReader(checkListStringFile));
 		} catch (Exception ex) {
 			// TODO THROW EXCEPTION
 		}
@@ -31,7 +32,7 @@ public class ChecklistReader {
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		List<Checklist> checkListListToReturn = new ArrayList<Checklist>();
 
-		for (Object checklistObject : jsonCheckLists) {
+		for (Object checklistObject : jsonCheckList) {
 			/* CheckList */
 			JSONObject jsonChecklist = (JSONObject) checklistObject;
 			JSONArray jsonChecklistProcesses = (JSONArray) jsonChecklist.get("Processes");

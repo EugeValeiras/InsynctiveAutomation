@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite hostname="Eugenio-PC" name="insynctive.tests.CreateChecklistsTest" tests="0" failures="0" timestamp="22 Jun 2015 18:55:23 GMT" time="102.813" errors="0">
+<testsuite hostname="Eugenio-PC" name="insynctive.tests.CreatePersonTest" tests="2" failures="0" timestamp="2 Jul 2015 12:30:51 GMT" time="79.362" errors="0">
+  <testcase name="createPersonTest" time="0.001" classname="insynctive.tests.CreatePersonTest">
+    <skipped/>
+  </testcase>
+  <testcase name="firstLogin" time="0.001" classname="insynctive.tests.CreatePersonTest">
+    <skipped/>
+  </testcase>
 </testsuite>

@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import insynctive.market.App;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurateException;
+import insynctive.utils.ConfigurationException;
 import insynctive.utils.InsynctiveProperties;
 
 public class MarketPage extends Page implements PageInterface {
@@ -51,9 +51,9 @@ public class MarketPage extends Page implements PageInterface {
 	@FindBy(id = "callbackDetails_popupShopResult_lblResult-1T")
 	WebElement resultText;
 
-	public MarketPage(WebDriver driver) throws ConfigurateException {
+	public MarketPage(WebDriver driver) throws ConfigurationException {
 		super(driver);
-		properties = InsynctiveProperties.getProperties("test.properties");
+		properties = InsynctiveProperties.getAllAccountsProperties();
 		jsExecutor = (JavascriptExecutor) driver;
 		this.PAGE_URL = "http://appsmarket.insynctive.com/";
 		this.PAGE_TITLE = "Home Page";

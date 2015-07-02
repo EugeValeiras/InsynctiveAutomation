@@ -1,13 +1,14 @@
 package insynctive.tests;
 
 import insynctive.checklist.Checklist;
-import insynctive.checklist.ChecklistReader;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
+import insynctive.utils.ChecklistReader;
 import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
 
 import java.lang.reflect.Method;
+
 
 
 import org.testng.annotations.BeforeClass;
@@ -30,7 +31,8 @@ SauceOnDemandAuthenticationProvider {
 
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getProperties("test.properties");
+		properties = InsynctiveProperties.getAllAccountsProperties();
+		properties.addCheckLists(driver);
 		this.sessionName = "Create Checklist";
 	}
 
@@ -53,9 +55,7 @@ SauceOnDemandAuthenticationProvider {
 		CheckListsPage checkListPage = new CheckListsPage(driver, properties.getEnviroment());
 		checkListPage.loadPage();
 		
-		ChecklistReader checkListReader = new ChecklistReader(driver);
-		
-		for(Checklist checkList : checkListReader.getAllCheckLists()){
+		for(Checklist checkList : properties.getCheckLists()){
 			Debugger.log(checkList);
 			checkListPage.createTemplate(checkList);
 		}
