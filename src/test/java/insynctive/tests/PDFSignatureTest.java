@@ -21,7 +21,7 @@ SauceOnDemandAuthenticationProvider{
 	
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getProperties("test.properties");
+		properties = InsynctiveProperties.getAllProperties(driver);
 		this.sessionName = "PDF Signature";
 	}
 
@@ -44,7 +44,7 @@ SauceOnDemandAuthenticationProvider{
 		
 				CheckListsPage checkListPage = new CheckListsPage(driver, properties.getEnviroment());
 				checkListPage.loadPage();
-				checkListPage.startChecklist("PDF", "Bojan Petrovski");
+				checkListPage.startChecklist("PDF", "Eugenio Valeiras");
 				
 				driver.wait(20000);
 				MyTasksPage myTasksPage = new MyTasksPage(driver, properties.getEnviroment());

@@ -62,27 +62,23 @@ public class CheckListsPage extends Page implements PageInterface{
 	
 	public void startChecklist(String checkList, String person) throws IOException, InterruptedException
 	{
-		/* I have a couple of waits here because sometimes the name is not selected properly */
 		waitUntilIsLoaded(btnStartChecklist);
 		btnStartChecklist.click();
 		
-		driver.wait(1000);
+		waitUntilIsLoaded(personName);
 		personName.click();
-		driver.wait(1000);
 		personName.sendKeys(person);
-		driver.wait(1000);
 		personName.sendKeys(Keys.TAB);
 			
 		waitUntilIsLoaded(checklistName);
 		checklistName.click();
-		driver.wait(1000);
 		checklistName.sendKeys(checkList);
-		driver.wait(1000);
+		waitUntilIsLoaded(firstChecklist);
 		firstChecklist.click();
 
 		waitUntilIsLoaded(skipChecklists);
+		waitUntilIsLoaded(startChecklist);
 		startChecklist.click();
-		
 	}
 	
 	/* Waits **/

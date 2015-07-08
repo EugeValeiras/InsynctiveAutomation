@@ -90,7 +90,6 @@ public class MyTasksPage extends Page implements PageInterface {
 			return false;
 		else
 			return true;
-
 	}
 
 	@Override
@@ -101,7 +100,6 @@ public class MyTasksPage extends Page implements PageInterface {
 	@Override
 	public void waitPageIsLoad() throws IOException, InterruptedException {
 		waitUntilIsLoaded(firstTask);
-		
 	}
 	
 	
