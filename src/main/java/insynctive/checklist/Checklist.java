@@ -1,9 +1,9 @@
 package insynctive.checklist;
 
+import insynctive.checklist.process.Process;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import insynctive.checklist.process.Process;
 
 public class Checklist {
 

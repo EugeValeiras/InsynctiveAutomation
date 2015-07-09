@@ -1,5 +1,9 @@
 package insynctive.pages;
 
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,10 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
-import java.io.IOException;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 public class Page {
 
@@ -114,8 +114,8 @@ public class Page {
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     }
 
-    protected void turnOnImplicitWaits() {
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    protected void turnOnImplicitWaits(int time) {
+        driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
     }
 
     protected boolean isElementHiddenNow(String locator) {
@@ -124,7 +124,7 @@ public class Page {
         try {
             result = ExpectedConditions.invisibilityOfElementLocated(By.id(locator)).apply(driver);
         } finally {
-            turnOnImplicitWaits();
+            turnOnImplicitWaits(5);
         }
         return result;
     }
@@ -140,7 +140,7 @@ public class Page {
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         } finally {
-            turnOnImplicitWaits();
+            turnOnImplicitWaits(5);
         }
     }
 }

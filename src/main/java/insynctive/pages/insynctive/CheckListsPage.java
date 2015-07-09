@@ -1,5 +1,9 @@
 package insynctive.pages.insynctive;
 
+import insynctive.checklist.Checklist;
+import insynctive.pages.Page;
+import insynctive.pages.PageInterface;
+
 import java.io.IOException;
 
 import org.openqa.selenium.Keys;
@@ -7,10 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import insynctive.checklist.Checklist;
-import insynctive.pages.Page;
-import insynctive.pages.PageInterface;
 
 public class CheckListsPage extends Page implements PageInterface{
 

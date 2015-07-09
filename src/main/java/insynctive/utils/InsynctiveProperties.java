@@ -2,16 +2,11 @@ package insynctive.utils;
 
 import insynctive.checklist.Checklist;
 import insynctive.market.App;
-import insynctive.tests.CreateChecklistsTest;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,7 +25,8 @@ public class InsynctiveProperties {
 
 	// ACCOUNTS PROPERTIES
 	private String enviroment;
-
+	private String saucelabs;
+	
 	private String loginUsername;
 	private String loginPassword;
 
@@ -84,7 +80,7 @@ public class InsynctiveProperties {
 		insynctiveProp.addCheckLists(driver);
 		return insynctiveProp;
 	}
-
+	
 	public List<App> addApps() throws Exception {
 		AppsReader appReader = new AppsReader(DEFAULT_INSTALL_APPS_JSON);
 		apps = appReader.getApps();
@@ -148,6 +144,23 @@ public class InsynctiveProperties {
 			throw new ConfigurationException("Check config file => "+ ex.getMessage());
 		}
 	}
+	
+	public static boolean IsSauceLabs() throws ConfigurationException {try {
+		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		
+		// Open Properties Files
+		Properties accountsProperties = new Properties();
+		FileInputStream fileInput = new FileInputStream(
+				insynctiveProp.DEFAULT_ACCOUNTS_PROPERTIES);
+		accountsProperties.load(fileInput);
+
+		// Get all properties
+		insynctiveProp.saucelabs = accountsProperties.getProperty("saucelabs");
+		return Boolean.parseBoolean(insynctiveProp.saucelabs);
+
+	} catch (Exception ex) {
+		throw new ConfigurationException("Check config file => "+ ex.getMessage());
+	}}
 
 	public void addAppToList(App app) {
 		apps.add(app);

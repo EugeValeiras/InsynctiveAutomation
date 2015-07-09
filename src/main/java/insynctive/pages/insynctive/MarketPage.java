@@ -1,5 +1,11 @@
 package insynctive.pages.insynctive;
 
+import insynctive.market.App;
+import insynctive.pages.Page;
+import insynctive.pages.PageInterface;
+import insynctive.utils.ConfigurationException;
+import insynctive.utils.InsynctiveProperties;
+
 import java.io.IOException;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -7,12 +13,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import insynctive.market.App;
-import insynctive.pages.Page;
-import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurationException;
-import insynctive.utils.InsynctiveProperties;
 
 public class MarketPage extends Page implements PageInterface {
 

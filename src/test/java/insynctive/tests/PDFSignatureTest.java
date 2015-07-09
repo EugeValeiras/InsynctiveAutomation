@@ -4,6 +4,7 @@ import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.MyTasksPage;
 import insynctive.utils.InsynctiveProperties;
+import insynctive.utils.Sleeper;
 
 import java.lang.reflect.Method;
 
@@ -28,15 +29,14 @@ SauceOnDemandAuthenticationProvider{
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)
 	public static Object[][] sauceBrowserDataProvider(Method testMethod) {
 		return new Object[][] { new Object[] {
-				"internet explorer", "11", "Windows 8.1" }
+				"firefox", "38", "Windows 8.1" }
 		};
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers")
 	public void PDF(String browser, String version, String os)
 			throws Exception {
-		
-		
+
 		startTest(browser, version, os);
 		
 		login();
@@ -46,14 +46,12 @@ SauceOnDemandAuthenticationProvider{
 				checkListPage.loadPage();
 				checkListPage.startChecklist("PDF", "Eugenio Valeiras");
 				
-				driver.wait(20000);
+				Sleeper.sleep(3000, driver);
 				MyTasksPage myTasksPage = new MyTasksPage(driver, properties.getEnviroment());
 				myTasksPage.loadPage();
-				myTasksPage.openFirstTask();
+				myTasksPage.openJustNowTask();
 				
 				Assert.assertTrue(myTasksPage.SingPDF());
-				
-		
 		}
 		
 	}

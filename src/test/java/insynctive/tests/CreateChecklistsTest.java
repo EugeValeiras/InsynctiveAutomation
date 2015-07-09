@@ -3,13 +3,10 @@ package insynctive.tests;
 import insynctive.checklist.Checklist;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
-import insynctive.utils.ChecklistReader;
 import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
 
 import java.lang.reflect.Method;
-
-
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;

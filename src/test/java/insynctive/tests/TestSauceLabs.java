@@ -1,6 +1,7 @@
 package insynctive.tests;
 
 import insynctive.pages.insynctive.LoginPage;
+import insynctive.utils.ConfigurationException;
 import insynctive.utils.InsynctiveProperties;
 
 import java.net.MalformedURLException;
@@ -53,7 +54,7 @@ public abstract class TestSauceLabs implements SauceOnDemandSessionIdProvider,
 		}
 		capabilities.setCapability(CapabilityType.PLATFORM, os);
 		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		
+
 		capabilities.setCapability("name", sessionName);
 		webDriver.set(new RemoteWebDriver(new URL("http://"
 				+ authentication.getUsername() + ":"
@@ -65,21 +66,24 @@ public abstract class TestSauceLabs implements SauceOnDemandSessionIdProvider,
 	}
 
 	public void startTest(String browser, String version, String os)
-			throws MalformedURLException {
+			throws MalformedURLException, ConfigurationException {
 
-		FirefoxProfile firefoxProfile = new FirefoxProfile();
-		firefoxProfile.setAcceptUntrustedCertificates(true);
-		firefoxProfile.setAssumeUntrustedCertificateIssuer(true);
-		driver = new FirefoxDriver(firefoxProfile);
-		driver.manage().window().maximize();
-		
-//		driver = createDriver(browser, version, os);
+		if (InsynctiveProperties.IsSauceLabs()) {
+			driver = createDriver(browser, version, os);
+		} else {
+			FirefoxProfile firefoxProfile = new FirefoxProfile();
+			firefoxProfile.setAcceptUntrustedCertificates(true);
+			firefoxProfile.setAssumeUntrustedCertificateIssuer(true);
+			driver = new FirefoxDriver(firefoxProfile);
+			driver.manage().window().maximize();
+		}
 	}
-	
+
 	public LoginPage login() throws Exception {
 		LoginPage loginPage = new LoginPage(driver, properties.getEnviroment());
 		loginPage.loadPage();
-		loginPage.login(properties.getLoginUsername(), properties.getLoginPassword());
+		loginPage.login(properties.getLoginUsername(),
+				properties.getLoginPassword());
 		return loginPage;
 	}
 }

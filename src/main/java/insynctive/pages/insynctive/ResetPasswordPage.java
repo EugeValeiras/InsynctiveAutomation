@@ -1,14 +1,14 @@
 package insynctive.pages.insynctive;
 
+import insynctive.pages.Page;
+import insynctive.pages.PageInterface;
+
 import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import insynctive.pages.Page;
-import insynctive.pages.PageInterface;
 
 public class ResetPasswordPage extends Page implements PageInterface{
 

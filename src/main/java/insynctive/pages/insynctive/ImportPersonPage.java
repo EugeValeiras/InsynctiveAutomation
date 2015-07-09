@@ -1,9 +1,9 @@
 package insynctive.pages.insynctive;
 
-import java.io.IOException;
-
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
+
+import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
