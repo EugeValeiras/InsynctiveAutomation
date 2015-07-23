@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 public abstract class PDFItemsPage extends Page {
 	@FindBy(id = "btnAcknowledge")
 	public WebElement signBtn;
+	@FindBy(css = "#buttonDone > button")
+	public WebElement doneBtn;
 	@FindBy(id = "popupSign_panelSign_name")
 	public WebElement signTextType;
 	@FindBy(id = "rappdf")
@@ -18,7 +20,7 @@ public abstract class PDFItemsPage extends Page {
 	public WebElement radPdfIframe;
 	@FindBy(id = "pdfe_paged0")
 	public WebElement pdfPage;
-	@FindBy(xpath = ".//*[@id='buttonDone']/button")
+	@FindBy(css = "#buttonDone > button")
 	public WebElement DoneButton;
 	@FindBy(id = "pdfe_msgt")
 	public WebElement banner;

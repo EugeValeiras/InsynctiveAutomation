@@ -28,11 +28,12 @@ public class LoginPage extends Page implements PageInterface{
     WebElement loginButton;
     @FindBy(id = "google-login")
     WebElement googleLoginButton;
-
+   
+    
     public LoginPage(WebDriver driver, String enviroment) {
         super (driver);
         this.enviroment = enviroment;
-        this.PAGE_URL = "http://"+ enviroment + ".insynctiveapps.com/";
+        this.PAGE_URL = "http://"+ enviroment + ".insynctiveapps.com/Insynctive.Hub/Login.aspx?ReturnUrl=/Insynctive.Hub/Protected/Invitations.aspx?SkipGuide=True";
         this.PAGE_TITLE = "Login";
         PageFactory.initElements(driver, this);
     }

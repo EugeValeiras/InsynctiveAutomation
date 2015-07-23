@@ -3,6 +3,7 @@ package insynctive.pages.insynctive;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
 import insynctive.utils.PersonData;
+import insynctive.utils.Sleeper;
 
 import java.io.IOException;
 
@@ -19,10 +20,20 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	String emailSubject;
 	
 	/* Home */
-	@FindBy(css = "#body_body_mainTab_TPTCR_btnAddPerson_0_CD > span")
+	@FindBy(id = "btnAddPerson")
 	WebElement addPersonButton;
-	@FindBy(id = "ctl00_ctl00_body_body_mainTab_grdListPeople_DXMainTable")
+	@FindBy(id = "grid")
 	WebElement personTable;
+	@FindBy(id = "txtName")
+	WebElement nameSearch;
+	@FindBy(id = "txtPrimaryEmail")
+	WebElement emailSearch;
+	@FindBy(xpath = "//*[@id='grid']/div[1]/div[2]/p")
+	WebElement personLink;
+	@FindBy(xpath = "//*[@id='grid']/div[1]/div[6]/p")
+	WebElement emailAssert;
+	@FindBy(id = "loadingSpinner")
+	WebElement loadingSpinner;
 	
 	/* ADD Person */
 	@FindBy(id = "firstNameTextBox")
@@ -47,7 +58,7 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	WebElement emailLink;
 
 	/* Import Persons */
-	@FindBy(id = "body_body_mainTab_TPTCR_btnImport_0_CD")
+	@FindBy(id = "btnImportAndSync")
 	WebElement importPersonButton;
 	
 	/* Template Page */
@@ -57,7 +68,7 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	public HomeForAgentsPage(WebDriver driver, String enviroment) {
 		super(driver);
 		this.enviroment = enviroment;
-		this.PAGE_URL = "http://" + enviroment + ".insynctiveapps.com/Insynctive.Hub/Protected/Invitations.aspx?page";
+		this.PAGE_URL = "http://" + enviroment + ".insynctiveapps.com/Insynctive.Hub/Protected/Invitations.aspx?SkipGuide=True";
 		this.PAGE_TITLE = "Invitations";
 		PageFactory.initElements(driver, this);
 	}
@@ -66,9 +77,9 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 		waitPageIsLoad();
 		addPersonButton.click();
 		waitAddPersonIsLoad();
-		setText_FirstNameField(personData.getName());
-		setText_LastNameField(personData.getLastName());
-		setText_EmailField(personData.getEmail());
+		setTextInField(firstNameTextBox, personData.getName());
+		setTextInField(lastNameTextBox, personData.getLastName());
+		setTextInField(emailTextBox, personData.getEmail());
 		inviteToCheckBox.click();
 		waitInvitePersonLoad();
 //		personData.setEmailInvitationSubject(subjectOfEmail.getText()); 
@@ -110,25 +121,6 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 		waitUntilIsLoaded(inviteToCheckBox);
 	}
 
-	/* Private Actions **/
-	private void setText_FirstNameField(String text) {
-		firstNameTextBox.clear();
-		firstNameTextBox.sendKeys(text);
-		firstNameTextBox.sendKeys(Keys.TAB);
-	}
-	
-	private void setText_LastNameField(String text) {
-		lastNameTextBox.clear();
-		lastNameTextBox.sendKeys(text);
-		lastNameTextBox.sendKeys(Keys.TAB);
-	}
-	
-	private void setText_EmailField(String text) {
-		emailTextBox.clear();
-		emailTextBox.sendKeys(text);
-		emailTextBox.sendKeys(Keys.TAB);
-	}
-	
 	/* Checks **/
 	public boolean isPageLoad(){
 		return importPersonButton.isDisplayed() 
@@ -146,6 +138,17 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 			return false;
 		}
 		return true;
+	}
+
+	public void openPersonFile(String personName) throws IOException, InterruptedException {
+		waitPageIsLoad();
+		//TODO Wait BUG FIX OF NAME SEARCH
+		String first = personName.substring(0, personName.length()-1);
+		String last = personName.substring(personName.length()-1, personName.length());
+		emailSearch.sendKeys(first);
+		emailSearch.sendKeys(last);
+		Sleeper.sleep(2000,driver);
+		personLink.click();
 	}
 
 }

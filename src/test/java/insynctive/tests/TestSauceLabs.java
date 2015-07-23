@@ -86,4 +86,11 @@ public abstract class TestSauceLabs implements SauceOnDemandSessionIdProvider,
 				properties.getLoginPassword());
 		return loginPage;
 	}
+
+	public LoginPage login(String username, String password) throws Exception {
+		LoginPage loginPage = new LoginPage(driver, properties.getEnviroment());
+		loginPage.loadPage();
+		loginPage.login(username, password);
+		return loginPage;
+	}
 }

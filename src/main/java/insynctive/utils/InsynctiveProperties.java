@@ -108,7 +108,7 @@ public class InsynctiveProperties {
 			loginUsername = accountsProperties.getProperty("loginUsername");
 			loginPassword = accountsProperties.getProperty("loginPassword");
 
-			newEmployeeName = accountsProperties.getProperty("newEmployeeName");
+			newEmployeeName = accountsProperties.getProperty("newEmployeeName")+getRunID();
 			newEmployeeLastName = accountsProperties
 					.getProperty("newEmployeeLastName");
 			String email = accountsProperties.getProperty("newEmployeeEmail");

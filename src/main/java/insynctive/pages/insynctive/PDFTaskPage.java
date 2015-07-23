@@ -18,11 +18,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 
-	@FindBy(id = "popupCustom_CIF-1")
-	WebElement taskPopup;
-	@FindBy(id = "frmTask")
-	WebElement taskFrame;
-	
 	
 	public PDFTaskPage(WebDriver driver) {
 		super(driver);
@@ -78,7 +73,9 @@ public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 		DoneButton.click();
 		
 		//Check if the button disappear, and return if is complete.
-		Sleeper.sleep(8000, driver);
+		Sleeper.sleep(5000, driver);
+		
+		driver.switchTo().window(outerIframe);
 		boolean isHere = driver.findElements(By.xpath(".//*[@id='buttonDone']/button")).size() > 0;
 
 		return !isHere;
@@ -87,9 +84,7 @@ public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 	private void goToTaskiFrame(String outerIframe) throws IOException,
 			InterruptedException {
 		driver.switchTo().window(outerIframe);
-		waitUntilIsLoaded(taskPopup);
 		swichToIframe(taskPopup);
-		waitUntilIsLoaded(taskFrame);
 		swichToIframe(taskFrame);
 	}
 

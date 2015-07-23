@@ -1,12 +1,16 @@
 package insynctive.pages;
 
+import insynctive.utils.Sleeper;
+
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,10 +18,15 @@ import org.testng.Assert;
 
 public class Page {
 
-	public static final int SELENIUM_TIMEOUT_SEC = 30;
+	public static final int SELENIUM_TIMEOUT_SEC = 45;
     public WebDriver driver;
     public String PAGE_URL;
     public String PAGE_TITLE;
+    
+	@FindBy(id = "popupCustom_CIF-1")
+	public WebElement taskPopup;
+	@FindBy(id = "frmTask")
+	public WebElement taskFrame;
     
     public Page(){
     	
@@ -83,6 +92,22 @@ public class Page {
         new WebDriverWait(driver, SELENIUM_TIMEOUT_SEC).until(ExpectedConditions.visibilityOf(element));
     }
 
+    public void waitUntilnotVisibility(WebElement element) throws IOException, InterruptedException {
+    	int times = 0;
+    	while(element != null && times < 10){
+			Sleeper.sleep(2, driver);
+			times++;
+		}
+    }
+
+    public void waitUntilNameIsVisible(WebElement element, String name) throws IOException, InterruptedException {
+    	int times = 0;
+    	while(!element.getText().equals(name) && times < 10){
+    		Sleeper.sleep(2, driver);
+    		times++;
+    	}
+    }
+ 
     public void waitUntilTitleContains(String str) throws IOException, InterruptedException {
     	new WebDriverWait(driver, SELENIUM_TIMEOUT_SEC).until(ExpectedConditions.titleContains(str));
     }
@@ -143,4 +168,19 @@ public class Page {
             turnOnImplicitWaits(5);
         }
     }
+    
+    public void swichToFirstFrame(WebDriver driver){
+    	driver.switchTo().window(driver.getWindowHandle());
+    }
+    
+    public void clickAButton(WebElement element) throws IOException, InterruptedException{
+    	waitUntilIsLoaded(element);
+    	element.click();
+    }
+    
+	public void setTextInField(WebElement textField, String text) {
+		textField.clear();
+		textField.sendKeys(text);
+	}
+	
 }
