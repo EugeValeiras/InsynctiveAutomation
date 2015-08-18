@@ -1,9 +1,16 @@
 package insynctive.checklist;
 
 import insynctive.checklist.process.Process;
+import insynctive.utils.ConfigurationException;
+import insynctive.utils.Task;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class Checklist {
 
@@ -34,5 +41,20 @@ public class Checklist {
 	@Override
 	public String toString() {
 		return "Nombre: " + name + " | Processes: " + processes;
+	}
+	
+	
+	private static String DEFAULT_FILE = "personFileData.json";
+	static JSONParser parser = new JSONParser();
+	public static Checklist getCheckListToAssign() throws ConfigurationException{
+		try {
+			JSONObject fileObject = (JSONObject) parser.parse(new FileReader(DEFAULT_FILE));
+			JSONObject jsonChecklist = (JSONObject) fileObject.get("Checklist");
+			Checklist checklist = new Checklist((String)jsonChecklist.get("name"));
+		return checklist;
+			
+		} catch(Exception ex) {
+			throw new ConfigurationException("Fail reading (String)person configuration ====> "+ ex.getMessage());
+		}
 	}
 }

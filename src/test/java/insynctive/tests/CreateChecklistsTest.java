@@ -3,11 +3,13 @@ package insynctive.tests;
 import insynctive.checklist.Checklist;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
+import insynctive.utils.ConfigurationException;
 import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
 
 import java.lang.reflect.Method;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
@@ -21,16 +23,21 @@ import com.saucelabs.testng.SauceOnDemandTestListener;
 public class CreateChecklistsTest extends TestSauceLabs implements SauceOnDemandSessionIdProvider,
 SauceOnDemandAuthenticationProvider {
 
-	//	@AfterClass(alwaysRun = true)
-//	public void teardown() {
-//		this.driver.quit();
-//	}
+	boolean isSaucelabs;
+	
+	@AfterClass(alwaysRun = true)
+	public void teardown() throws ConfigurationException {
+		if(InsynctiveProperties.IsSauceLabs()){
+			this.driver.quit();
+		}
+	}
 
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
 		properties = InsynctiveProperties.getAllAccountsProperties();
 		properties.addCheckLists(driver);
 		this.sessionName = "Create Checklist";
+		isSaucelabs = InsynctiveProperties.IsSauceLabs();
 	}
 
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)
@@ -53,7 +60,6 @@ SauceOnDemandAuthenticationProvider {
 		checkListPage.loadPage();
 		
 		for(Checklist checkList : properties.getCheckLists()){
-			Debugger.log(checkList);
 			checkListPage.createTemplate(checkList);
 		}
 		

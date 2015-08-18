@@ -1,72 +1,248 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="2" failed="1" total="3" passed="0">
+<testng-results skipped="0" failed="1" total="15" passed="14">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="79362" started-at="2015-07-02T09:29:31Z" finished-at="2015-07-02T09:30:51Z">
+  <suite name="Default suite" duration-ms="455848" started-at="2015-08-18T13:27:17Z" finished-at="2015-08-18T13:34:52Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="79362" started-at="2015-07-02T09:29:31Z" finished-at="2015-07-02T09:30:51Z">
-      <class name="insynctive.tests.CreatePersonTest">
-        <test-method status="PASS" signature="tearUp()" name="tearUp" is-config="true" duration-ms="411" started-at="2015-07-02T09:29:31Z" finished-at="2015-07-02T09:29:32Z">
+    <test name="Default test" duration-ms="455848" started-at="2015-08-18T13:27:17Z" finished-at="2015-08-18T13:34:52Z">
+      <class name="insynctive.tests.PersonFileTest">
+        <test-method status="PASS" signature="tearUp()" name="tearUp" is-config="true" duration-ms="148" started-at="2015-08-18T13:27:17Z" finished-at="2015-08-18T13:27:17Z">
         </test-method>
-        <test-method status="FAIL" signature="loginTest(java.lang.String, java.lang.String, java.lang.String)" name="loginTest" duration-ms="77177" started-at="2015-07-02T09:29:32Z" finished-at="2015-07-02T09:30:49Z">
+        <test-method status="PASS" signature="loginTest(java.lang.String, java.lang.String, java.lang.String)" name="loginTest" duration-ms="21674" started-at="2015-08-18T13:27:17Z" finished-at="2015-08-18T13:27:38Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[internet explorer]]>
+                <![CDATA[firefox]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[11]]>
+                <![CDATA[39]]>
               </value>
             </param>
             <param index="2">
               <value>
-                <![CDATA[Windows 8.1]]>
+                <![CDATA[Windows 7]]>
               </value>
             </param>
           </params>
-          <exception class="org.openqa.selenium.NoSuchElementException">
-            <message>
-              <![CDATA[Unable to locate element: {"method":"id","selector":"login_UserName_I"}
-Command duration or timeout: 38.74 seconds
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.46.0', revision: '61506a4624b13675f24581e453592342b7485d71', time: '2015-06-04 10:22:50'
-System info: host: 'Eugenio-PC', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_20'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=38.0.5, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: a15e198d-47cf-4eb8-8ad4-dbbb6f69a3d1
-*** Element info: {Using=id, value=login_UserName_I}]]>
-            </message>
+        </test-method>
+        <test-method status="PASS" signature="openPersonFile(java.lang.String, java.lang.String, java.lang.String)" name="openPersonFile" duration-ms="13098" started-at="2015-08-18T13:27:40Z" depends-on-methods="insynctive.tests.PersonFileTest.loginTest" finished-at="2015-08-18T13:27:53Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="addPhoneNumber(java.lang.String, java.lang.String, java.lang.String)" name="addPhoneNumber" duration-ms="33944" started-at="2015-08-18T13:27:54Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:28:28Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="addSocialSecurityNumber(java.lang.String, java.lang.String, java.lang.String)" name="addSocialSecurityNumber" duration-ms="23256" started-at="2015-08-18T13:28:28Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:28:51Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="addTitle(java.lang.String, java.lang.String, java.lang.String)" name="addTitle" duration-ms="29449" started-at="2015-08-18T13:28:52Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:29:21Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="addUSAddress(java.lang.String, java.lang.String, java.lang.String)" name="addUSAddress" duration-ms="36341" started-at="2015-08-18T13:29:22Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:29:58Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="asssignTask(java.lang.String, java.lang.String, java.lang.String)" name="asssignTask" duration-ms="44608" started-at="2015-08-18T13:29:59Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:30:43Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="changeBirthDate(java.lang.String, java.lang.String, java.lang.String)" name="changeBirthDate" duration-ms="26232" started-at="2015-08-18T13:30:44Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:31:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="changeGender(java.lang.String, java.lang.String, java.lang.String)" name="changeGender" duration-ms="15078" started-at="2015-08-18T13:31:11Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:31:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="changeMaritalStatus(java.lang.String, java.lang.String, java.lang.String)" name="changeMaritalStatus" duration-ms="19313" started-at="2015-08-18T13:31:27Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:31:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="changeName(java.lang.String, java.lang.String, java.lang.String)" name="changeName" duration-ms="40801" started-at="2015-08-18T13:31:47Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:32:28Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="changeName2(java.lang.String, java.lang.String, java.lang.String)" name="changeName2" duration-ms="39740" started-at="2015-08-18T13:32:29Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:33:09Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+          <exception class="junit.framework.AssertionFailedError">
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"id","selector":"login_UserName_I"}
-Command duration or timeout: 38.74 seconds
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.46.0', revision: '61506a4624b13675f24581e453592342b7485d71', time: '2015-06-04 10:22:50'
-System info: host: 'Eugenio-PC', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_20'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=38.0.5, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: a15e198d-47cf-4eb8-8ad4-dbbb6f69a3d1
-*** Element info: {Using=id, value=login_UserName_I}
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
-	at java.lang.reflect.Constructor.newInstance(Unknown Source)
-	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
-	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:605)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:358)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:399)
-	at org.openqa.selenium.By$ById.findElement(By.java:215)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:350)
-	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-	at com.sun.proxy.$Proxy7.clear(Unknown Source)
-	at insynctive.pages.insynctive.LoginPage.setText_LoginField(LoginPage.java:63)
-	at insynctive.pages.insynctive.LoginPage.login(LoginPage.java:39)
-	at insynctive.tests.TestSauceLabs.login(TestSauceLabs.java:82)
-	at insynctive.tests.CreatePersonTest.loginTest(CreatePersonTest.java:52)
+              <![CDATA[junit.framework.AssertionFailedError
+	at junit.framework.Assert.fail(Assert.java:47)
+	at junit.framework.Assert.assertTrue(Assert.java:20)
+	at junit.framework.Assert.assertTrue(Assert.java:27)
+	at insynctive.tests.PersonFileTest.changeName2(PersonFileTest.java:159)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -80,23 +256,68 @@ Session ID: a15e198d-47cf-4eb8-8ad4-dbbb6f69a3d1
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 	at java.lang.Thread.run(Unknown Source)
-Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"id","selector":"login_UserName_I"}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.46.0', revision: '61506a4624b13675f24581e453592342b7485d71', time: '2015-06-04 10:22:50'
-System info: host: 'Eugenio-PC', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_20'
-Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10299)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10308)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12282)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12287)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12229)
 ]]>
             </full-stacktrace>
           </exception>
         </test-method>
-        <test-method status="SKIP" signature="createPersonTest(java.lang.String, java.lang.String, java.lang.String)" name="createPersonTest" duration-ms="1" started-at="2015-07-02T09:30:51Z" depends-on-methods="insynctive.tests.CreatePersonTest.loginTest" finished-at="2015-07-02T09:30:51Z">
+        <test-method status="PASS" signature="changePrimaryEmail(java.lang.String, java.lang.String, java.lang.String)" name="changePrimaryEmail" duration-ms="35141" started-at="2015-08-18T13:33:09Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:33:44Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
         </test-method>
-        <test-method status="SKIP" signature="firstLogin(java.lang.String, java.lang.String, java.lang.String)" name="firstLogin" duration-ms="1" started-at="2015-07-02T09:30:51Z" depends-on-methods="insynctive.tests.CreatePersonTest.createPersonTest" finished-at="2015-07-02T09:30:51Z">
+        <test-method status="PASS" signature="removeUSAddress(java.lang.String, java.lang.String, java.lang.String)" name="removeUSAddress" duration-ms="21031" started-at="2015-08-18T13:33:45Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:34:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="startChecklist(java.lang.String, java.lang.String, java.lang.String)" name="startChecklist" duration-ms="43332" started-at="2015-08-18T13:34:07Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-08-18T13:34:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[39]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Windows 7]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="teardown()" name="teardown" is-config="true" duration-ms="1248" started-at="2015-08-18T13:34:51Z" finished-at="2015-08-18T13:34:52Z">
         </test-method>
       </class>
     </test>

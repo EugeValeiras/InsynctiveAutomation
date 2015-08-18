@@ -3,11 +3,12 @@
 <suite verbose="0" name="Failed suite [Default suite]">
   <test name="Default test(failed)" preserve-order="false">
     <classes>
-      <class name="insynctive.tests.CreatePersonTest">
+      <class name="insynctive.tests.PersonFileTest">
         <methods>
-          <include name="firstLogin"/>
-          <include name="createPersonTest"/>
-          <include name="loginTest" invocation-numbers="0"/>
+          <include name="changeName2" invocation-numbers="0"/>
+          <include name="openPersonFile"/>
+          <include name="teardown"/>
+          <include name="loginTest"/>
           <include name="tearUp"/>
         </methods>
       </class>

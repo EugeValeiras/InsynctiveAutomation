@@ -68,7 +68,7 @@ public class CheckListsPage extends Page implements PageInterface{
 		waitUntilIsLoaded(personName);
 		personName.click();
 		personName.sendKeys(person);
-		personName.sendKeys(Keys.TAB);
+//		personName.sendKeys(Keys.TAB);
 			
 		waitUntilIsLoaded(checklistName);
 		checklistName.click();

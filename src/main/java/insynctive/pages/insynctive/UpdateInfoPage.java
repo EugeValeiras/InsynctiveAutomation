@@ -117,10 +117,10 @@ public class UpdateInfoPage extends Page implements PageInterface{
 	}
 	
 	private void fillStep1() throws IOException, InterruptedException {
-		setTextIntoInput(ssnField, "111111111");
-		setTextIntoInput(dateOfBirth, "11112000");
-		setTextIntoCombo(gender, "Female");
-		setTextIntoCombo(maritalStatus, "Single");
+		setTextInField(ssnField, "111111111");
+		setTextInField(dateOfBirth, "11112000");
+		setTextInCombo(gender, "Female");
+		setTextInCombo(maritalStatus, "Single");
 		clickAButton(nextBtnTo);
 	}	
 
@@ -132,13 +132,13 @@ public class UpdateInfoPage extends Page implements PageInterface{
 	private void fillStep2() throws IOException, InterruptedException {
 		addAddressBtn.click();
 		waitUntilIsLoaded(addAdressPopUp);
-		setTextIntoInput(streetAddress, "Street");
-		setTextIntoInput(apt, "123");
-		setTextIntoInput(city, "Capital Federal");
-		setTextIntoInput(state, "NY");
-		setTextIntoInput(zipCode, "12345");
-		setTextIntoCombo(country, "Orange");
-		setTextIntoInput(description, "Description");
+		setTextInField(streetAddress, "Street");
+		setTextInField(apt, "123");
+		setTextInField(city, "Capital Federal");
+		setTextInField(state, "NY");
+		setTextInField(zipCode, "12345");
+		setTextInCombo(country, "Orange");
+		setTextInField(description, "Description");
 		saveBtn.click();
 		Sleeper.sleep(5, driver);
 		clickAButton(nextBtnTo);
@@ -167,18 +167,6 @@ public class UpdateInfoPage extends Page implements PageInterface{
 
 	private void fillStep4() throws IOException, InterruptedException {
 		clickAButton(nextBtnTo);
-	}
-
-	private void setTextIntoInput(WebElement element, String text) {
-		element.clear();
-		element.sendKeys(text);
-	}
-
-	private void setTextIntoCombo(WebElement element, String text) {
-		element.click();
-		element.clear();
-		element.sendKeys(text);
-		element.sendKeys(Keys.TAB);
 	}
 	
 	private boolean doNotHaveDependentsIsSelected() {

@@ -22,8 +22,10 @@ public class LoginPage extends Page implements PageInterface{
 	/* Login */
     @FindBy(id = "login_UserName_I")
      WebElement loginUsernameField;
+    @FindBy(id = "PasswordLabel")
+     WebElement passwordLabel;
     @FindBy(id = "login_Password_I")
-     WebElement loginPasswordField;
+    WebElement loginPasswordField;
     @FindBy(id = "login_Login_CD")
     WebElement loginButton;
     @FindBy(id = "google-login")
@@ -66,11 +68,10 @@ public class LoginPage extends Page implements PageInterface{
     private void setText_LoginField(String text) {
         loginUsernameField.clear();
     	loginUsernameField.sendKeys(text);
-        loginUsernameField.sendKeys(Keys.TAB);
     }
 
     private void setText_PassField(String text) {
-    	loginPasswordField.clear();
+    	passwordLabel.click();
         loginPasswordField.sendKeys(text);
     }
     

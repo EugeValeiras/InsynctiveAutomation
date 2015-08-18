@@ -56,6 +56,8 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	WebElement personFIleIframe;
 	@FindBy(id = "body_txtEmail")
 	WebElement emailLink;
+	@FindBy(id = "JQWindowBigOverlayCenterHeader")
+	WebElement personFileTitle;
 
 	/* Import Persons */
 	@FindBy(id = "btnImportAndSync")
@@ -141,14 +143,16 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	}
 
 	public void openPersonFile(String personName) throws IOException, InterruptedException {
-		waitPageIsLoad();
-		//TODO Wait BUG FIX OF NAME SEARCH
-		String first = personName.substring(0, personName.length()-1);
-		String last = personName.substring(personName.length()-1, personName.length());
-		emailSearch.sendKeys(first);
-		emailSearch.sendKeys(last);
-		Sleeper.sleep(2000,driver);
+		waitPageIsLoad(); 
+		emailSearch.sendKeys(personName);
+		waitUntilnotVisibility(loadingSpinner);
+		Sleeper.sleep(8000,driver);
+		waitUntilIsLoaded(personLink);
 		personLink.click();
+	}
+
+	public boolean isPersonFileOpened() {
+		return personFileTitle.getText().equals("Person");
 	}
 
 }

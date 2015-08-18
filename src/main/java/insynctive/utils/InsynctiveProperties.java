@@ -43,7 +43,7 @@ public class InsynctiveProperties {
 	// ChecklistList
 	private List<Checklist> checklists;
 
-	private InsynctiveProperties() throws ConfigurationException {
+	public InsynctiveProperties() throws ConfigurationException {
 		getRunIDAndAutoIncrement();
 	}
 

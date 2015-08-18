@@ -2,11 +2,16 @@ package insynctive.tests;
 
 import insynctive.pages.insynctive.LoginPage;
 import insynctive.utils.ConfigurationException;
+import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -16,6 +21,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.saucerest.SauceREST;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 
 public abstract class TestSauceLabs implements SauceOnDemandSessionIdProvider,
@@ -23,12 +29,16 @@ public abstract class TestSauceLabs implements SauceOnDemandSessionIdProvider,
 
 	public String sessionName = "Insynctive Session";
 	public WebDriver driver;
-	InsynctiveProperties properties;
-
+	public InsynctiveProperties properties;
+	JSONArray tags = new JSONArray();
+	boolean generalStatus = true;
+	
+	
 	public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication(
 			"EugenioValeiras", "84dbbeca-6ecc-44b8-8f19-618944ea59e1");
 	public ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
 	public ThreadLocal<String> sessionId = new ThreadLocal<String>();
+	private String jobID;
 
 	public WebDriver getWebDriver() {
 		System.out.println("WebDriver" + webDriver.get());
@@ -60,14 +70,13 @@ public abstract class TestSauceLabs implements SauceOnDemandSessionIdProvider,
 				+ authentication.getUsername() + ":"
 				+ authentication.getAccessKey()
 				+ "@ondemand.saucelabs.com:80/wd/hub"), capabilities));
-		sessionId.set(((RemoteWebDriver) getWebDriver()).getSessionId()
-				.toString());
+		jobID = ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
+		sessionId.set(jobID);
 		return webDriver.get();
 	}
 
 	public void startTest(String browser, String version, String os)
 			throws MalformedURLException, ConfigurationException {
-
 		if (InsynctiveProperties.IsSauceLabs()) {
 			driver = createDriver(browser, version, os);
 		} else {
@@ -92,5 +101,43 @@ public abstract class TestSauceLabs implements SauceOnDemandSessionIdProvider,
 		loginPage.loadPage();
 		loginPage.login(username, password);
 		return loginPage;
+	}
+
+	public void failTest(String testName,boolean isSaucelabs) throws Exception{
+		Debugger.log(testName+ " => " + false);
+		setResult(false, testName);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setResult(boolean status, String nameOfTest) throws ConfigurationException, ParseException {
+
+		if (status == false){
+			generalStatus = status;
+			tags.add(nameOfTest+"["+status+"]");
+		}
+		
+		if(InsynctiveProperties.IsSauceLabs()){
+			SauceREST client = new SauceREST("EugenioValeiras",
+					"84dbbeca-6ecc-44b8-8f19-618944ea59e1");
+			
+			Map<String, Object> updates = new HashMap<String, Object>();
+			updates.put("name", nameOfTest);
+			updates.put("passed",status);			
+			client.updateJobInfo(jobID, updates);
+		}
+	}
+
+	public void setFinalResult() throws ConfigurationException {
+		
+		if(InsynctiveProperties.IsSauceLabs()){
+			SauceREST client = new SauceREST("EugenioValeiras",
+					"84dbbeca-6ecc-44b8-8f19-618944ea59e1");
+			
+			Map<String, Object> updates = new HashMap<String, Object>();
+			updates.put("name", sessionName);
+			updates.put("passed",generalStatus);			
+			updates.put("tags", tags);
+			client.updateJobInfo(jobID, updates);
+		}
 	}
 }

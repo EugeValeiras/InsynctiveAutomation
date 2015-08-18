@@ -18,7 +18,7 @@ import org.testng.Assert;
 
 public class Page {
 
-	public static final int SELENIUM_TIMEOUT_SEC = 45;
+	public static final int SELENIUM_TIMEOUT_SEC = 30;
     public WebDriver driver;
     public String PAGE_URL;
     public String PAGE_TITLE;
@@ -181,6 +181,12 @@ public class Page {
 	public void setTextInField(WebElement textField, String text) {
 		textField.clear();
 		textField.sendKeys(text);
+	}
+	
+	public void setTextInCombo(WebElement combo, String text) {
+		combo.sendKeys(text);
+		Sleeper.sleep(1000, driver);
+		combo.sendKeys(Keys.ENTER);
 	}
 	
 }

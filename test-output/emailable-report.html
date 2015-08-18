@@ -29,69 +29,158 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing=0 cellpadding=0 class="param">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">2</td><td class="numi_attn">1</td><td class="numi">79,4 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">14</td><td class="numi">14</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">455,8 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <a id="summary"></a>
 <table cellspacing=0 cellpadding=0 class="passed">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Time<br/>(Msecs)</th></tr>
 <tr><th colspan="4">Default test &#8212; failed</th></tr>
-<tr class="failedodd"><td rowspan="1">insynctive.tests.CreatePersonTest<td><a href="#m1"><b>loginTest</b>  </a></td><td class="numi">1</td><td class="numi">77177</td></tr>
-<tr><th colspan="4">Default test &#8212; skipped</th></tr>
-<tr class="skippedodd"><td rowspan="2">insynctive.tests.CreatePersonTest<td><a href="#m2"><b>firstLogin</b>  </a></td><td class="numi">1</td><td class="numi">1</td></tr><tr class="skippedodd"><td><a href="#m3"><b>createPersonTest</b>  </a></td><td class="numi">1</td><td class="numi">1</td></tr>
+<tr class="failedodd"><td rowspan="1">insynctive.tests.PersonFileTest<td><a href="#m1"><b>changeName2</b>  </a></td><td class="numi">1</td><td class="numi">39740</td></tr>
+<tr><th colspan="4">Default test &#8212; passed</th></tr>
+<tr class="passedodd"><td rowspan="14">insynctive.tests.PersonFileTest<td><a href="#m2"><b>removeUSAddress</b>  </a></td><td class="numi">1</td><td class="numi">21031</td></tr><tr class="passedodd"><td><a href="#m3"><b>changeMaritalStatus</b>  </a></td><td class="numi">1</td><td class="numi">19313</td></tr><tr class="passedodd"><td><a href="#m4"><b>changeName</b>  </a></td><td class="numi">1</td><td class="numi">40801</td></tr><tr class="passedodd"><td><a href="#m5"><b>changeBirthDate</b>  </a></td><td class="numi">1</td><td class="numi">26232</td></tr><tr class="passedodd"><td><a href="#m6"><b>addTitle</b>  </a></td><td class="numi">1</td><td class="numi">29449</td></tr><tr class="passedodd"><td><a href="#m7"><b>startChecklist</b>  </a></td><td class="numi">1</td><td class="numi">43332</td></tr><tr class="passedodd"><td><a href="#m8"><b>changeGender</b>  </a></td><td class="numi">1</td><td class="numi">15078</td></tr><tr class="passedodd"><td><a href="#m9"><b>changePrimaryEmail</b>  </a></td><td class="numi">1</td><td class="numi">35141</td></tr><tr class="passedodd"><td><a href="#m10"><b>asssignTask</b>  </a></td><td class="numi">1</td><td class="numi">44608</td></tr><tr class="passedodd"><td><a href="#m11"><b>addSocialSecurityNumber</b>  </a></td><td class="numi">1</td><td class="numi">23256</td></tr><tr class="passedodd"><td><a href="#m12"><b>loginTest</b>  </a></td><td class="numi">1</td><td class="numi">21674</td></tr><tr class="passedodd"><td><a href="#m13"><b>addUSAddress</b>  </a></td><td class="numi">1</td><td class="numi">36341</td></tr><tr class="passedodd"><td><a href="#m14"><b>addPhoneNumber</b>  </a></td><td class="numi">1</td><td class="numi">33944</td></tr><tr class="passedodd"><td><a href="#m15"><b>openPersonFile</b>  </a></td><td class="numi">1</td><td class="numi">13098</td></tr>
 </table>
 <h1>Default test</h1>
-<a id="m1"></a><h2>insynctive.tests.CreatePersonTest:loginTest</h2>
+<a id="m1"></a><h2>insynctive.tests.PersonFileTest:changeName2</h2>
 <table cellspacing=0 cellpadding=0 class="param">
 <tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
-<tr><td style="padding-left:.5em;padding-right:2em">internet explorer</td>
-<td style="padding-left:.5em;padding-right:2em">11</td>
-<td style="padding-left:.5em;padding-right:2em">Windows 8.1</td>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
 </tr>
 <tr><td style="padding-left:3em" colspan="3">
-<p>Unable to locate element: {&quot;method&quot;:&quot;id&quot;,&quot;selector&quot;:&quot;login_UserName_I&quot;}
-Command duration or timeout: 38.74 seconds
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: &apos;2.46.0&apos;, revision: &apos;61506a4624b13675f24581e453592342b7485d71&apos;, time: &apos;2015-06-04 10:22:50&apos;
-System info: host: &apos;Eugenio-PC&apos;, ip: &apos;192.168.56.1&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0_20&apos;
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=38.0.5, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: a15e198d-47cf-4eb8-8ad4-dbbb6f69a3d1
-*** Element info: {Using=id, value=login_UserName_I}</p>
-sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-<br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
-<br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
-<br/>at java.lang.reflect.Constructor.newInstance(Unknown Source)
-<br/>at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
-<br/>at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:605)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:358)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:399)
-<br/>at org.openqa.selenium.By$ById.findElement(By.java:215)
-<br/>at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:350)
-<br/>at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
-<br/>at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-<br/>at com.sun.proxy.$Proxy7.clear(Unknown Source)
-<br/>at insynctive.pages.insynctive.LoginPage.setText_LoginField(LoginPage.java:63)
-<br/>at insynctive.pages.insynctive.LoginPage.login(LoginPage.java:39)
-<br/>at insynctive.tests.TestSauceLabs.login(TestSauceLabs.java:82)
-<br/>at insynctive.tests.CreatePersonTest.loginTest(CreatePersonTest.java:52)
+<p>null</p>
+junit.framework.Assert.fail(Assert.java:47)
+<br/>at junit.framework.Assert.assertTrue(Assert.java:20)
+<br/>at junit.framework.Assert.assertTrue(Assert.java:27)
+<br/>at insynctive.tests.PersonFileTest.changeName2(PersonFileTest.java:159)
 <br/>14 lines not shown
-<p>Caused by Unable to locate element: {&quot;method&quot;:&quot;id&quot;,&quot;selector&quot;:&quot;login_UserName_I&quot;}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: &apos;2.46.0&apos;, revision: &apos;61506a4624b13675f24581e453592342b7485d71&apos;, time: &apos;2015-06-04 10:22:50&apos;
-System info: host: &apos;Eugenio-PC&apos;, ip: &apos;192.168.56.1&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0_20&apos;
-Driver info: driver.version: unknown</p>
-&lt;anonymous class&gt;.FirefoxDriver.prototype.findElementInternal_(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10299)
-<br/>at &lt;anonymous class&gt;.FirefoxDriver.prototype.findElement(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10308)
-<br/>at &lt;anonymous class&gt;.DelayedCommand.prototype.executeInternal_/h(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12282)
-<br/>at &lt;anonymous class&gt;.DelayedCommand.prototype.executeInternal_(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12287)
-<br/>at &lt;anonymous class&gt;.DelayedCommand.prototype.execute/&lt;(file:///C:/Users/Eugenio/AppData/Local/Temp/anonymous1627738568392515280webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12229)
-<br/>1 lines not shown
 </td></tr>
 </table>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m2"></a><h2>insynctive.tests.CreatePersonTest:firstLogin</h2>
+<a id="m2"></a><h2>insynctive.tests.PersonFileTest:removeUSAddress</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m3"></a><h2>insynctive.tests.CreatePersonTest:createPersonTest</h2>
+<a id="m3"></a><h2>insynctive.tests.PersonFileTest:changeMaritalStatus</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m4"></a><h2>insynctive.tests.PersonFileTest:changeName</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m5"></a><h2>insynctive.tests.PersonFileTest:changeBirthDate</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m6"></a><h2>insynctive.tests.PersonFileTest:addTitle</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m7"></a><h2>insynctive.tests.PersonFileTest:startChecklist</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m8"></a><h2>insynctive.tests.PersonFileTest:changeGender</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m9"></a><h2>insynctive.tests.PersonFileTest:changePrimaryEmail</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m10"></a><h2>insynctive.tests.PersonFileTest:asssignTask</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m11"></a><h2>insynctive.tests.PersonFileTest:addSocialSecurityNumber</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m12"></a><h2>insynctive.tests.PersonFileTest:loginTest</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m13"></a><h2>insynctive.tests.PersonFileTest:addUSAddress</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m14"></a><h2>insynctive.tests.PersonFileTest:addPhoneNumber</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m15"></a><h2>insynctive.tests.PersonFileTest:openPersonFile</h2>
+<table cellspacing=0 cellpadding=0 class="param">
+<tr><th style="padding-left:1em;padding-right:1em">Parameter #1</th><th style="padding-left:1em;padding-right:1em">Parameter #2</th><th style="padding-left:1em;padding-right:1em">Parameter #3</th></tr>
+<tr><td style="padding-left:.5em;padding-right:2em">firefox</td>
+<td style="padding-left:.5em;padding-right:2em">39</td>
+<td style="padding-left:.5em;padding-right:2em">Windows 7</td>
+</tr>
+</table>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>
