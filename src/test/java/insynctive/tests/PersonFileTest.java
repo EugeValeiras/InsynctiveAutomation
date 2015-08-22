@@ -24,6 +24,7 @@ public class PersonFileTest extends TestMachine {
 	@BeforeClass
 	public void tearUp() throws Exception {
 		super.tearUp();
+		person = new PersonData(properties.getRunID());
 		this.sessionName = "Person File Test";
 	}
 	
