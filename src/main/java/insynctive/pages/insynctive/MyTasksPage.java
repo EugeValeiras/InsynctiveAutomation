@@ -2,10 +2,7 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurationException;
 import insynctive.utils.Sleeper;
-
-import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,7 +28,7 @@ public class MyTasksPage extends Page implements PageInterface {
 		PageFactory.initElements(driver, this);
 	}
 
-	public boolean SingPDF() throws IOException, InterruptedException, ConfigurationException {
+	public boolean SingPDF() throws Exception {
 		return new PDFTaskPage(driver).signPDF();
 	}
 	
@@ -55,7 +52,7 @@ public class MyTasksPage extends Page implements PageInterface {
 	}
 
 	@Override
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(firstTask);
 	}
 

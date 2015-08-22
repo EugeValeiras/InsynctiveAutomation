@@ -6,8 +6,6 @@ import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
 import insynctive.utils.Debugger;
 
-import java.io.IOException;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,7 +55,7 @@ public class TemplatePage extends Page implements PageInterface{
 	}
 
 	/* Actions **/
-	public void addTemplate(Checklist checkList) throws IOException, InterruptedException{
+	public void addTemplate(Checklist checkList) throws Exception {
 		waitUntilIsLoaded(btnAddTemplate);
 		btnAddTemplate.click();
 		waitAddTemplateLoad();
@@ -72,18 +70,18 @@ public class TemplatePage extends Page implements PageInterface{
 	}
 	
 	/* Waits **/
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(labelTemplates);
 		waitUntilIsLoaded(btnAddTemplate);
 		waitUntilIsLoaded(tableTemplates);
 	}
 	
-	public void waitAddTemplateLoad() throws IOException, InterruptedException{
+	public void waitAddTemplateLoad() throws Exception {
 		waitUntilIsLoaded(txtBoxAddTemplateName);
 		waitUntilIsLoaded(btnOkAddTemplate);
 	}
 
-	public void waitEditTemplateLoad() throws IOException, InterruptedException{
+	public void waitEditTemplateLoad() throws Exception {
 		waitUntilIsLoaded(btnReturnToTemplate);
 		waitUntilIsLoaded(btnAddV4Process);
 	}

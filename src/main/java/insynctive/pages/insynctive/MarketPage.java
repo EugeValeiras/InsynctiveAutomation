@@ -6,8 +6,6 @@ import insynctive.pages.PageInterface;
 import insynctive.utils.ConfigurationException;
 import insynctive.utils.InsynctiveProperties;
 
-import java.io.IOException;
-
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -61,39 +59,38 @@ public class MarketPage extends Page implements PageInterface {
 	}
 
 	/* Actions */
-	public void installApp(App app, String enviroment, String userName, String password) throws IOException,
-			InterruptedException {
+	public void installApp(App app, String enviroment, String userName, String password) throws Exception {
 		openAppPopUp(app);
 		openInstallPopUp();
 		installApp(enviroment, userName, password);
 	}
 
 	/* Waits * */
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(slider);
 		waitUntilIsLoaded(appsTable);
 	}
 
-	public void waitAppPopUpLoad() throws IOException, InterruptedException {
+	public void waitAppPopUpLoad() throws Exception {
 		waitUntilIsLoaded(labelAppName);
 		waitUntilIsLoaded(installButton);
 	}
 
-	public void waitInstallPopUpLoad() throws IOException, InterruptedException {
+	public void waitInstallPopUpLoad() throws Exception {
 		waitUntilIsLoaded(installPopUp);
 		waitUntilIsLoaded(passwordField);
 		waitUntilIsLoaded(loginAndInstallButton);
 	}
 
 	/* Private Actions * */
-	private void openAppPopUp(App app) throws IOException, InterruptedException {
+	private void openAppPopUp(App app) throws Exception {
 		this.PAGE_URL = "http://appsmarket.insynctive.com/AppDetails.aspx?AppKey="
 				+ app.getId();
 		loadPage();
 		waitAppPopUpLoad();
 	}
 
-	private void openInstallPopUp() throws IOException, InterruptedException {
+	private void openInstallPopUp() throws Exception {
 		installButton.click();
 		waitInstallPopUpLoad();
 	}
@@ -113,8 +110,7 @@ public class MarketPage extends Page implements PageInterface {
 		passwordField.sendKeys(text);
 	}
 
-	private void installApp(String enviroment, String userName, String password) throws IOException,
-			InterruptedException {
+	private void installApp(String enviroment, String userName, String password) throws Exception {
 		setText_AccountField(enviroment+".insynctiveapps.com");
 		setText_LoginField(userName);
 		setText_PasswordField(password);

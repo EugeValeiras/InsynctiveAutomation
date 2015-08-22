@@ -4,9 +4,6 @@ import insynctive.checklist.Checklist;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
 
-import java.io.IOException;
-
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -51,7 +48,7 @@ public class CheckListsPage extends Page implements PageInterface{
 	}
 
 	/* Actions **/
-	public void createTemplate(Checklist checkList) throws IOException, InterruptedException{
+	public void createTemplate(Checklist checkList) throws Exception{
 		waitUntilIsLoaded(btnTemplate);
 		btnTemplate.click();
 		swichToIframe(iframeAddTemplate);
@@ -60,8 +57,7 @@ public class CheckListsPage extends Page implements PageInterface{
 		templatePage.addTemplate(checkList);
 	}
 	
-	public void startChecklist(String checkList, String person) throws IOException, InterruptedException
-	{
+	public void startChecklist(String checkList, String person) throws Exception {
 		waitUntilIsLoaded(btnStartChecklist);
 		btnStartChecklist.click();
 		
@@ -82,7 +78,7 @@ public class CheckListsPage extends Page implements PageInterface{
 	}
 	
 	/* Waits **/
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(personsTable);
 		waitUntilIsLoaded(btnStartChecklist);
 		waitUntilIsLoaded(btnTemplate);

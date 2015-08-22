@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite hostname="Eugenio-PC" name="insynctive.tests.PersonFileTest" tests="14" failures="0" timestamp="18 Aug 2015 16:34:52 GMT" time="455.848" errors="0">
-  <testcase name="loginTest" time="21.674" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="openPersonFile" time="13.098" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="addPhoneNumber" time="33.944" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="addSocialSecurityNumber" time="23.256" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="addTitle" time="29.449" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="addUSAddress" time="36.341" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="asssignTask" time="44.608" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="changeBirthDate" time="26.232" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="changeGender" time="15.078" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="changeMaritalStatus" time="19.313" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="changeName" time="40.801" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="changePrimaryEmail" time="35.141" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="removeUSAddress" time="21.031" classname="insynctive.tests.PersonFileTest"/>
-  <testcase name="startChecklist" time="43.332" classname="insynctive.tests.PersonFileTest"/>
+<testsuite hostname="Eugenio-PC" name="insynctive.tests.CreatePersonTest" tests="2" failures="0" timestamp="21 Aug 2015 22:56:06 GMT" time="140.178" errors="0">
+  <testcase name="loginTest" time="30.852" classname="insynctive.tests.CreatePersonTest"/>
+  <testcase name="createPersonTest" time="108.257" classname="insynctive.tests.CreatePersonTest"/>
 </testsuite>

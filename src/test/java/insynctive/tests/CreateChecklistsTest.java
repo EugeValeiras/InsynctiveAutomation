@@ -4,8 +4,8 @@ import insynctive.checklist.Checklist;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.utils.ConfigurationException;
-import insynctive.utils.Debugger;
 import insynctive.utils.InsynctiveProperties;
+import insynctive.utils.TestEnvironment;
 
 import java.lang.reflect.Method;
 
@@ -15,13 +15,10 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import com.saucelabs.testng.SauceOnDemandTestListener;
 
 @Listeners({ SauceOnDemandTestListener.class })
-public class CreateChecklistsTest extends TestSauceLabs implements SauceOnDemandSessionIdProvider,
-SauceOnDemandAuthenticationProvider {
+public class CreateChecklistsTest extends TestMachine {
 
 	boolean isSaucelabs;
 	
@@ -42,16 +39,15 @@ SauceOnDemandAuthenticationProvider {
 
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)
 	public static Object[][] sauceBrowserDataProvider(Method testMethod) {
-		return new Object[][] { new Object[] {
-				"internet explorer", "11", "Windows 8.1" }
+		return new Object[][] { new Object[] { TestEnvironment.CHROME }
 		};
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers")
-	public void createChecklistTest(String browser, String version, String os)
+	public void createChecklistTest(TestEnvironment testEnvironment)
 			throws Exception {
 		
-		startTest(browser, version, os);
+		startTest(testEnvironment);
 		
 		login();
 		new HomeForAgentsPage(driver, properties.getEnviroment()).waitPageIsLoad();

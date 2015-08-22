@@ -1,5 +1,8 @@
 package insynctive.pages;
 
+import insynctive.pages.insynctive.exception.ElementIsAllwaysVisible;
+import insynctive.pages.insynctive.exception.ElementNotFoundException;
+import insynctive.pages.insynctive.exception.WrongMessageException;
 import insynctive.utils.Sleeper;
 
 import java.io.IOException;
@@ -23,8 +26,16 @@ public class Page {
     public String PAGE_URL;
     public String PAGE_TITLE;
     
+    /* InApp */
+	@FindBy(css = "#jqxNotificationDefaultContainer-top-right > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > div:nth-child(2)")
+	public WebElement inAppNotification;
+	
+	@FindBy(css = "#jqxNotificationDefaultContainer-top-right > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(3) > div:nth-child(1)")
+	public WebElement closeInAppNotification;
+
 	@FindBy(id = "popupCustom_CIF-1")
 	public WebElement taskPopup;
+	
 	@FindBy(id = "frmTask")
 	public WebElement taskFrame;
     
@@ -36,9 +47,13 @@ public class Page {
         this.driver = driver;
     }
 
-    public void swichToIframe(WebElement iframe) throws IOException, InterruptedException{
-    	waitUntilIsLoaded(iframe);
-		driver.switchTo().frame(iframe);
+    public void swichToIframe(WebElement iframe) throws IOException, InterruptedException, ElementNotFoundException{
+    	try{
+    		waitUntilIsLoaded(iframe);
+    		driver.switchTo().frame(iframe);
+    	} catch (Exception ex){
+    		throw new ElementNotFoundException(getMessageFromWebElement(iframe) +" is not found.", null);
+    	}
     }
     
     public static boolean exists(WebElement element) {
@@ -66,10 +81,14 @@ public class Page {
         driver.navigate().refresh();
     }
 
-    public void setElementText(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-        Assert.assertEquals(element.getAttribute("value"), text);
+    public void setElementText(WebElement element, String text) throws ElementNotFoundException {
+        try{
+        	element.clear();
+        	element.sendKeys(text);
+        	Assert.assertEquals(element.getAttribute("value"), text);
+        } catch (NullPointerException nEx){
+        	throw new ElementNotFoundException(getMessageFromWebElement(element)+" is NULL", null);
+        }
     }
 
     public void assertElementText(WebElement element, String text) {
@@ -88,23 +107,35 @@ public class Page {
         element.click();
     }
 
-    public void waitUntilIsLoaded(WebElement element) throws IOException, InterruptedException {
-        new WebDriverWait(driver, SELENIUM_TIMEOUT_SEC).until(ExpectedConditions.visibilityOf(element));
+    public void waitUntilIsLoaded(WebElement element) throws IOException, InterruptedException, ElementNotFoundException {
+       try{
+    	   new WebDriverWait(driver, SELENIUM_TIMEOUT_SEC).until(ExpectedConditions.visibilityOf(element));
+       } catch (Exception ex){
+    	   throw new ElementNotFoundException(getMessageFromWebElement(element)+" is not found", null);
+       }
     }
 
-    public void waitUntilnotVisibility(WebElement element) throws IOException, InterruptedException {
+    public void waitUntilnotVisibility(WebElement element) throws IOException, InterruptedException, Throwable {
     	int times = 0;
-    	while(element != null && times < 10){
-			Sleeper.sleep(2, driver);
-			times++;
-		}
+    	try{
+    		while(element != null && times < 10){
+    			Sleeper.sleep(2, driver);
+    			times++;
+    		}
+    	} catch (Exception ex){
+    		throw new ElementIsAllwaysVisible("The element "+getMessageFromWebElement(element)+" is still visible", null);
+    	}
     }
 
-    public void waitUntilNameIsVisible(WebElement element, String name) throws IOException, InterruptedException {
+    public void waitUntilNameIsVisible(WebElement element, String name) throws IOException, InterruptedException, ElementIsAllwaysVisible {
     	int times = 0;
-    	while(!element.getText().equals(name) && times < 10){
-    		Sleeper.sleep(2, driver);
-    		times++;
+    	try{
+    		while(!element.getText().equals(name) && times < 10){
+    			Sleeper.sleep(2, driver);
+    			times++;
+    		}
+    	} catch (Exception ex){
+    		throw new ElementIsAllwaysVisible("The text "+element.getText()+" is different from "+name, null);
     	}
     }
  
@@ -173,20 +204,42 @@ public class Page {
     	driver.switchTo().window(driver.getWindowHandle());
     }
     
-    public void clickAButton(WebElement element) throws IOException, InterruptedException{
+    public void clickAButton(WebElement element) throws Exception {
     	waitUntilIsLoaded(element);
     	element.click();
     }
     
-	public void setTextInField(WebElement textField, String text) {
-		textField.clear();
-		textField.sendKeys(text);
+	public void setTextInField(WebElement textField, String text) throws ElementNotFoundException {
+		try {
+			textField.clear();
+			textField.sendKeys(text);
+		} catch (NullPointerException nEx){
+			throw new ElementNotFoundException(getMessageFromWebElement(textField)+" is not found",null);
+		}
 	}
 	
-	public void setTextInCombo(WebElement combo, String text) {
-		combo.sendKeys(text);
-		Sleeper.sleep(1000, driver);
-		combo.sendKeys(Keys.ENTER);
+	public void setTextInCombo(WebElement combo, String text) throws ElementNotFoundException {
+		try{
+			combo.sendKeys(text);
+			Sleeper.sleep(1000, driver);
+			combo.sendKeys(Keys.ENTER);
+		} catch (NullPointerException nEx){
+			throw new ElementNotFoundException(getMessageFromWebElement(combo)+" is not found",null);
+		}
 	}
 	
+	public void checkInAppMessage(String assertMessage) throws WrongMessageException, IOException, InterruptedException, ElementNotFoundException {
+		swichToFirstFrame(driver);
+		waitUntilIsLoaded(inAppNotification);
+		String ErrorMessage = "InApp message Do not match > InApp<"+inAppNotification.getText()+"> Expected<"+assertMessage+">";
+		if(!inAppNotification.getText().equals(assertMessage)) throw new WrongMessageException(ErrorMessage, null);	
+		closeInAppNotification.click();
+	}
+	public String getMessageFromWebElement(WebElement element){
+		String[] elementSplit = element.toString().split("-> ");
+		return (elementSplit.length > 0) ? 
+				(elementSplit[1].split("]").length > 0 ? 
+						elementSplit[1].split("]")[0] : elementSplit[1]) 
+				: element.toString(); 
+	}
 }

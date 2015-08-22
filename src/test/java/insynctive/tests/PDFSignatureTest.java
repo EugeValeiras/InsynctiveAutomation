@@ -5,6 +5,7 @@ import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.MyTasksPage;
 import insynctive.utils.InsynctiveProperties;
 import insynctive.utils.Sleeper;
+import insynctive.utils.TestEnvironment;
 
 import java.lang.reflect.Method;
 
@@ -14,11 +15,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
-
-public class PDFSignatureTest extends TestSauceLabs implements SauceOnDemandSessionIdProvider,
-SauceOnDemandAuthenticationProvider{
+public class PDFSignatureTest extends TestMachine {
 	
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
@@ -28,16 +25,15 @@ SauceOnDemandAuthenticationProvider{
 
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)
 	public static Object[][] sauceBrowserDataProvider(Method testMethod) {
-		return new Object[][] { new Object[] {
-				"firefox", "38", "Windows 8.1" }
+		return new Object[][] { new Object[] { TestEnvironment.CHROME }
 		};
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers")
-	public void PDF(String browser, String version, String os)
+	public void PDF(TestEnvironment testEnvironment)
 			throws Exception {
 
-		startTest(browser, version, os);
+		startTest(testEnvironment);
 		
 		login();
 		new HomeForAgentsPage(driver, properties.getEnviroment()).waitPageIsLoad();

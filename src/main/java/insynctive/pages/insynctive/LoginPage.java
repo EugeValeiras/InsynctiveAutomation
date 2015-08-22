@@ -4,10 +4,7 @@ import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
 import insynctive.utils.LoginData;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -58,7 +55,7 @@ public class LoginPage extends Page implements PageInterface{
     }
     
     /* Waits **/
-    public void waitPageIsLoad() throws IOException, InterruptedException{
+    public void waitPageIsLoad() throws Exception {
     	waitUntilIsLoaded(loginUsernameField);
     	waitUntilIsLoaded(loginUsernameField);
     	waitUntilIsLoaded(loginButton);

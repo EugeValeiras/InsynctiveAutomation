@@ -1,18 +1,15 @@
 package insynctive.pages.insynctive;
 
-import java.io.IOException;
-
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
 import insynctive.utils.ConfigurationException;
 import insynctive.utils.InsynctiveProperties;
 import insynctive.utils.Sleeper;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class UpdateInfoPage extends Page implements PageInterface{
 
@@ -90,7 +87,7 @@ public class UpdateInfoPage extends Page implements PageInterface{
 		properties = InsynctiveProperties.getAllAccountsProperties();
 	}
 	
-	public void startUpdateInfo() throws IOException, InterruptedException {
+	public void startUpdateInfo() throws Throwable {
 		swichToFirstFrame(driver);
 		swichToIframe(personalInfoFrame);
 		
@@ -111,12 +108,12 @@ public class UpdateInfoPage extends Page implements PageInterface{
 		okBtn.click();
 	}
 
-	private void completeTask() throws IOException, InterruptedException {
+	private void completeTask() throws Exception {
 		waitUntilIsLoaded(markAsComplete);
 		markAsComplete.click();		
 	}
 	
-	private void fillStep1() throws IOException, InterruptedException {
+	private void fillStep1() throws Exception {
 		setTextInField(ssnField, "111111111");
 		setTextInField(dateOfBirth, "11112000");
 		setTextInCombo(gender, "Female");
@@ -124,12 +121,12 @@ public class UpdateInfoPage extends Page implements PageInterface{
 		clickAButton(nextBtnTo);
 	}	
 
-	private void waitUntilSecondStepIsReady() throws IOException, InterruptedException {
+	private void waitUntilSecondStepIsReady() throws Exception {
 		waitUntilIsLoaded(textStep2);
 		waitUntilIsLoaded(nextBtnTo);
 	}
 	
-	private void fillStep2() throws IOException, InterruptedException {
+	private void fillStep2() throws Exception {
 		addAddressBtn.click();
 		waitUntilIsLoaded(addAdressPopUp);
 		setTextInField(streetAddress, "Street");
@@ -144,13 +141,13 @@ public class UpdateInfoPage extends Page implements PageInterface{
 		clickAButton(nextBtnTo);
 	}
 
-	private void waitUntilThirdStepIsReady() throws IOException, InterruptedException {
+	private void waitUntilThirdStepIsReady() throws Exception {
 		waitUntilIsLoaded(textStep3);
 		waitUntilIsLoaded(doNotHaveDependents);
 		waitUntilIsLoaded(nextBtnTo);
 	}
 	
-	private void fillStep3() throws IOException, InterruptedException {
+	private void fillStep3() throws Throwable {
 		if(!doNotHaveDependentsIsSelected()){
 			doNotHaveDependents.click();
 			Sleeper.sleep(5, driver);
@@ -160,12 +157,12 @@ public class UpdateInfoPage extends Page implements PageInterface{
 		clickAButton(nextBtnTo);
 	}
 
-	private void waitUnitlFourthStepIsReady() throws IOException, InterruptedException {
+	private void waitUnitlFourthStepIsReady() throws Exception {
 		waitUntilIsLoaded(textStep4);
 		waitUntilIsLoaded(nextBtnTo);
 	}
 
-	private void fillStep4() throws IOException, InterruptedException {
+	private void fillStep4() throws Exception {
 		clickAButton(nextBtnTo);
 	}
 	
@@ -180,7 +177,7 @@ public class UpdateInfoPage extends Page implements PageInterface{
 	}
 
 	@Override
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(labelTitle);
 	}
 	

@@ -1,16 +1,14 @@
 package insynctive.pages.insynctive;
 
-import java.io.IOException;
+import insynctive.pages.Page;
+import insynctive.pages.PageInterface;
+import insynctive.pages.insynctive.exception.ElementNotFoundException;
+import insynctive.utils.Sleeper;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import insynctive.pages.Page;
-import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurationException;
-import insynctive.utils.Sleeper;
 
 public class OpenEnrollmentPage extends Page implements PageInterface{
 
@@ -34,7 +32,7 @@ public class OpenEnrollmentPage extends Page implements PageInterface{
 		PageFactory.initElements(driver, this);
 	}
 
-	public boolean startUpdateInfo() throws ConfigurationException, IOException, InterruptedException{
+	public boolean startUpdateInfo() throws Throwable {
 		updateInfoButton.click();
 		UpdateInfoPage updateInfo = new UpdateInfoPage(driver, enviroment);
 		updateInfo.startUpdateInfo();
@@ -54,7 +52,7 @@ public class OpenEnrollmentPage extends Page implements PageInterface{
 	}
 
 	@Override
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception, InterruptedException, ElementNotFoundException {
 		swichToIframe(banneriFrame);
 		waitUntilIsLoaded(updateInfoButton);
 		waitUntilIsLoaded(electButton);

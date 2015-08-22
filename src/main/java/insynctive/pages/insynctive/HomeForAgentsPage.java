@@ -5,9 +5,6 @@ import insynctive.pages.PageInterface;
 import insynctive.utils.PersonData;
 import insynctive.utils.Sleeper;
 
-import java.io.IOException;
-
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,10 +15,12 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 
 	String enviroment;
 	String emailSubject;
-	
+
 	/* Home */
 	@FindBy(id = "btnAddPerson")
 	WebElement addPersonButton;
+	@FindBy(id = "lblName")
+	WebElement loginUserFullName;
 	@FindBy(id = "grid")
 	WebElement personTable;
 	@FindBy(id = "txtName")
@@ -36,20 +35,34 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	WebElement loadingSpinner;
 	
 	/* ADD Person */
-	@FindBy(id = "firstNameTextBox")
+	@FindBy(id = "addperson_firstname")
 	WebElement firstNameTextBox;
-	@FindBy(id = "lastNameTextBox")
+	@FindBy(id = "addperson_lastname")
 	WebElement lastNameTextBox;
-	@FindBy(id = "emailTextBox")
+	@FindBy(id = "addperson_email")
 	WebElement emailTextBox;
-	@FindBy(id = "inviteToSSCheckBox")
-	WebElement inviteToCheckBox;
-	@FindBy(id = "btnSaveNewPerson")
-	WebElement saveButton;
-	@FindBy(id = "invitationHtmlContent")
-	WebElement invitationHtmlContent;
-	@FindBy(id = "//*[@id=\"dvSubjectPreview\"]/span")
+	@FindBy(id = "addperson_title")
+	WebElement titleTextBox;
+	@FindBy(id = "addperson_department")
+	WebElement departmentTextBox;
+	@FindBy(id = "addperson_chkopenpersonfile")
+	WebElement openPersonFileCheckBox;
+	@FindBy(id = "addperson_chkskipselfservice")
+	WebElement skipInvitationToSelfServiceCheckBox;
+	@FindBy(id = "btnSave")
+	WebElement saveNewEmployeeButton;
+	
+	//Invitation
+	@FindBy(id = "turnonss_email")
+	WebElement inviteEmailField;
+	@FindBy(id = "btnSkipInvite")
+	WebElement skipInviteButton;
+	@FindBy(id = "btnSendInvite")
+	WebElement sendInviteButton;
+	@FindBy(id = "txtSubject")
 	WebElement subjectOfEmail;
+	@FindBy(id = "lnkRestore")
+	WebElement restoreLink;
 	
 	/* Person File */
 	@FindBy(id = "popupCustom_CIF-1")
@@ -74,21 +87,48 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 		this.PAGE_TITLE = "Invitations";
 		PageFactory.initElements(driver, this);
 	}
+	
+	/* Actions **/
+	public void createPersonCheckingInviteSS(PersonData personData) throws Exception {
+		openCreatePersonFrame();
+		setTextInField(firstNameTextBox, personData.getName());
+		setTextInField(lastNameTextBox, personData.getLastName());
+		setTextInField(titleTextBox, personData.getTitleOfEmployee());
+		setTextInField(departmentTextBox, personData.getDepartamentOfEmployee());
+		setTextInField(emailTextBox, personData.getEmail());
+		openPersonFileCheckBox.click();
+		Sleeper.sleep(3500, driver);
+		saveNewEmployeeButton.click();
+		//TODO To the correct message [<User> added [admin/agent/employee]  <Person Name>]
+		String assertMessage = loginUserFullName.getText()+" added employee "+personData.getName()+" "+personData.getLastName();
+		checkInAppMessage(assertMessage); 
+	}
 
-	public void createPerson(PersonData personData) throws Exception {
+	private void openCreatePersonFrame() throws Exception {
 		waitPageIsLoad();
 		addPersonButton.click();
 		waitAddPersonIsLoad();
-		setTextInField(firstNameTextBox, personData.getName());
-		setTextInField(lastNameTextBox, personData.getLastName());
-		setTextInField(emailTextBox, personData.getEmail());
-		inviteToCheckBox.click();
-		waitInvitePersonLoad();
-//		personData.setEmailInvitationSubject(subjectOfEmail.getText()); 
-		saveButton.click();
 	}
 	
-	/* Actions **/
+	public void sendInviteEmail(PersonData personData) throws Exception {
+		waitUntilInvitePanelIsLoad();
+		setTextInField(inviteEmailField, personData.getEmail());
+		Sleeper.sleep(3500, driver);
+		sendInviteButton.click();
+		
+		String assertMessage = "Invitation to Sign up was sent to "+personData.getName()+" "+personData.getLastName();
+		checkInAppMessage(assertMessage);
+	}
+
+	public void openPersonFile(String personName) throws Throwable {
+		waitPageIsLoad(); 
+		emailSearch.sendKeys(personName);
+		waitUntilnotVisibility(loadingSpinner);
+		Sleeper.sleep(8000,driver);
+		waitUntilIsLoaded(personLink);
+		personLink.click();
+	}
+	
 	public void importPersons() throws Exception{
 		waitUntilIsLoaded(importPersonButton);
 		importPersonButton.click();
@@ -102,16 +142,8 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 		tabApp.click();
 	}
 	
-
 	/* Waits **/
-	public void waitInvitePersonLoad() throws IOException,
-			InterruptedException {
-		waitUntilIsLoaded(saveButton);
-		waitUntilIsLoaded(invitationHtmlContent);
-	}
-
-	public void waitPageIsLoad() throws IOException,
-	InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(importPersonButton);
 		waitUntilIsLoaded(personTable);
 	}
@@ -120,7 +152,17 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 		waitUntilIsLoaded(firstNameTextBox);
 		waitUntilIsLoaded(lastNameTextBox);
 		waitUntilIsLoaded(emailTextBox);
-		waitUntilIsLoaded(inviteToCheckBox);
+		waitUntilIsLoaded(titleTextBox);
+		waitUntilIsLoaded(departmentTextBox);
+		waitUntilIsLoaded(skipInvitationToSelfServiceCheckBox);
+		waitUntilIsLoaded(saveNewEmployeeButton);
+		waitUntilIsLoaded(openPersonFileCheckBox);
+	}
+	
+	public void waitUntilInvitePanelIsLoad() throws Exception {
+		waitUntilIsLoaded(skipInviteButton);
+		waitUntilIsLoaded(inviteEmailField);
+		waitUntilIsLoaded(sendInviteButton);
 	}
 
 	/* Checks **/
@@ -129,30 +171,13 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 				&& personFIleIframe.isDisplayed();
 	}
 	
-	public boolean checkIfPersonIsCreated(PersonData personData){
-		try{
-			//Check if Iframe is open
-			waitUntilIsLoaded(personFIleIframe);
-//			swichToIframe(personFIleIframe);
-//			waitUntilIsLoaded(emailLink);
-//			assertElementText(emailLink, personData.getEmail());
-		} catch (Exception e){
-			return false;
-		}
-		return true;
-	}
-
-	public void openPersonFile(String personName) throws IOException, InterruptedException {
-		waitPageIsLoad(); 
-		emailSearch.sendKeys(personName);
-		waitUntilnotVisibility(loadingSpinner);
-		Sleeper.sleep(8000,driver);
-		waitUntilIsLoaded(personLink);
-		personLink.click();
+	public boolean checkIfPersonIsCreated(PersonData personData) throws Throwable {
+			PersonFilePage personFile = new PersonFilePage(driver, enviroment);
+			personFile.waitPageIsLoad();
+			return personFile.isThisPerson(personData);
 	}
 
 	public boolean isPersonFileOpened() {
 		return personFileTitle.getText().equals("Person");
 	}
-
 }

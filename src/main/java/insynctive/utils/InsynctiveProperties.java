@@ -14,6 +14,9 @@ import org.openqa.selenium.WebDriver;
 
 public class InsynctiveProperties {
 
+	//INSTANCE
+	private static InsynctiveProperties isInstance;
+	
 	// PROPERTIES PATH
 	private String DEFAULT_ACCOUNTS_PROPERTIES = "accounts.properties";
 	private String DEFAULT_RUNID_PROPERTIES = "run.properties";
@@ -34,6 +37,8 @@ public class InsynctiveProperties {
 	private String newEmployeeLastName;
 	private String newEmployeeEmail;
 	private String newEmployeePassword;
+	private String newEmployeeTitle;
+	private String newEmployeeDepartment;
 
 	private String gmailPassword;
 
@@ -44,12 +49,17 @@ public class InsynctiveProperties {
 	private List<Checklist> checklists;
 
 	public InsynctiveProperties() throws ConfigurationException {
-		getRunIDAndAutoIncrement();
+		if (isInstance == null){
+			getRunIDAndAutoIncrement();
+			isInstance = this;
+		}
 	}
 
 	public static InsynctiveProperties getAllProperties(WebDriver driver)
 			throws ConfigurationException {
-		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		InsynctiveProperties insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
+			insynctiveProp = new InsynctiveProperties();
 		try {
 			insynctiveProp.addAccountsProperties();
 			insynctiveProp.addApps();
@@ -63,20 +73,23 @@ public class InsynctiveProperties {
 
 	public static InsynctiveProperties getAllAccountsProperties()
 			throws ConfigurationException {
-		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		InsynctiveProperties insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
 		insynctiveProp.addAccountsProperties();
 		return insynctiveProp;
 	}
 
 	public static InsynctiveProperties getAllApps() throws Exception {
-		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		InsynctiveProperties insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
 		insynctiveProp.addApps();
 		return insynctiveProp;
 	}
 
 	public static InsynctiveProperties getAllChecklist(WebDriver driver)
 			throws Exception {
-		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		InsynctiveProperties insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
 		insynctiveProp.addCheckLists(driver);
 		return insynctiveProp;
 	}
@@ -109,14 +122,14 @@ public class InsynctiveProperties {
 			loginPassword = accountsProperties.getProperty("loginPassword");
 
 			newEmployeeName = accountsProperties.getProperty("newEmployeeName")+getRunID();
-			newEmployeeLastName = accountsProperties
-					.getProperty("newEmployeeLastName");
+			newEmployeeLastName = accountsProperties.getProperty("newEmployeeLastName");
 			String email = accountsProperties.getProperty("newEmployeeEmail");
-			newEmployeeEmail = email.split("@")[0] + "+" + runID + "@"
-					+ email.split("@")[1];
-			newEmployeePassword = accountsProperties
-					.getProperty("newEmployeePassword");
-
+			newEmployeeEmail = email.split("@")[0] + "+" + runID + "@"+ email.split("@")[1];
+			newEmployeePassword = accountsProperties.getProperty("newEmployeePassword");
+			setNewEmployeeDepartment(accountsProperties.getProperty("newEmployeeDepartment"));
+			setNewEmployeeTitle(accountsProperties.getProperty("newEmployeeTitle"));
+			
+			
 			gmailPassword = accountsProperties.getProperty("gmailPassword");
 
 		} catch (Exception ex) {
@@ -146,7 +159,8 @@ public class InsynctiveProperties {
 	}
 	
 	public static boolean IsSauceLabs() throws ConfigurationException {try {
-		InsynctiveProperties insynctiveProp = new InsynctiveProperties();
+		InsynctiveProperties insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
 		
 		// Open Properties Files
 		Properties accountsProperties = new Properties();
@@ -246,5 +260,21 @@ public class InsynctiveProperties {
 
 	public void setCreateChecklistsStringFile(String crateChecklistsStringFile) {
 		this.DEFAULT_CREATE_CHECKLISTS_JSON = crateChecklistsStringFile;
+	}
+
+	public String getNewEmployeeTitle() {
+		return newEmployeeTitle;
+	}
+
+	public void setNewEmployeeTitle(String newEmployeeTitle) {
+		this.newEmployeeTitle = newEmployeeTitle;
+	}
+
+	public String getNewEmployeeDepartment() {
+		return newEmployeeDepartment;
+	}
+
+	public void setNewEmployeeDepartment(String newEmployeeDepartment) {
+		this.newEmployeeDepartment = newEmployeeDepartment;
 	}
 }

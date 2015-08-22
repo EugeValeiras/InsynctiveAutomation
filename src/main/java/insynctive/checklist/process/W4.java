@@ -3,8 +3,6 @@ package insynctive.checklist.process;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
 
-import java.io.IOException;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,7 +28,7 @@ public class W4 extends Page implements Process, PageInterface {
 	}
 	
 	@Override
-	public void createTask() throws IOException, InterruptedException{
+	public void createTask() throws Exception {
 		waitPageIsLoad();
 		btnAddV4Process.click();
 		waitUntilIsLoaded(linkTask);
@@ -38,7 +36,7 @@ public class W4 extends Page implements Process, PageInterface {
 	}
 	
 	@Override
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(btnAddV4Process);
 	}
 	

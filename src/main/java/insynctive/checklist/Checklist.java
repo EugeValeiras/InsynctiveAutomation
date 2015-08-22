@@ -2,13 +2,11 @@ package insynctive.checklist;
 
 import insynctive.checklist.process.Process;
 import insynctive.utils.ConfigurationException;
-import insynctive.utils.Task;
 
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 

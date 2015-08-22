@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite verbose="0" name="Failed suite [Default suite]">
-  <test name="Default test(failed)" preserve-order="false">
+<suite thread-count="6" verbose="0" name="Failed suite [Sample Test Suite]" parallel="methods">
+  <test name="Login Test(failed)" parallel="methods" preserve-order="false">
     <classes>
-      <class name="insynctive.tests.PersonFileTest">
+      <class name="insynctive.tests.CreatePersonTest">
         <methods>
-          <include name="changeName2" invocation-numbers="0"/>
-          <include name="openPersonFile"/>
           <include name="teardown"/>
-          <include name="loginTest"/>
+          <include name="loginTest" invocation-numbers="0"/>
           <include name="tearUp"/>
         </methods>
       </class>

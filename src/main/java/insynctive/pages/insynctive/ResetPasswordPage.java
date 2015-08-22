@@ -3,8 +3,6 @@ package insynctive.pages.insynctive;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
 
-import java.io.IOException;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,8 +35,7 @@ public class ResetPasswordPage extends Page implements PageInterface{
 	}
 	
 	/* Waits **/
-	public void waitPageIsLoad() throws IOException,
-	InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(newPasswordField);
 		waitUntilIsLoaded(confirmPasswordField);
 		waitUntilIsLoaded(saveButton);

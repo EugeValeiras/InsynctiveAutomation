@@ -2,86 +2,15 @@
 
 <suite name="Sample Test Suite" verbose="1" parallel="methods" thread-count="6">
 
-	<!-- <test name="Login Test" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	</methods></class></classes></test>
-	
-	<test name="Open Person File" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	</methods></class></classes></test> -->
-	
-	<!-- <test name="Change Primary Email" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="changePrimaryEmail" />
-	</methods></class></classes></test> -->
-	
-	<!-- <test name="Change Marital Status" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="changeMaritalStatus" />
-	</methods></class></classes></test>
-	
-	<test name="Change Name 1" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="changeName" />
-	</methods></class></classes></test> -->
-	
-	<!-- <test name="Change Name 2" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="changeName2" />
-	</methods></class></classes></test> -->
-	
-	<!-- <test name="Change Gender" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="changeGender" />
-	</methods></class></classes></test>
-	
-	<test name="Add Title" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="addTitle" />
-	</methods></class></classes></test>
-	
-	<test name="Add Phone Number" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="addPhoneNumber" />
-	</methods></class></classes></test>
-	
-	<test name="Add US Address" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="addUSAddress" />
-	</methods></class></classes></test> -->
-	
-	<test name="Remove US Address" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="removeUSAddress" />
-	</methods></class></classes></test>
-	
-	<!-- <test name="Assign Task"><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="asssignTask" />
-	</methods></class></classes></test>
-	
-	<test name="Start Checklist" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="startChecklist" />
-	</methods></class></classes></test> -->
-	
-	<!-- <test name="Add Social Security Number" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="addSocialSecurityNumber" />
-	</methods></class></classes></test> -->
+	<test name="Login Test" >
+		<classes>
+			<class name="insynctive.tests.CreatePersonTest">
+				<methods>
+					<include name="loginTest" />
+				</methods>
+			</class>
+		</classes>
+	</test>
 	
 </suite>
 

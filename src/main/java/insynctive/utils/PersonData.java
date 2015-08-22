@@ -1,15 +1,10 @@
 package insynctive.utils;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStream;
 
-import org.cyberneko.html.filters.Writer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class PersonData {
 
@@ -54,6 +49,13 @@ public class PersonData {
 	
 	JSONParser parser = new JSONParser();
 
+	public PersonData(InsynctiveProperties properties) {
+		this.name = properties.getNewEmployeeName();
+		this.lastName = properties.getNewEmployeeLastName();
+		this.email = properties.getNewEmployeeEmail();
+		this.departamentOfEmployee = properties.getNewEmployeeDepartment();
+		this.titleOfEmployee = properties.getNewEmployeeTitle();
+	}
 	
 	public PersonData(String name, String lastname, String email){
 		this.name = name;

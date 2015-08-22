@@ -2,18 +2,13 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.PDFItemsPage;
 import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurationException;
 import insynctive.utils.PDFProperties;
 import insynctive.utils.Sleeper;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class PDFTaskPage extends PDFItemsPage implements PageInterface {
@@ -26,7 +21,7 @@ public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean signPDF() throws IOException, InterruptedException, ConfigurationException {
+	public boolean signPDF() throws Exception {
 		PDFProperties properties = new PDFProperties();
 		Sleeper.sleep(20000, driver);
 		String outerIframe = driver.getWindowHandle();
@@ -81,15 +76,13 @@ public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 		return !isHere;
 	}
 
-	private void goToTaskiFrame(String outerIframe) throws IOException,
-			InterruptedException {
+	private void goToTaskiFrame(String outerIframe) throws Exception {
 		driver.switchTo().window(outerIframe);
 		swichToIframe(taskPopup);
 		swichToIframe(taskFrame);
 	}
 
-	private void goToRadPDFiFrame(String outerIframe) throws IOException,
-			InterruptedException {
+	private void goToRadPDFiFrame(String outerIframe) throws Exception {
 		goToTaskiFrame(outerIframe);
 		waitUntilIsLoaded(pdfIframe);
 		swichToIframe(pdfIframe);
@@ -97,7 +90,7 @@ public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 		swichToIframe(radPdfIframe);
 	}
 	
-	private void waitPDFIsSigned() throws IOException, InterruptedException {
+	private void waitPDFIsSigned() throws Exception {
 		swichToIframe(taskPopup);
 		swichToIframe(taskFrame);
 		waitUntilIsLoaded(DoneButton);
@@ -115,7 +108,7 @@ public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 	}
 
 	@Override
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(taskPopup);
 		swichToIframe(taskPopup);
 		

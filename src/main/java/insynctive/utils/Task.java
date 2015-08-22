@@ -1,9 +1,5 @@
 package insynctive.utils;
 
-import insynctive.checklist.process.Process;
-import insynctive.utils.PersonData.Gender;
-import insynctive.utils.PersonData.MaritalStatus;
-
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +7,6 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.openqa.selenium.WebDriver;
 
 public class Task {
 

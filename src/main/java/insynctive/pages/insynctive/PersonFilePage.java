@@ -1,34 +1,22 @@
 package insynctive.pages.insynctive;
 
-import java.io.IOException;
-import java.util.List;
-
-
-
-
-
-
-
-
-
-import org.json.simple.parser.ParseException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
 import insynctive.checklist.Checklist;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurationException;
 import insynctive.utils.PersonData;
 import insynctive.utils.PersonData.Gender;
 import insynctive.utils.PersonData.MaritalStatus;
 import insynctive.utils.Sleeper;
 import insynctive.utils.Task;
 import insynctive.utils.USAddress;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class 
 PersonFilePage extends Page implements PageInterface {
@@ -212,7 +200,7 @@ PersonFilePage extends Page implements PageInterface {
 	}
 
 	/*Complete Test Methods*/
-	public void changeName(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws IOException, InterruptedException{
+	public void changeName(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws Throwable {
 		waitPageIsLoad();
 		fullNameLink.click();
 		swichToIframe(editNameiFrame);
@@ -224,7 +212,7 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangeFullName);
 	}
 
-	public void changeNameIntoTitle(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws IOException, InterruptedException {
+	public void changeNameIntoTitle(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws Throwable {
 		waitPageIsLoad();
 		swichToFirstFrame(driver);
 		nameLink.click();
@@ -237,13 +225,13 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangeFullName);
 	}
 	
-	public void changeGender(Gender gender) throws IOException, InterruptedException{
+	public void changeGender(Gender gender) throws Throwable {
 		waitPageIsLoad();
 		genderLink.click();
 		driver.findElement(By.xpath("//div[@class='enum-item' and contains(., '"+gender.name+"')]")).click();
 	}
 
-	public void changeBirthDate(String birthDate) throws IOException, InterruptedException {
+	public void changeBirthDate(String birthDate) throws Throwable {
 		waitPageIsLoad();
 		birthDateLink.click();
 		swichToIframe(birthDateiFrame);
@@ -255,13 +243,13 @@ PersonFilePage extends Page implements PageInterface {
 		saveChangeBirthDate.click();
 	}
 	
-	public void changeMaritalStatus(MaritalStatus status) throws IOException, InterruptedException{
+	public void changeMaritalStatus(MaritalStatus status) throws Throwable {
 		waitPageIsLoad();
 		maritalLink.click();
 		driver.findElement(By.xpath("//div[@class='enum-item' and contains(., '"+status.status+"')]")).click();
 	}
 
-	public void changePrimaryEmail(PersonData person) throws IOException, InterruptedException, ParseException {
+	public void changePrimaryEmail(PersonData person) throws Throwable {
 		waitPageIsLoad();
 		Sleeper.sleep(1000, driver);
 		primaryEmailLink.click();
@@ -278,7 +266,7 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangePrimaryEmail);
 	}
 
-	public void changeTitle(String title, String departament) throws IOException, InterruptedException {
+	public void changeTitle(String title, String departament) throws Throwable {
 		waitPageIsLoad();
 		swichToFirstFrame(driver);
 		nameLink.click();
@@ -289,12 +277,12 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangeTitle);
 	}
 
-	public void addHasNotDependents() throws IOException, InterruptedException {
+	public void addHasNotDependents() throws Throwable {
 		waitPageIsLoad();
 		hasNotDependentsLink.click();
 	}
 
-	public void addPhoneNumber(String phoneNumber) throws IOException, InterruptedException {
+	public void addPhoneNumber(String phoneNumber) throws Throwable {
 		waitPageIsLoad();
 		addPhoneNumberLink.click();
 		swichToIframe(editPhoneNumberiFrame);
@@ -308,7 +296,7 @@ PersonFilePage extends Page implements PageInterface {
 		saveChangeAddPhoneNumber.click();
 	}
 
-	public void addUsAddress(USAddress usAddress) throws IOException, InterruptedException {
+	public void addUsAddress(USAddress usAddress) throws Throwable {
 		waitPageIsLoad();
 		addAddressLink.click();
 		swichToIframe(usAddressiFrame);
@@ -320,7 +308,7 @@ PersonFilePage extends Page implements PageInterface {
 		System.out.println(addressSaved.getText());
 	}
 
-	public void removeUsAddress(USAddress usAddress) throws IOException, InterruptedException{
+	public void removeUsAddress(USAddress usAddress) throws Throwable {
 		waitPageIsLoad();
 		WebElement address = searchAddress(usAddress);
 		address.click();
@@ -331,7 +319,7 @@ PersonFilePage extends Page implements PageInterface {
 		waitPageIsLoad();
 	}
 
-	public void assignTask() throws ConfigurationException, IOException, InterruptedException {
+	public void assignTask() throws Throwable {
 		List<Task> tasks = Task.getTasks();
 		waitPageIsLoad();
 		for(Task task : tasks){
@@ -354,7 +342,7 @@ PersonFilePage extends Page implements PageInterface {
 		}
 	}
 
-	public void assignChecklist() throws ConfigurationException, IOException, InterruptedException {
+	public void assignChecklist() throws Throwable {
 		waitPageIsLoad();
 		swichToFirstFrame(driver);
 		tasksTab.click();
@@ -370,7 +358,7 @@ PersonFilePage extends Page implements PageInterface {
 		Sleeper.sleep(4000, driver);
 	}
 	
-	public void addSocialSecurityNumber(String ssnNumber) throws IOException, InterruptedException {
+	public void addSocialSecurityNumber(String ssnNumber) throws Throwable {
 		waitPageIsLoad();
 		addSocialSecurityNumber.click();
 		swichToIframe(socialSecurtyiFrame);
@@ -380,19 +368,18 @@ PersonFilePage extends Page implements PageInterface {
 	}
 	
 	/* Check if is complete Methods*/
-	public boolean isChangePrimaryEmail(String email) throws IOException, InterruptedException {
+	public boolean isChangePrimaryEmail(String email) throws Throwable {
 		Sleeper.sleep(12000, driver);
 		waitPageIsLoad();
 		return primaryEmailLink.getText().equals(email);
 	}
 
-	public boolean isChangeName(String name, String lastName, String middlename,
-			String maidenName) throws IOException, InterruptedException {
-		Sleeper.sleep(18000, driver);
+	public boolean isChangeName(String name, String lastName, String middlename, String maidenName, boolean wait) throws Throwable {
+		if(wait) Sleeper.sleep(18000, driver);
 		waitPageIsLoad();
 		
-		String assertFullName = name+" "+middlename;
-		assertFullName += (!maidenName.equals("")) ? " ("+maidenName+") " : " ";
+		String assertFullName = (name!=null && middlename != null) ? name+" "+middlename : name;
+		assertFullName += (maidenName!=null) ? " ("+maidenName+") " : " ";
 		assertFullName += lastName;
 		waitUntilIsLoaded(fullNameLink);
 		boolean fullNameAssert = fullNameLink.getText().equals(assertFullName);
@@ -400,22 +387,22 @@ PersonFilePage extends Page implements PageInterface {
 		swichToFirstFrame(driver);
 		String assertTitleName = name+" "+lastName;
 		boolean titleNameAssert = nameLink.getText().equals(assertTitleName);
-		
+		 
 		return fullNameAssert && titleNameAssert;
 	}
 
-	public boolean isChangeGender(Gender genderType) throws IOException, InterruptedException {
+	public boolean isChangeGender(Gender genderType) throws Throwable {
 		waitPageIsLoad();
 		return genderLink.getText().equals(genderType.name);
 	}
 
-	public boolean isChangeMaritalStatus(MaritalStatus maritalStat) throws IOException, InterruptedException {
+	public boolean isChangeMaritalStatus(MaritalStatus maritalStat) throws Throwable {
 		Sleeper.sleep(4000, driver);
 		waitPageIsLoad();
 		return maritalLink.getText().equals(maritalStat.status);
 	}
 
-	public boolean isChangeTitle(String title, String departament) throws IOException, InterruptedException {
+	public boolean isChangeTitle(String title, String departament) throws Throwable {
 		Sleeper.sleep(5000, driver);
 		waitPageIsLoad();
 		swichToFirstFrame(driver);
@@ -428,7 +415,7 @@ PersonFilePage extends Page implements PageInterface {
 		return hasNotDependentsLabel.getText().equals("Has no dependents");
 	}
 
-	public boolean isAddPhoneNumber(String phoneNumber) throws IOException, InterruptedException {
+	public boolean isAddPhoneNumber(String phoneNumber) throws Throwable {
 		Sleeper.sleep(10000, driver);
 		waitPageIsLoad();
 		waitUntilnotVisibility(loadingSpinner);
@@ -436,19 +423,19 @@ PersonFilePage extends Page implements PageInterface {
 		return mobilePhoneNumber.getText().equals(assertNumber);
 	}
 
-	public boolean isAddUSAddress(USAddress usAddress) throws IOException, InterruptedException {
+	public boolean isAddUSAddress(USAddress usAddress) throws Throwable {
 		waitPageIsLoad();
 		return addressSaved.getText().contains(usAddress.getStreet());
 	}
 	
-	public boolean isChangeBirthDate(String birthDate) throws IOException, InterruptedException {
+	public boolean isChangeBirthDate(String birthDate) throws Throwable {
 		waitPageIsLoad();
 		String[] birthDateSplit = birthDate.split("/");
 		String birtDateAssert = birthDateSplit[1]+"-"+getMonth(birthDateSplit[0])+"-"+birthDateSplit[2];
 		return birthDateLink.getText().equals(birtDateAssert);
 	}
 
-	public boolean isTaskAssigned() throws IOException, InterruptedException, ConfigurationException{
+	public boolean isTaskAssigned() throws Throwable {
 		Sleeper.sleep(5000,driver);
 		waitTaskTabIsLoad();
 		List<Task> tasks = Task.getTasks();
@@ -458,7 +445,7 @@ PersonFilePage extends Page implements PageInterface {
 		return result;
 	}
 	
-	public boolean isChecklistAssigned() throws IOException, InterruptedException, ConfigurationException {
+	public boolean isChecklistAssigned() throws Throwable {
 		waitUntilnotVisibility(loadingSpinner);
 		swichToFirstFrame(driver);
 		tasksTab.click();
@@ -472,7 +459,7 @@ PersonFilePage extends Page implements PageInterface {
 		return searchAddress(usAddress) == null;
 	}
 	
-	public boolean isSocialSecurityNumberAdded(String ssnNumber) throws IOException, InterruptedException {
+	public boolean isSocialSecurityNumberAdded(String ssnNumber) throws Throwable {
 		Sleeper.sleep(5000,driver);
 		waitPageIsLoad();
 		return addSocialSecurityNumber.getText().substring(7, 11).equals(ssnNumber.substring(5, 9));
@@ -480,7 +467,7 @@ PersonFilePage extends Page implements PageInterface {
 	
 	/*Waits Methods*/
 	@Override
-	public void waitPageIsLoad() throws IOException, InterruptedException {
+	public void waitPageIsLoad() throws Throwable {
 		swichToFirstFrame(driver);
 		waitUntilnotVisibility(loadingSpinner);
 		waitUntilIsLoaded(nameLink);
@@ -492,7 +479,7 @@ PersonFilePage extends Page implements PageInterface {
 		Sleeper.sleep(2000, driver);
 	}
 	
-	public void waitTaskTabIsLoad() throws IOException, InterruptedException {
+	public void waitTaskTabIsLoad() throws Throwable {
 		swichToFirstFrame(driver);
 		waitUntilnotVisibility(loadingSpinner);
 		waitUntilIsLoaded(nameLink);
@@ -502,7 +489,7 @@ PersonFilePage extends Page implements PageInterface {
 	}
 	
 	/* Private Methods */
-	private void waitUsAddresFrameIsLoad() throws IOException, InterruptedException {
+	private void waitUsAddresFrameIsLoad() throws Throwable {
 		waitUntilIsLoaded(streetAddressField);
 		waitUntilIsLoaded(streetAddressOptionalField);
 		waitUntilIsLoaded(cityField);
@@ -523,7 +510,7 @@ PersonFilePage extends Page implements PageInterface {
 		return null;
 	}
 	
-	private void completeAddressForm(USAddress usAddress) {
+	private void completeAddressForm(USAddress usAddress) throws Throwable {
 		setTextInField(streetAddressField, usAddress.getStreet());
 		setTextInField(streetAddressOptionalField, usAddress.getSecondStreet());
 		setTextInField(cityField, usAddress.getCity());
@@ -581,12 +568,19 @@ PersonFilePage extends Page implements PageInterface {
 		return false;
 	}
 
-	public void updateUsAddress(USAddress usAddress) throws IOException, InterruptedException {
+	public void updateUsAddress(USAddress usAddress) throws Throwable {
 		// TODO Auto-generated method stub
 	}
 	
 	public boolean isUpdateUsAddress(USAddress usAddress) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean isThisPerson(PersonData personData) throws Throwable {
+		boolean changeTitle = isChangeTitle(personData.getTitleOfEmployee(), personData.getDepartamentOfEmployee());
+		boolean changeFullName = isChangeName(personData.getName(), personData.getLastName(), personData.getMiddleName(), personData.getMaidenName(), false); 
+		
+		return changeTitle && changeFullName;
 	}
 }

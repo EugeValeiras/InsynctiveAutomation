@@ -1,80 +1,56 @@
 package insynctive.tests;
 
+import static junit.framework.Assert.assertTrue;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
 import insynctive.pages.insynctive.PersonFilePage;
-import insynctive.utils.ConfigurationException;
 import insynctive.utils.Debugger;
-import insynctive.utils.InsynctiveProperties;
 import insynctive.utils.PersonData;
+import insynctive.utils.TestEnvironment;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import static junit.framework.Assert.assertTrue;
-
-import org.json.simple.parser.ParseException;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
-import com.saucelabs.testng.SauceOnDemandTestListener;
 
-@Listeners({ SauceOnDemandTestListener.class })
-public class PersonFileTest extends TestSauceLabs implements SauceOnDemandSessionIdProvider,
-SauceOnDemandAuthenticationProvider {
+public class PersonFileTest extends TestMachine {
 
 	PersonData person;
-	boolean isSaucelabs;
 	
-	@AfterClass(alwaysRun = true)
-	public void teardown() throws ConfigurationException{
-		if(InsynctiveProperties.IsSauceLabs()){
-			setFinalResult();
-			this.driver.quit();
-		}
-	}
-
-	@BeforeClass(alwaysRun = true)
+	@Override
+	@BeforeClass
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getAllAccountsProperties();
+		super.tearUp();
 		this.sessionName = "Person File Test";
-		person = new PersonData(properties.getRunID());
-		isSaucelabs = InsynctiveProperties.IsSauceLabs();
 	}
-
+	
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)
 	public static Object[][] sauceBrowserDataProvider(Method testMethod) {
-		return new Object[][] { new Object[] {
-//				"Internet Explorer", "11", "Windows 7" }
-//				"Chrome", "44", "Windows 7" }
-				"firefox", "39", "Windows 7" }
-//				"iPad", "8.4", "OSX" }
+		return new Object[][] { new Object[] { TestEnvironment.CHROME }
 		};
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers")
-	public void loginTest(String browser, String version, String os)
-			throws Exception {
-		startTest(browser, version, os);
+	public void loginTest(TestEnvironment testEnvironment)
+			throws Throwable {
+		startTest(testEnvironment);
 
 		try{
 			LoginPage loginPage = login();
 			boolean result = loginPage.isLoggedIn();
 			setResult(result, "Login Test");
-			assertTrue(loginPage.isLoggedIn());
+			assertTrue(result);
 		} catch(Exception ex){
-			failTest("Login", isSaucelabs);
+			failTest("Login",  ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="loginTest")
-	public void openPersonFile(String browser, String version, String os) throws IOException, Throwable{
+	public void openPersonFile(String browser, String version, String os, String screenSize) throws IOException, Throwable{
 		try{
 			HomeForAgentsPage homePage = new HomeForAgentsPage(driver, properties.getEnviroment());
 			homePage.openPersonFile(person.getSearchEmail());
@@ -84,14 +60,14 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Open Person File");
 			assertTrue(result);
 		} catch(Exception ex){
-			failTest("Open Person File", isSaucelabs);
+			failTest("Open Person File", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changePrimaryEmail(String browser, String version, String os)
-			throws Exception {
+	public void changePrimaryEmail(String browser, String version, String os, String screenSize)
+			throws Throwable {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			personFilePage.changePrimaryEmail(person);
@@ -101,14 +77,14 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Change Primary Email");
 			assertTrue(result);
 		} catch(Exception ex){
-			failTest("Change Primary Email", isSaucelabs);
+			failTest("Change Primary Email", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeMaritalStatus(String browser, String version, String os)
-			throws Exception {
+	public void changeMaritalStatus(String browser, String version, String os, String screenSize)
+			throws Throwable {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -119,50 +95,50 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Change Marital Status");
 			assertTrue(result);
 		} catch (Exception ex){
-			failTest("Change Marital Status", isSaucelabs);
+			failTest("Change Marital Status", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeName(String browser, String version, String os)
-			throws Exception {
+	public void changeName(String browser, String version, String os, String screenSize)
+			throws Throwable {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
 			personFilePage.changeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
 			
-			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
+			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), true);
 			Debugger.log("changeName => "+result, isSaucelabs);
 			setResult(result, "change name 1");
 			assertTrue(result);
 		} catch (Exception ex){
-			failTest("change name 1", isSaucelabs);
+			failTest("change name 1", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeName2(String browser, String version, String os)
-			throws Exception {
+	public void changeName2(String browser, String version, String os, String screenSize)
+			throws Throwable {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
 			personFilePage.changeNameIntoTitle(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
 			
-			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
+			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), true);
 			Debugger.log("changeName2 =>"+result, isSaucelabs);
 			setResult(result, "change name 2");
 			assertTrue(result);
 		} catch(Exception ex){
-			failTest("change name 2", isSaucelabs);
+			failTest("change name 2", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeGender(String browser, String version, String os)
-			throws Exception {
+	public void changeGender(String browser, String version, String os, String screenSize)
+			throws Throwable {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -173,14 +149,14 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Change Gender");
 			assertTrue(result);
 		} catch (Exception ex){
-			failTest("Change Gender", isSaucelabs);
+			failTest("Change Gender", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeBirthDate(String browser, String version, String os)
-			throws Exception {
+	public void changeBirthDate(String browser, String version, String os, String screenSize)
+			throws Throwable {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -191,13 +167,13 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Change Birth Date");
 			assertTrue(result);
 		} catch(Exception ex){
-			failTest("Change Birth Date", isSaucelabs);
+			failTest("Change Birth Date", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addTitle(String browser, String version, String os) throws Exception{
+	public void addTitle(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -208,14 +184,14 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Add Title");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("Add Title", isSaucelabs);
+			failTest("Add Title", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 
 	/**
 	 * @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void hasNotDependents(String browser, String version, String os) throws IOException, InterruptedException, ConfigurationException{
+	public void hasNotDependents(String browser, String version, String os, String screenSize) throws IOException, InterruptedException, ConfigurationException{
 		setResult(false, "Add Has Not Dependents");
 		PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 		
@@ -228,7 +204,7 @@ SauceOnDemandAuthenticationProvider {
 	} */
 
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addPhoneNumber(String browser, String version, String os) throws Exception{
+	public void addPhoneNumber(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -239,12 +215,12 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Add Phone Number");
 			assertTrue(result);
 		}catch (Exception ex){
-			failTest("Add Phone Number", isSaucelabs);assertTrue(false);
+			failTest("Add Phone Number", ex, isSaucelabs);assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addUSAddress(String browser, String version, String os) throws Exception{
+	public void addUSAddress(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -255,13 +231,13 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "add US Address");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("add US Address", isSaucelabs);
+			failTest("add US Address", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void removeUSAddress(String browser, String version, String os) throws Exception{
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="addUSAddress")
+	public void removeUSAddress(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			personFilePage.removeUsAddress(person.getUSAddress());
@@ -271,13 +247,13 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "remove US Address");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("remove US Address", isSaucelabs);
+			failTest("remove US Address", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	/** @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void updateUSAddress(String browser, String version, String os) throws Exception{
+	public void updateUSAddress(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			personFilePage.updateUsAddress(person.getUSAddress());
@@ -287,13 +263,13 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Update USAddress");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("Update USAddress", isSaucelabs);
+			failTest("Update USAddress", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	} */
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void asssignTask(String browser, String version, String os) throws Exception{
+	public void asssignTask(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -304,13 +280,13 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Assign Task");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("Assign Task", isSaucelabs);
+			failTest("Assign Task", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void startChecklist(String browser, String version, String os) throws Exception{
+	public void startChecklist(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -321,24 +297,24 @@ SauceOnDemandAuthenticationProvider {
 			setResult(result, "Start Checklist");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("Start Checklist", isSaucelabs);
+			failTest("Start Checklist", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addSocialSecurityNumber(String browser, String version, String os) throws Exception{
+	public void addSocialSecurityNumber(String browser, String version, String os, String screenSize) throws Throwable{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
 			personFilePage.addSocialSecurityNumber(person.getSsn());
 			
 			boolean result = personFilePage.isSocialSecurityNumberAdded(person.getSsn());
-			Debugger.log("asssignTask => "+result, isSaucelabs);
+			Debugger.log("Add Social Security Number => "+result, isSaucelabs);
 			setResult(result, "Add Social Security Number");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("Add Social Security Number", isSaucelabs);
+			failTest("Add Social Security Number", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
