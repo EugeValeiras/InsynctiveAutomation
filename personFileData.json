@@ -44,6 +44,12 @@
 		}
 	]
 	"Checklist" :{
-			"name":"Individual enrollment"
+			"name":"Test Template"
+			"processes":[
+				{
+					"name":"I9"
+					"start":"ASAP"
+				}
+			]
 		}
 }

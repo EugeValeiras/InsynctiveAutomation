@@ -1,20 +1,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Sample Test Suite" verbose="1" parallel="methods" thread-count="6">
-
-	<test name="Login Test" >
-		<classes>
-			<class name="insynctive.tests.CreatePersonTest">
-				<methods>
-					<include name="loginTest" />
-				</methods>
-			</class>
-		</classes>
-	</test>
 	
-</suite>
-
-       
-       
-       
-        
+	<test name="Change Primary Email" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
+		<include name="loginTest" />
+	    <include name="openPersonFile" />
+	    <include name="changeBirthDate" />
+	</methods></class></classes></test>
+	
+</suite>     
