@@ -36,39 +36,31 @@ public class LoginPage extends Page implements PageInterface{
         this.PAGE_TITLE = "Login";
         PageFactory.initElements(driver, this);
     }
+    
+    public void setReturnAsEmployee(){
+    	this.PAGE_URL = "http://"+ enviroment + ".insynctiveapps.com/Insynctive.Hub/Login.aspx?ReturnUrl=/Insynctive.Hub/Protected/HelpDesk.aspx?SkipGuide=True";
+    }
 
     /* Actions **/
     public void login(String email, String password) throws Exception {
-        setText_LoginField(email);
-        setText_PassField(password);
-        clickToLogin();
+       	setTextInField(loginUsernameField, email);
+       	setText_PassField(password);
+       	clickAButton(loginButton);
     }
     
     public  void clickToLogin() {
         loginButton.click();
     }
     
-    public void fillLoginForm(LoginData loginData) {
-        loginUsernameField.sendKeys(loginData.getUserName());
-        loginPasswordField.click();
-        loginPasswordField.sendKeys(loginData.getPass());
-    }
-    
     /* Waits **/
     public void waitPageIsLoad() throws Exception {
     	waitUntilIsLoaded(loginUsernameField);
-    	waitUntilIsLoaded(loginUsernameField);
+    	waitUntilIsLoaded(passwordLabel);
     	waitUntilIsLoaded(loginButton);
     }
 
-    /* Private Actions **/
-    private void setText_LoginField(String text) {
-        loginUsernameField.clear();
-    	loginUsernameField.sendKeys(text);
-    }
-
-    private void setText_PassField(String text) {
-    	passwordLabel.click();
+    private void setText_PassField(String text) throws Exception {
+    	clickAButton(passwordLabel);
         loginPasswordField.sendKeys(text);
     }
     

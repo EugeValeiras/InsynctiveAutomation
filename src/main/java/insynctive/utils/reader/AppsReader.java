@@ -1,6 +1,7 @@
-package insynctive.utils;
+package insynctive.utils.reader;
 
-import insynctive.market.App;
+import insynctive.pages.insynctive.exception.ConfigurationException;
+import insynctive.utils.data.App;
 
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;

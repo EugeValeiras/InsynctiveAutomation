@@ -1,7 +1,8 @@
-package insynctive.utils;
+package insynctive.utils.reader;
 
-import insynctive.checklist.Checklist;
-import insynctive.market.App;
+import insynctive.pages.insynctive.exception.ConfigurationException;
+import insynctive.utils.Checklist;
+import insynctive.utils.data.App;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,10 +13,10 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 
-public class InsynctiveProperties {
+public class InsynctivePropertiesReader {
 
 	//INSTANCE
-	private static InsynctiveProperties isInstance;
+	private static InsynctivePropertiesReader isInstance;
 	
 	// PROPERTIES PATH
 	private String DEFAULT_ACCOUNTS_PROPERTIES = "accounts.properties";
@@ -48,18 +49,18 @@ public class InsynctiveProperties {
 	// ChecklistList
 	private List<Checklist> checklists;
 
-	public InsynctiveProperties() throws ConfigurationException {
+	public InsynctivePropertiesReader() throws ConfigurationException {
 		if (isInstance == null){
 			getRunIDAndAutoIncrement();
 			isInstance = this;
 		}
 	}
 
-	public static InsynctiveProperties getAllProperties(WebDriver driver)
+	public static InsynctivePropertiesReader getAllProperties(WebDriver driver)
 			throws ConfigurationException {
-		InsynctiveProperties insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
-			insynctiveProp = new InsynctiveProperties();
+		InsynctivePropertiesReader insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+			insynctiveProp = new InsynctivePropertiesReader();
 		try {
 			insynctiveProp.addAccountsProperties();
 			insynctiveProp.addApps();
@@ -71,25 +72,25 @@ public class InsynctiveProperties {
 		return insynctiveProp;
 	}
 
-	public static InsynctiveProperties getAllAccountsProperties()
+	public static InsynctivePropertiesReader getAllAccountsProperties()
 			throws ConfigurationException {
-		InsynctiveProperties insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
+		InsynctivePropertiesReader insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
 		insynctiveProp.addAccountsProperties();
 		return insynctiveProp;
 	}
 
-	public static InsynctiveProperties getAllApps() throws Exception {
-		InsynctiveProperties insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
+	public static InsynctivePropertiesReader getAllApps() throws Exception {
+		InsynctivePropertiesReader insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
 		insynctiveProp.addApps();
 		return insynctiveProp;
 	}
 
-	public static InsynctiveProperties getAllChecklist(WebDriver driver)
+	public static InsynctivePropertiesReader getAllChecklist(WebDriver driver)
 			throws Exception {
-		InsynctiveProperties insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
+		InsynctivePropertiesReader insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
 		insynctiveProp.addCheckLists(driver);
 		return insynctiveProp;
 	}
@@ -159,8 +160,8 @@ public class InsynctiveProperties {
 	}
 	
 	public static boolean IsSauceLabs() throws ConfigurationException {try {
-		InsynctiveProperties insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctiveProperties() : isInstance;
+		InsynctivePropertiesReader insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
 		
 		// Open Properties Files
 		Properties accountsProperties = new Properties();

@@ -1,8 +1,12 @@
 package insynctive.pages.insynctive;
 
-import insynctive.checklist.Checklist;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
+import insynctive.utils.Checklist;
+import insynctive.utils.Sleeper;
+import insynctive.utils.data.Employee;
+import insynctive.utils.process.I9;
+import insynctive.utils.process.Process;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,9 +20,9 @@ public class CheckListsPage extends Page implements PageInterface{
 	/* Checklists */
 	@FindBy(id = "body_body_checklistsTab_gwProcesses_DXMainTable")
 	WebElement personsTable;
-	@FindBy(css = "#body_body_checklistsTab_TPTCR_btnAddChecklist_0_CD > span")
+	@FindBy(id = "btnStartChecklist")
 	WebElement btnStartChecklist;
-	@FindBy(css = "#body_body_checklistsTab_TPTCR_btnTemplates_0_CD > span")
+	@FindBy(css = "#statusesList > li:nth-child(3)")
 	WebElement btnTemplate;
 	@FindBy(id = "body_body_checklistsTab_TC")
 	WebElement tabsBody;
@@ -34,60 +38,150 @@ public class CheckListsPage extends Page implements PageInterface{
 	WebElement skipChecklists;
 	@FindBy(xpath = ".//*[@id='body_body_popupChecklist_lkpChoosePerson_DDD_gv_tcrow0']/div")
 	WebElement firstName;
+	@FindBy(css = "#ddChecklist_chosen > div > ul > li > span")
+	WebElement noResultCombo;
+	@FindBy(css = "#contentHeight > iframe")
+	WebElement startCheckListiFrame;
+	@FindBy(className = "searchTextInput")
+	WebElement searchTemplate;
+	@FindBy(css = "div.row:nth-child(7) > div:nth-child(3) > img:nth-child(1)")
+	WebElement deleteTemplate;
+
 	
 	/* ADD Template iFrame */
 	@FindBy(css = "#popupCustom_CIF-1")
 	WebElement iframeAddTemplate;
+	@FindBy(id = "btnAddChecklistTemplate")
+	WebElement addTemplateBtn;
+	@FindBy(id = "newTemplateName")
+	WebElement checkListNameField;
+	@FindBy(id = "saveNewTemplate")
+	WebElement saveNewTemplate;
+	@FindBy(css = "div.row:nth-child(7) > div:nth-child(1) > p:nth-child(1) > span:nth-child(1)")
+	WebElement firstTemplateSpan;
+	@FindBy(css = "div.row:nth-child(7) > div:nth-child(1) > p:nth-child(1)")
+	WebElement firstTemplate;
+
+	@FindBy(className = "close")
+	WebElement closeiFrame;
+
+	@FindBy(className = "chosen-default")
+	WebElement choosePerson;
+
+	@FindBy(id = "btnStartChecklist")
+	WebElement startNewChecklist;
+
+	@FindBy(css = "#ddChecklist_chosen > a:nth-child(1)")
+	WebElement chooseChecklist;
+
+	@FindBy(className = "ladda-button")
+	WebElement deleteFinalTemplate;
 	
 	public CheckListsPage(WebDriver driver, String enviroment) {
 		super(driver);
 		this.enviroment = enviroment;
-		this.PAGE_URL = "http://" + enviroment + ".insynctiveapps.com/Insynctive.Hub/Protected/CheckLists.aspx";
+		this.PAGE_URL = "http://" + enviroment + ".insynctiveapps.com/Insynctive.Hub/Protected/HRChecklists.aspx?SkipGuide=True";
 		this.PAGE_TITLE = "Checklists";
 		PageFactory.initElements(driver, this);
 	}
 
 	/* Actions **/
-	public void createTemplate(Checklist checkList) throws Exception{
-		waitUntilIsLoaded(btnTemplate);
-		btnTemplate.click();
-		swichToIframe(iframeAddTemplate);
+	public void createTemplate(Checklist checkList) throws Throwable{
+		String newCheckListName = "Test Process "+checkList.getName();
+
+		goToChecklistTemplate();
+		Sleeper.sleep(1000, driver);
+		waitUntilIsLoaded(addTemplateBtn);
+		clickAButton(addTemplateBtn);
+		
+		Sleeper.sleep(1000, driver);
+		setTextInField(checkListNameField, newCheckListName);
+		Sleeper.sleep(3000, driver);
+		clickAButton(saveNewTemplate);
+		Sleeper.sleep(5000, driver);
+		waitUntilNameIsVisible(firstTemplateSpan, newCheckListName);
+		clickAButton(firstTemplate);
 		
 		TemplatePage templatePage = new TemplatePage(driver, enviroment);
-		templatePage.addTemplate(checkList);
+		templatePage.editTemplate(checkList);
+	}
+
+	private void goToChecklistTemplate() throws Exception {
+		swichToFirstFrame(driver);
+		waitUntilIsLoaded(btnTemplate);
+		clickAButton(btnTemplate);
 	}
 	
 	public void startChecklist(String checkList, String person) throws Exception {
-		waitUntilIsLoaded(btnStartChecklist);
-		btnStartChecklist.click();
+		clickAButton(btnStartChecklist);
 		
-		waitUntilIsLoaded(personName);
-		personName.click();
+		clickAButton(personName);
 		personName.sendKeys(person);
 //		personName.sendKeys(Keys.TAB);
 			
-		waitUntilIsLoaded(checklistName);
-		checklistName.click();
+		clickAButton(checklistName);
 		checklistName.sendKeys(checkList);
-		waitUntilIsLoaded(firstChecklist);
-		firstChecklist.click();
+		clickAButton(firstChecklist);
 
 		waitUntilIsLoaded(skipChecklists);
-		waitUntilIsLoaded(startChecklist);
-		startChecklist.click();
+		clickAButton(startChecklist);
+	}
+	
+	public void assignChecklist(Checklist checklist, Employee employee, boolean restartChecklist) throws Throwable {
+		swichToFirstFrame(driver);
+		clickAButton(btnStartChecklist);
+		swichToIframe(startCheckListiFrame);
+		boolean checklistExist = selectElementInCombo(chooseChecklist, "Test Process "+checklist.getName());
+		Sleeper.sleep(1000, driver);
+		if(restartChecklist){
+			if(!checklistExist) createChecklist(checklist,true); else deleteThenCreate(checklist);
+		}
+		clickAButton(btnStartChecklist);
+		swichToIframe(startCheckListiFrame);
+		selectElementInCombo(chooseChecklist, "Test Process "+checklist.getName());
+		Sleeper.sleep(1000, driver);
+		setTextInCombo(choosePerson, employee.fullName);
+		Sleeper.sleep(1000, driver); 
+		clickAButton(startNewChecklist);
+		
+		Sleeper.sleep(5000, driver);
 	}
 	
 	/* Waits **/
 	public void waitPageIsLoad() throws Exception {
-		waitUntilIsLoaded(personsTable);
-		waitUntilIsLoaded(btnStartChecklist);
+		swichToFirstFrame(driver);
+		waitUntilIsLoaded(startChecklist);
 		waitUntilIsLoaded(btnTemplate);
-		waitUntilIsLoaded(tabsBody);
 	}
 
 	/* Checks **/
 	public boolean isPageLoad() {
 		return btnStartChecklist.isDisplayed() && 
 				btnTemplate.isDisplayed();
+	}
+	
+	/* Private Methods*/
+	private void createChecklist(Checklist checklist, boolean comeFromAssign) throws Throwable {
+		if(comeFromAssign) {
+			swichToFirstFrame(driver);
+			clickAButton(closeiFrame);
+		}
+		createTemplate(checklist);
+		Sleeper.sleep(2500, driver);
+		loadPage();
+	}
+	
+	private void deleteThenCreate(Checklist checklist) throws Throwable {
+		String newCheckListName = "Test Process "+checklist.getName();
+		loadPage();//THIS IS BECAUSE JS IS FULLY
+		goToChecklistTemplate();
+		Sleeper.sleep(3500, driver);
+		setTextInField(searchTemplate, newCheckListName);
+		waitUntilnotVisibility(loadingSpinner);
+		Sleeper.sleep(10000, driver);
+		clickAButton(deleteTemplate);
+		clickAButton(deleteFinalTemplate);
+		Sleeper.sleep(4500, driver);
+		createChecklist(checklist, false);
 	}
 }

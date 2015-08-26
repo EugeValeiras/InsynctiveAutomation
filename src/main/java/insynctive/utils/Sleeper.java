@@ -1,5 +1,7 @@
 package insynctive.utils;
 
+import insynctive.utils.reader.InsynctivePropertiesReader;
+
 import org.openqa.selenium.WebDriver;
 
 public class Sleeper {
@@ -7,7 +9,7 @@ public class Sleeper {
 	
 	public static void sleep(int time, WebDriver driver){
 		try{
-			if(InsynctiveProperties.IsSauceLabs()){
+			if(InsynctivePropertiesReader.IsSauceLabs()){
 				synchronized (driver){ driver.wait(time);}
 			} else {
 				Thread.sleep(time); //This is for LOCAL

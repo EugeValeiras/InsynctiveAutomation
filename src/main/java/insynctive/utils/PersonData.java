@@ -1,5 +1,8 @@
 package insynctive.utils;
 
+import insynctive.pages.insynctive.exception.ConfigurationException;
+import insynctive.utils.reader.InsynctivePropertiesReader;
+
 import java.io.FileReader;
 
 import org.json.simple.JSONArray;
@@ -49,7 +52,7 @@ public class PersonData {
 	
 	JSONParser parser = new JSONParser();
 
-	public PersonData(InsynctiveProperties properties) {
+	public PersonData(InsynctivePropertiesReader properties) {
 		this.name = properties.getNewEmployeeName();
 		this.lastName = properties.getNewEmployeeLastName();
 		this.email = properties.getNewEmployeeEmail();

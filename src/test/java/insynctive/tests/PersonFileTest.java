@@ -6,7 +6,7 @@ import insynctive.pages.insynctive.LoginPage;
 import insynctive.pages.insynctive.PersonFilePage;
 import insynctive.utils.Debugger;
 import insynctive.utils.PersonData;
-import insynctive.utils.TestEnvironment;
+import insynctive.utils.data.TestEnvironment;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -36,7 +36,7 @@ public class PersonFileTest extends TestMachine {
 	
 	@Test(dataProvider = "hardCodedBrowsers")
 	public void loginTest(TestEnvironment testEnvironment)
-			throws Throwable {
+			throws Exception {
 		startTest(testEnvironment);
 
 		try{
@@ -51,7 +51,7 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="loginTest")
-	public void openPersonFile(String browser, String version, String os, String screenSize) throws IOException, Throwable{
+	public void openPersonFile(TestEnvironment testEnvironment) throws Exception {
 		try{
 			HomeForAgentsPage homePage = new HomeForAgentsPage(driver, properties.getEnviroment());
 			homePage.openPersonFile(person.getSearchEmail());
@@ -67,8 +67,7 @@ public class PersonFileTest extends TestMachine {
 	}
 
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changePrimaryEmail(String browser, String version, String os, String screenSize)
-			throws Throwable {
+	public void changePrimaryEmail(TestEnvironment testEnvironment) throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			personFilePage.changePrimaryEmail(person);
@@ -84,8 +83,8 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeMaritalStatus(String browser, String version, String os, String screenSize)
-			throws Throwable {
+	public void changeMaritalStatus(TestEnvironment testEnvironment)
+			throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -102,8 +101,8 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeName(String browser, String version, String os, String screenSize)
-			throws Throwable {
+	public void changeName(TestEnvironment testEnvironment)
+			throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -120,8 +119,8 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeName2(String browser, String version, String os, String screenSize)
-			throws Throwable {
+	public void changeName2(TestEnvironment testEnvironment)
+			throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -138,8 +137,8 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeGender(String browser, String version, String os, String screenSize)
-			throws Throwable {
+	public void changeGender(TestEnvironment testEnvironment)
+			throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -156,8 +155,8 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeBirthDate(String browser, String version, String os, String screenSize)
-			throws Throwable {
+	public void changeBirthDate(TestEnvironment testEnvironment)
+			throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -174,7 +173,7 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addTitle(String browser, String version, String os, String screenSize) throws Throwable{
+	public void addTitle(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -192,7 +191,7 @@ public class PersonFileTest extends TestMachine {
 
 	/**
 	 * @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void hasNotDependents(String browser, String version, String os, String screenSize) throws IOException, InterruptedException, ConfigurationException{
+	public void hasNotDependents(TestEnvironment testEnvironment) throws IOException, InterruptedException, ConfigurationException{
 		setResult(false, "Add Has Not Dependents");
 		PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 		
@@ -205,7 +204,7 @@ public class PersonFileTest extends TestMachine {
 	} */
 
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addPhoneNumber(String browser, String version, String os, String screenSize) throws Throwable{
+	public void addPhoneNumber(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -221,7 +220,7 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addUSAddress(String browser, String version, String os, String screenSize) throws Throwable{
+	public void addUSAddress(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -238,7 +237,7 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="addUSAddress")
-	public void removeUSAddress(String browser, String version, String os, String screenSize) throws Throwable{
+	public void removeUSAddress(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			personFilePage.removeUsAddress(person.getUSAddress());
@@ -254,7 +253,7 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	/** @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void updateUSAddress(String browser, String version, String os, String screenSize) throws Throwable{
+	public void updateUSAddress(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			personFilePage.updateUsAddress(person.getUSAddress());
@@ -270,7 +269,7 @@ public class PersonFileTest extends TestMachine {
 	} */
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void asssignTask(String browser, String version, String os, String screenSize) throws Throwable{
+	public void asssignTask(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -287,7 +286,7 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void startChecklist(String browser, String version, String os, String screenSize) throws Throwable{
+	public void startChecklist(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -304,7 +303,7 @@ public class PersonFileTest extends TestMachine {
 	}
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addSocialSecurityNumber(String browser, String version, String os, String screenSize) throws Throwable{
+	public void addSocialSecurityNumber(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			

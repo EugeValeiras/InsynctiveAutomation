@@ -35,7 +35,7 @@ public class AppsPage extends Page implements PageInterface{
 	/* Actions **/
 	public void goToMarket() throws Exception {
 		waitPageIsLoad();
-		marketButton.click();
+		clickAButton(marketButton);
 	}
 
 	/* Waits **/

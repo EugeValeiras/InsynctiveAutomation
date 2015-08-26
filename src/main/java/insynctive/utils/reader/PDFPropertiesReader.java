@@ -1,9 +1,11 @@
-package insynctive.utils;
+package insynctive.utils.reader;
+
+import insynctive.pages.insynctive.exception.ConfigurationException;
 
 import java.io.FileInputStream;
 import java.util.Properties;
 
-public class PDFProperties {
+public class PDFPropertiesReader {
 
 	private static final String DEFAULT_PDFProperties_PROPERTIES = "FillPDF.properties";
 
@@ -15,11 +17,11 @@ public class PDFProperties {
 	private String state;
 	private String zipCode;
 
-	public PDFProperties() throws ConfigurationException{
+	public PDFPropertiesReader() throws ConfigurationException{
 		completeAllProperties(DEFAULT_PDFProperties_PROPERTIES);
 	}
 
-	public PDFProperties(String propertiePath) throws ConfigurationException{
+	public PDFPropertiesReader(String propertiePath) throws ConfigurationException{
 		completeAllProperties(propertiePath);
 	}
 

@@ -1,7 +1,7 @@
-package insynctive.utils;
+package insynctive.utils.reader;
 
-import insynctive.checklist.Checklist;
-import insynctive.checklist.process.Process;
+import insynctive.utils.Checklist;
+import insynctive.utils.process.Process;
 
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;

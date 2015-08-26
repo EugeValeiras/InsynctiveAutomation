@@ -1,11 +1,12 @@
 package insynctive.pages.insynctive;
 
-import insynctive.checklist.Checklist;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
+import insynctive.pages.insynctive.exception.MethodNoImplementedException;
 import insynctive.utils.PersonData;
 import insynctive.utils.PersonData.Gender;
 import insynctive.utils.PersonData.MaritalStatus;
+import insynctive.utils.Checklist;
 import insynctive.utils.Sleeper;
 import insynctive.utils.Task;
 import insynctive.utils.USAddress;
@@ -29,11 +30,8 @@ PersonFilePage extends Page implements PageInterface {
 	WebElement titleLink;
 	@FindBy(id = "department-text")
 	WebElement departamentLink;
-	@FindBy(id = "loadingSpinner")
-	WebElement loadingSpinner;
-	
+	 
 	//Links
-	
 	@FindBy(css = "#statusesListHeader > li:nth-child(1)")
 	WebElement personalLink;
 	@FindBy(xpath = "//*[@id=\"full-name-field\"]/div[1]/span")
@@ -190,6 +188,15 @@ PersonFilePage extends Page implements PageInterface {
 	WebElement ssnTextField;
 	@FindBy(id = "saveSSN")
 	WebElement saveSsn;
+	@FindBy(id = "no-results")
+	WebElement noResultCombo;
+
+	@FindBy(id = "Month")
+	private WebElement monthInput;
+	@FindBy(id = "Day")
+	private WebElement dayInput;
+	@FindBy(id = "Year")
+	private WebElement yearInput;
 	
 	public PersonFilePage(WebDriver driver, String enviroment) {
 		super(driver);
@@ -200,7 +207,7 @@ PersonFilePage extends Page implements PageInterface {
 	}
 
 	/*Complete Test Methods*/
-	public void changeName(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws Throwable {
+	public void changeName(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws Exception {
 		waitPageIsLoad();
 		fullNameLink.click();
 		swichToIframe(editNameiFrame);
@@ -212,7 +219,7 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangeFullName);
 	}
 
-	public void changeNameIntoTitle(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws Throwable {
+	public void changeNameIntoTitle(String nameIn, String lastNameIn, String middleNameIn, String maidenNameIn) throws Exception {
 		waitPageIsLoad();
 		swichToFirstFrame(driver);
 		nameLink.click();
@@ -225,31 +232,34 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangeFullName);
 	}
 	
-	public void changeGender(Gender gender) throws Throwable {
+	public void changeGender(Gender gender) throws Exception {
 		waitPageIsLoad();
 		genderLink.click();
 		driver.findElement(By.xpath("//div[@class='enum-item' and contains(., '"+gender.name+"')]")).click();
 	}
 
-	public void changeBirthDate(String birthDate) throws Throwable {
+	public void changeBirthDate(String birthDate) throws Exception {
+		String[] birthParts = birthDate.split("/");
 		waitPageIsLoad();
 		birthDateLink.click();
 		swichToIframe(birthDateiFrame);
 		waitUntilnotVisibility(loadingSpinner);
-		waitUntilIsLoaded(dateInput);
+		setTextInCombo(monthInput,getMonth(birthParts[0]));
+		setTextInCombo(dayInput, birthParts[1]);
+		setTextInCombo(yearInput, birthParts[2]);
 		//TODO REMOVE THIS SLEEPER
 		Sleeper.sleep(5000, driver);
 		setTextInField(dateInput, birthDate);
 		saveChangeBirthDate.click();
 	}
 	
-	public void changeMaritalStatus(MaritalStatus status) throws Throwable {
+	public void changeMaritalStatus(MaritalStatus status) throws Exception {
 		waitPageIsLoad();
 		maritalLink.click();
 		driver.findElement(By.xpath("//div[@class='enum-item' and contains(., '"+status.status+"')]")).click();
 	}
 
-	public void changePrimaryEmail(PersonData person) throws Throwable {
+	public void changePrimaryEmail(PersonData person) throws Exception {
 		waitPageIsLoad();
 		Sleeper.sleep(1000, driver);
 		primaryEmailLink.click();
@@ -266,7 +276,7 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangePrimaryEmail);
 	}
 
-	public void changeTitle(String title, String departament) throws Throwable {
+	public void changeTitle(String title, String departament) throws Exception {
 		waitPageIsLoad();
 		swichToFirstFrame(driver);
 		nameLink.click();
@@ -277,12 +287,12 @@ PersonFilePage extends Page implements PageInterface {
 		waitUntilnotVisibility(saveChangeTitle);
 	}
 
-	public void addHasNotDependents() throws Throwable {
+	public void addHasNotDependents() throws Exception {
 		waitPageIsLoad();
 		hasNotDependentsLink.click();
 	}
 
-	public void addPhoneNumber(String phoneNumber) throws Throwable {
+	public void addPhoneNumber(String phoneNumber) throws Exception {
 		waitPageIsLoad();
 		addPhoneNumberLink.click();
 		swichToIframe(editPhoneNumberiFrame);
@@ -296,7 +306,7 @@ PersonFilePage extends Page implements PageInterface {
 		saveChangeAddPhoneNumber.click();
 	}
 
-	public void addUsAddress(USAddress usAddress) throws Throwable {
+	public void addUsAddress(USAddress usAddress) throws Exception {
 		waitPageIsLoad();
 		addAddressLink.click();
 		swichToIframe(usAddressiFrame);
@@ -308,7 +318,7 @@ PersonFilePage extends Page implements PageInterface {
 		System.out.println(addressSaved.getText());
 	}
 
-	public void removeUsAddress(USAddress usAddress) throws Throwable {
+	public void removeUsAddress(USAddress usAddress) throws Exception {
 		waitPageIsLoad();
 		WebElement address = searchAddress(usAddress);
 		address.click();
@@ -319,7 +329,7 @@ PersonFilePage extends Page implements PageInterface {
 		waitPageIsLoad();
 	}
 
-	public void assignTask() throws Throwable {
+	public void assignTask() throws Exception {
 		List<Task> tasks = Task.getTasks();
 		waitPageIsLoad();
 		for(Task task : tasks){
@@ -342,23 +352,20 @@ PersonFilePage extends Page implements PageInterface {
 		}
 	}
 
-	public void assignChecklist() throws Throwable {
+	public void assignChecklist() throws Exception {
 		waitPageIsLoad();
-		swichToFirstFrame(driver);
-		tasksTab.click();
+		openTaskTab();
 		swichToIframe(tabiFrame);
-		waitUntilIsLoaded(runningChecklist);
-		runningChecklist.click();
-		waitUntilIsLoaded(startChecklistButton);
-		startChecklistButton.click();
+		goToRunninChecklist();
+		clickOnStartChecklist();
 		swichToIframe(startChecklistiFrame);
 		waitUntilIsLoaded(checkListsCombo);
 		setTextInCombo(checkListsCombo, Checklist.getCheckListToAssign().getName());
 		assignChecklistButton.click();
 		Sleeper.sleep(4000, driver);
 	}
-	
-	public void addSocialSecurityNumber(String ssnNumber) throws Throwable {
+
+	public void addSocialSecurityNumber(String ssnNumber) throws Exception {
 		waitPageIsLoad();
 		addSocialSecurityNumber.click();
 		swichToIframe(socialSecurtyiFrame);
@@ -368,13 +375,13 @@ PersonFilePage extends Page implements PageInterface {
 	}
 	
 	/* Check if is complete Methods*/
-	public boolean isChangePrimaryEmail(String email) throws Throwable {
+	public boolean isChangePrimaryEmail(String email) throws Exception {
 		Sleeper.sleep(12000, driver);
 		waitPageIsLoad();
 		return primaryEmailLink.getText().equals(email);
 	}
 
-	public boolean isChangeName(String name, String lastName, String middlename, String maidenName, boolean wait) throws Throwable {
+	public boolean isChangeName(String name, String lastName, String middlename, String maidenName, boolean wait) throws Exception {
 		if(wait) Sleeper.sleep(18000, driver);
 		waitPageIsLoad();
 		
@@ -391,18 +398,18 @@ PersonFilePage extends Page implements PageInterface {
 		return fullNameAssert && titleNameAssert;
 	}
 
-	public boolean isChangeGender(Gender genderType) throws Throwable {
+	public boolean isChangeGender(Gender genderType) throws Exception {
 		waitPageIsLoad();
 		return genderLink.getText().equals(genderType.name);
 	}
 
-	public boolean isChangeMaritalStatus(MaritalStatus maritalStat) throws Throwable {
+	public boolean isChangeMaritalStatus(MaritalStatus maritalStat) throws Exception {
 		Sleeper.sleep(4000, driver);
 		waitPageIsLoad();
 		return maritalLink.getText().equals(maritalStat.status);
 	}
 
-	public boolean isChangeTitle(String title, String departament) throws Throwable {
+	public boolean isChangeTitle(String title, String departament) throws Exception {
 		Sleeper.sleep(5000, driver);
 		waitPageIsLoad();
 		swichToFirstFrame(driver);
@@ -415,7 +422,7 @@ PersonFilePage extends Page implements PageInterface {
 		return hasNotDependentsLabel.getText().equals("Has no dependents");
 	}
 
-	public boolean isAddPhoneNumber(String phoneNumber) throws Throwable {
+	public boolean isAddPhoneNumber(String phoneNumber) throws Exception {
 		Sleeper.sleep(10000, driver);
 		waitPageIsLoad();
 		waitUntilnotVisibility(loadingSpinner);
@@ -423,19 +430,19 @@ PersonFilePage extends Page implements PageInterface {
 		return mobilePhoneNumber.getText().equals(assertNumber);
 	}
 
-	public boolean isAddUSAddress(USAddress usAddress) throws Throwable {
+	public boolean isAddUSAddress(USAddress usAddress) throws Exception {
 		waitPageIsLoad();
 		return addressSaved.getText().contains(usAddress.getStreet());
 	}
 	
-	public boolean isChangeBirthDate(String birthDate) throws Throwable {
+	public boolean isChangeBirthDate(String birthDate) throws Exception {
 		waitPageIsLoad();
 		String[] birthDateSplit = birthDate.split("/");
 		String birtDateAssert = birthDateSplit[1]+"-"+getMonth(birthDateSplit[0])+"-"+birthDateSplit[2];
 		return birthDateLink.getText().equals(birtDateAssert);
 	}
 
-	public boolean isTaskAssigned() throws Throwable {
+	public boolean isTaskAssigned() throws Exception {
 		Sleeper.sleep(5000,driver);
 		waitTaskTabIsLoad();
 		List<Task> tasks = Task.getTasks();
@@ -445,7 +452,7 @@ PersonFilePage extends Page implements PageInterface {
 		return result;
 	}
 	
-	public boolean isChecklistAssigned() throws Throwable {
+	public boolean isChecklistAssigned() throws Exception {
 		waitUntilnotVisibility(loadingSpinner);
 		swichToFirstFrame(driver);
 		tasksTab.click();
@@ -459,7 +466,7 @@ PersonFilePage extends Page implements PageInterface {
 		return searchAddress(usAddress) == null;
 	}
 	
-	public boolean isSocialSecurityNumberAdded(String ssnNumber) throws Throwable {
+	public boolean isSocialSecurityNumberAdded(String ssnNumber) throws Exception {
 		Sleeper.sleep(5000,driver);
 		waitPageIsLoad();
 		return addSocialSecurityNumber.getText().substring(7, 11).equals(ssnNumber.substring(5, 9));
@@ -467,7 +474,7 @@ PersonFilePage extends Page implements PageInterface {
 	
 	/*Waits Methods*/
 	@Override
-	public void waitPageIsLoad() throws Throwable {
+	public void waitPageIsLoad() throws Exception {
 		swichToFirstFrame(driver);
 		waitUntilnotVisibility(loadingSpinner);
 		waitUntilIsLoaded(nameLink);
@@ -479,7 +486,7 @@ PersonFilePage extends Page implements PageInterface {
 		Sleeper.sleep(2000, driver);
 	}
 	
-	public void waitTaskTabIsLoad() throws Throwable {
+	public void waitTaskTabIsLoad() throws Exception {
 		swichToFirstFrame(driver);
 		waitUntilnotVisibility(loadingSpinner);
 		waitUntilIsLoaded(nameLink);
@@ -489,7 +496,7 @@ PersonFilePage extends Page implements PageInterface {
 	}
 	
 	/* Private Methods */
-	private void waitUsAddresFrameIsLoad() throws Throwable {
+	private void waitUsAddresFrameIsLoad() throws Exception {
 		waitUntilIsLoaded(streetAddressField);
 		waitUntilIsLoaded(streetAddressOptionalField);
 		waitUntilIsLoaded(cityField);
@@ -510,7 +517,7 @@ PersonFilePage extends Page implements PageInterface {
 		return null;
 	}
 	
-	private void completeAddressForm(USAddress usAddress) throws Throwable {
+	private void completeAddressForm(USAddress usAddress) throws Exception {
 		setTextInField(streetAddressField, usAddress.getStreet());
 		setTextInField(streetAddressOptionalField, usAddress.getSecondStreet());
 		setTextInField(cityField, usAddress.getCity());
@@ -560,6 +567,21 @@ PersonFilePage extends Page implements PageInterface {
 				address.getText().contains(usAddress.getStreet()) &&
 				address.getText().contains(usAddress.getZipCode());
 	}
+	
+	private void openTaskTab() throws Exception{
+		swichToFirstFrame(driver);
+		tasksTab.click();
+	}
+	
+	private void goToRunninChecklist() throws Exception {
+		waitUntilIsLoaded(runningChecklist);
+		runningChecklist.click();
+	}
+	
+	private void clickOnStartChecklist() throws Exception { 
+		waitUntilIsLoaded(startChecklistButton);
+		startChecklistButton.click();
+	}
 
 	//TODO METHODS
 	@Override
@@ -568,7 +590,7 @@ PersonFilePage extends Page implements PageInterface {
 		return false;
 	}
 
-	public void updateUsAddress(USAddress usAddress) throws Throwable {
+	public void updateUsAddress(USAddress usAddress) throws Exception {
 		// TODO Auto-generated method stub
 	}
 	
@@ -577,7 +599,7 @@ PersonFilePage extends Page implements PageInterface {
 		return false;
 	}
 
-	public boolean isThisPerson(PersonData personData) throws Throwable {
+	public boolean isThisPerson(PersonData personData) throws Exception {
 		boolean changeTitle = isChangeTitle(personData.getTitleOfEmployee(), personData.getDepartamentOfEmployee());
 		boolean changeFullName = isChangeName(personData.getName(), personData.getLastName(), personData.getMiddleName(), personData.getMaidenName(), false); 
 		

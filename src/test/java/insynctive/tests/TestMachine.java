@@ -1,10 +1,12 @@
 package insynctive.tests;
 
+import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
-import insynctive.utils.ConfigurationException;
+import insynctive.pages.insynctive.PersonFilePage;
+import insynctive.pages.insynctive.exception.ConfigurationException;
 import insynctive.utils.Debugger;
-import insynctive.utils.InsynctiveProperties;
-import insynctive.utils.TestEnvironment;
+import insynctive.utils.data.TestEnvironment;
+import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -37,7 +39,7 @@ public abstract class TestMachine {
 	TestEnvironment testEnvironment;
 	
 	public WebDriver driver;
-	public InsynctiveProperties properties;
+	public InsynctivePropertiesReader properties;
 	
 	/** TAGS => Add tests result test.*/
 	List<String> tags = new ArrayList<String>();
@@ -47,14 +49,14 @@ public abstract class TestMachine {
 	
 	public ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
 	public ThreadLocal<String> sessionId = new ThreadLocal<String>();
-	private String jobID;
+	public String jobID;
 	
 	//SLACK
 	private String slackChannel = "https://hooks.slack.com/services/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";
 
 	//CROSSBROWSING
-	String username = "eugenio.valeiras+1@gmail.com";
-	String password = "ua448794ace93a60";
+	String username = "eugenio.valeiras+2@gmail.com";
+	String password = "ue89b3349b1c2eef";
 	
 	private String getJobURL() throws IOException, JSONException {
 		return getPublicVideoLinkOfJob();
@@ -71,16 +73,16 @@ public abstract class TestMachine {
 	
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getAllAccountsProperties();
-		isSaucelabs = InsynctiveProperties.IsSauceLabs();
+		properties = InsynctivePropertiesReader.getAllAccountsProperties();
+		isSaucelabs = InsynctivePropertiesReader.IsSauceLabs();
 	}
 	
 	@AfterClass(alwaysRun = true)
 	public void teardown() throws ConfigurationException, MalformedURLException, IOException, JSONException {
-		if(InsynctiveProperties.IsSauceLabs()){
-			setFinalResult();
+		if(InsynctivePropertiesReader.IsSauceLabs()){
 			this.driver.quit();
 		}
+		setFinalResult();
 	}
 	
 	public WebDriver createDriver(TestEnvironment testEnvironment) throws MalformedURLException {
@@ -107,7 +109,7 @@ public abstract class TestMachine {
 	}
 
 	public void startTest(TestEnvironment testEnvironment) throws MalformedURLException, ConfigurationException {
-		if (InsynctiveProperties.IsSauceLabs()) {
+		if (InsynctivePropertiesReader.IsSauceLabs()) {
 			driver = createDriver(testEnvironment);
 		} else {
 			FirefoxProfile firefoxProfile = new FirefoxProfile();
@@ -118,12 +120,9 @@ public abstract class TestMachine {
 		}
 	}
 	
-	public LoginPage login() throws Exception {
-		LoginPage loginPage = new LoginPage(driver, properties.getEnviroment());
-		loginPage.loadPage();
-		loginPage.login(properties.getLoginUsername(),
-				properties.getLoginPassword());
-		return loginPage;
+	public void openPersonFile(String emailSearch) throws Throwable{
+		HomeForAgentsPage homePage = new HomeForAgentsPage(driver, properties.getEnviroment());
+		homePage.openPersonFile(emailSearch);
 	}
 
 	public LoginPage login(String username, String password) throws Exception {
@@ -131,6 +130,19 @@ public abstract class TestMachine {
 		loginPage.loadPage();
 		loginPage.login(username, password);
 		return loginPage;
+	}
+	
+	public LoginPage login() throws Exception {
+		return login(properties.getLoginUsername(),properties.getLoginPassword());
+	}
+	
+	public LoginPage loginAsEmployee(String email, String password) throws Exception {
+		LoginPage loginPage = new LoginPage(driver, properties.getEnviroment());
+		loginPage.setReturnAsEmployee();
+		loginPage.loadPage();
+		loginPage.login(email, password);
+		return loginPage;
+		
 	}
 
 	public void failTest(String testName,Exception ex, boolean isSaucelabs) throws Exception{
@@ -158,10 +170,10 @@ public abstract class TestMachine {
 	}
 
 	public void setFinalResult() throws ConfigurationException, MalformedURLException, IOException, JSONException {
-		if(InsynctiveProperties.IsSauceLabs()){
+		if(InsynctivePropertiesReader.IsSauceLabs()){
 			makeCurlToChangeStatus();
-			sendSlack();
 		}
+		sendSlack();
 	}
 	
 	public JSONObject makeCurl(String url, String type) throws IOException, JSONException{
@@ -215,7 +227,7 @@ public abstract class TestMachine {
 		JSONObject payload = new JSONObject();
 		payload.put("icon_emoji", ":ghost:");
 		payload.put("username", "Automated Tests Machine");
-		payload.put("text", sessionName+" [ "+testEnvironment+"]");
+		payload.put("text", sessionName+" [ "+testEnvironment != null? testEnvironment : "Local Firefox"+"]");
 		payload.put("channel", "#automatedtestsresults");
 		
 		JSONArray attachments = new JSONArray();
@@ -226,7 +238,7 @@ public abstract class TestMachine {
 		
 		JSONArray fields = new JSONArray();
 		JSONObject field = new JSONObject();
-		field.put("title", "TestRun Status");
+		field.put("title", sessionName);
 		field.put("value", (generalStatus ? "PASS" : "FAIL")+" => "+getStatusMessageOfTests(tags));
 		field.put("short", false);
 		fields.add(field);
@@ -263,25 +275,13 @@ public abstract class TestMachine {
 	}
 	
 	/* RUNNABLE TEST */
-	public static void main(String[] args) throws IOException, JSONException {
-		String url = "http://crossbrowsertesting.com/api/v3/selenium/" + 3541307;
-		String userPassword = "eugenio.valeiras+1@gmail.com" + ":" + "ua448794ace93a60";
-		java.util.Base64.Encoder encoded = java.util.Base64.getEncoder();
-		String crud = encoded.encodeToString(userPassword.getBytes());
-		URL u = new URL(url);
-		HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Authorization", "Basic " + crud);
-		InputStream is = conn.getInputStream();
-		BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, "UTF-8")); 
-		StringBuilder responseStrBuilder = new StringBuilder();
-		String inputStr;
-		while ((inputStr = streamReader.readLine()) != null)
-		    responseStrBuilder.append(inputStr);
-		
-		JSONObject response = new JSONObject(responseStrBuilder.toString());
-		org.json.JSONArray videos = response.getJSONArray("videos");
-		JSONObject video = (JSONObject) videos.get(0);
-		System.out.println(video.getString("show_result_public_url"));
+	public static void main(String[] args) throws IOException, JSONException, ConfigurationException {
+//		ChecklistsTest checklistPage = new ChecklistsTest();
+//		checklistPage.tags.add("Start Checklist[PASS]");
+//		checklistPage.generalStatus = true;
+//		checklistPage.sessionName = "Checklist Sanity Tests";
+//		checklistPage.jobID = "3556031";
+//		checklistPage.testEnvironment = TestEnvironment.FIREFOX;
+//		checklistPage.setFinalResult();
 	}
 }

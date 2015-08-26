@@ -1,4 +1,4 @@
-package insynctive.market;
+package insynctive.utils.data;
 
 public enum App {
 	

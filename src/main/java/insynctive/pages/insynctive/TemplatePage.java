@@ -1,10 +1,11 @@
 package insynctive.pages.insynctive;
 
-import insynctive.checklist.Checklist;
-import insynctive.checklist.process.Process;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
-import insynctive.utils.Debugger;
+import insynctive.pages.insynctive.exception.MethodNoImplementedException;
+import insynctive.utils.Checklist;
+import insynctive.utils.Sleeper;
+import insynctive.utils.process.Process;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,6 +37,8 @@ public class TemplatePage extends Page implements PageInterface{
 	/* Edit Template */
 	@FindBy(id = "lnkReturn_CD")
 	WebElement btnReturnToTemplate;
+	@FindBy(id = "buttonAddProcess")
+	WebElement btnAddProcess;
 	@FindBy(id = "ASPxButton1_CD")
 	WebElement btnAddV3Process;
 	@FindBy(id = "btnActivity_CD")
@@ -56,19 +59,40 @@ public class TemplatePage extends Page implements PageInterface{
 
 	/* Actions **/
 	public void addTemplate(Checklist checkList) throws Exception {
-		waitUntilIsLoaded(btnAddTemplate);
-		btnAddTemplate.click();
-		waitAddTemplateLoad();
-		setText_TemplateName(checkList.getName()); //<-- TODO Get ID of Test Run
-		btnOkAddTemplate.click();
-		
-		waitEditTemplateLoad();
-		for(Process proc : checkList.getProcess()){
-			Debugger.subLog(proc, false);
-			proc.createTask();
-		}
+//		waitUntilIsLoaded(btnAddTemplate);
+//		btnAddTemplate.click();
+//		waitAddTemplateLoad();
+//		setText_TemplateName(checkList.getName()); //<-- TODO Get ID of Test Run
+//		btnOkAddTemplate.click();
+//		
+//		waitEditTemplateLoad();
+//		for(Process proc : checkList.getProcess()){
+//			Debugger.subLog(proc, false);
+//			proc.createTask();
+//		}
+		throw new MethodNoImplementedException("Add Template is not implemented");
 	}
 	
+	public void editTemplate(Checklist checklist) throws Throwable{
+		for(Process process : checklist.getProcess()){
+			process.setDriver(driver);
+			process.initElements(driver);
+			waitUntilIsLoaded(btnAddProcess);
+			clickAButton(btnAddProcess);
+			
+			waitAddProcessPage();
+			Sleeper.sleep(4000, driver);
+			clickAButton(process.getElement());
+			process.completeSteps();
+		}
+		Sleeper.sleep(4000, driver);
+	}
+	
+	private void waitAddProcessPage() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/* Waits **/
 	public void waitPageIsLoad() throws Exception {
 		waitUntilIsLoaded(labelTemplates);
@@ -84,12 +108,6 @@ public class TemplatePage extends Page implements PageInterface{
 	public void waitEditTemplateLoad() throws Exception {
 		waitUntilIsLoaded(btnReturnToTemplate);
 		waitUntilIsLoaded(btnAddV4Process);
-	}
-	
-	/* Private Actions **/
-	private void setText_TemplateName(String text) {
-		txtBoxAddTemplateName.clear();
-		txtBoxAddTemplateName.sendKeys(text);
 	}
 	
 	/* Checks **/

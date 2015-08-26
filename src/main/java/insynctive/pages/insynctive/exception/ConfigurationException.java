@@ -1,4 +1,4 @@
-package insynctive.utils;
+package insynctive.pages.insynctive.exception;
 
 public class ConfigurationException extends Exception {
 

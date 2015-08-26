@@ -5,7 +5,7 @@ import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
 import insynctive.utils.Debugger;
 import insynctive.utils.PersonData;
-import insynctive.utils.TestEnvironment;
+import insynctive.utils.data.TestEnvironment;
 
 import java.lang.reflect.Method;
 

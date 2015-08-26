@@ -1,10 +1,10 @@
 package insynctive.tests;
 
-import insynctive.market.App;
 import insynctive.pages.insynctive.MarketPage;
-import insynctive.utils.ConfigurationException;
-import insynctive.utils.InsynctiveProperties;
-import insynctive.utils.TestEnvironment;
+import insynctive.pages.insynctive.exception.ConfigurationException;
+import insynctive.utils.data.App;
+import insynctive.utils.data.TestEnvironment;
+import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.lang.reflect.Method;
 
@@ -21,16 +21,16 @@ public class InstallAppTest extends TestMachine {
 	
 	@AfterClass(alwaysRun = true)
 	public void teardown() throws ConfigurationException {
-		if(InsynctiveProperties.IsSauceLabs()){
+		if(InsynctivePropertiesReader.IsSauceLabs()){
 			this.driver.quit();
 		}
 	}
 
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getAllProperties(driver);
+		properties = InsynctivePropertiesReader.getAllProperties(driver);
 		this.sessionName = "Install Apps";
-		isSaucelabs = InsynctiveProperties.IsSauceLabs();
+		isSaucelabs = InsynctivePropertiesReader.IsSauceLabs();
 	}
 	
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)

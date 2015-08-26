@@ -1,8 +1,8 @@
 package insynctive.tests;
 
 import insynctive.pages.insynctive.OpenEnrollmentPage;
-import insynctive.utils.InsynctiveProperties;
-import insynctive.utils.TestEnvironment;
+import insynctive.utils.data.TestEnvironment;
+import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.lang.reflect.Method;
 
@@ -25,7 +25,7 @@ public class OpenEnrollmentTest extends TestMachine {
 
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getAllAccountsProperties();
+		properties = InsynctivePropertiesReader.getAllAccountsProperties();
 		properties.addCheckLists(driver);
 		this.sessionName = "Open Enrollment";
 	}

@@ -1,12 +1,14 @@
-package insynctive.checklist;
+package insynctive.utils;
 
-import insynctive.checklist.process.Process;
-import insynctive.utils.ConfigurationException;
+import insynctive.pages.insynctive.exception.ConfigurationException;
+import insynctive.utils.data.Employee;
+import insynctive.utils.process.Process;
 
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -49,6 +51,7 @@ public class Checklist {
 			JSONObject fileObject = (JSONObject) parser.parse(new FileReader(DEFAULT_FILE));
 			JSONObject jsonChecklist = (JSONObject) fileObject.get("Checklist");
 			Checklist checklist = new Checklist((String)jsonChecklist.get("name"));
+			
 		return checklist;
 			
 		} catch(Exception ex) {

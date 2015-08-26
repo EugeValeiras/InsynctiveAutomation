@@ -2,8 +2,8 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.PDFItemsPage;
 import insynctive.pages.PageInterface;
-import insynctive.utils.PDFProperties;
 import insynctive.utils.Sleeper;
+import insynctive.utils.reader.PDFPropertiesReader;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +22,7 @@ public class PDFTaskPage extends PDFItemsPage implements PageInterface {
 	}
 	
 	public boolean signPDF() throws Exception {
-		PDFProperties properties = new PDFProperties();
+		PDFPropertiesReader properties = new PDFPropertiesReader();
 		Sleeper.sleep(20000, driver);
 		String outerIframe = driver.getWindowHandle();
 		

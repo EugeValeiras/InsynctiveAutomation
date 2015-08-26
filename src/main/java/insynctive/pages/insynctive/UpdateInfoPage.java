@@ -2,9 +2,9 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurationException;
-import insynctive.utils.InsynctiveProperties;
+import insynctive.pages.insynctive.exception.ConfigurationException;
 import insynctive.utils.Sleeper;
+import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 public class UpdateInfoPage extends Page implements PageInterface{
 
 	String enviroment;
-	InsynctiveProperties properties;
+	InsynctivePropertiesReader properties;
 	
 	@FindBy(css = "#popupCustom_CIFD-1 > iframe")
 	WebElement personalInfoFrame;
@@ -84,7 +84,7 @@ public class UpdateInfoPage extends Page implements PageInterface{
 		this.PAGE_URL = "NO URL";
 		this.PAGE_TITLE = "";
 		PageFactory.initElements(driver, this);
-		properties = InsynctiveProperties.getAllAccountsProperties();
+		properties = InsynctivePropertiesReader.getAllAccountsProperties();
 	}
 	
 	public void startUpdateInfo() throws Throwable {

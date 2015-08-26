@@ -1,6 +1,6 @@
 package insynctive.pages;
 
-import insynctive.pages.insynctive.exception.ElementIsAllwaysVisible;
+import insynctive.pages.insynctive.exception.ElementIsAllwaysVisibleException;
 import insynctive.pages.insynctive.exception.ElementNotFoundException;
 import insynctive.pages.insynctive.exception.WrongMessageException;
 import insynctive.utils.Sleeper;
@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,6 +37,15 @@ public class Page {
 	
 	@FindBy(id = "frmTask")
 	public WebElement taskFrame;
+	
+	@FindBy(id = "loadingSpinner")
+	public WebElement loadingSpinner;
+
+	@FindBy(id = "arrowImage")
+	private WebElement arrowImage;
+	
+	@FindBy(id = "popupAccount_linkLogout")
+	private WebElement singoutLink; 
     
     public Page(){
     	
@@ -103,10 +111,6 @@ public class Page {
         return driver.getTitle();
     }
 
-    public void clickElement(WebElement element) {
-        element.click();
-    }
-
     public void waitUntilIsLoaded(WebElement element) throws IOException, InterruptedException, ElementNotFoundException {
        try{
     	   new WebDriverWait(driver, SELENIUM_TIMEOUT_SEC).until(ExpectedConditions.visibilityOf(element));
@@ -115,7 +119,7 @@ public class Page {
        }
     }
 
-    public void waitUntilnotVisibility(WebElement element) throws IOException, InterruptedException, Throwable {
+    public void waitUntilnotVisibility(WebElement element) throws IOException, InterruptedException, Exception {
     	int times = 0;
     	try{
     		while(element != null && times < 10){
@@ -123,11 +127,11 @@ public class Page {
     			times++;
     		}
     	} catch (Exception ex){
-    		throw new ElementIsAllwaysVisible("The element "+getMessageFromWebElement(element)+" is still visible", null);
+    		throw new ElementIsAllwaysVisibleException("The element "+getMessageFromWebElement(element)+" is still visible", null);
     	}
     }
 
-    public void waitUntilNameIsVisible(WebElement element, String name) throws IOException, InterruptedException, ElementIsAllwaysVisible {
+    public void waitUntilNameIsVisible(WebElement element, String name) throws IOException, InterruptedException, ElementIsAllwaysVisibleException {
     	int times = 0;
     	try{
     		while(!element.getText().equals(name) && times < 10){
@@ -135,7 +139,7 @@ public class Page {
     			times++;
     		}
     	} catch (Exception ex){
-    		throw new ElementIsAllwaysVisible("The text "+element.getText()+" is different from "+name, null);
+    		throw new ElementIsAllwaysVisibleException("The text "+element.getText()+" is different from "+name, null);
     	}
     }
  
@@ -152,7 +156,7 @@ public class Page {
         try{
             element.getTagName();
             return true;
-        }catch(NoSuchElementException e){
+        } catch(Exception e){
             return false;
         }
     }
@@ -209,8 +213,9 @@ public class Page {
     	element.click();
     }
     
-	public void setTextInField(WebElement textField, String text) throws ElementNotFoundException {
+	public void setTextInField(WebElement textField, String text) throws ElementNotFoundException, IOException, InterruptedException {
 		try {
+			waitUntilIsLoaded(textField);
 			textField.clear();
 			textField.sendKeys(text);
 		} catch (NullPointerException nEx){
@@ -218,28 +223,53 @@ public class Page {
 		}
 	}
 	
-	public void setTextInCombo(WebElement combo, String text) throws ElementNotFoundException {
+	public void setTextInCombo(WebElement combo, String text) throws ElementNotFoundException, IOException, InterruptedException {
 		try{
+			waitUntilIsLoaded(combo);
 			combo.sendKeys(text);
 			Sleeper.sleep(1000, driver);
-			combo.sendKeys(Keys.ENTER);
+			combo.sendKeys("\n");
 		} catch (NullPointerException nEx){
 			throw new ElementNotFoundException(getMessageFromWebElement(combo)+" is not found",null);
 		}
 	}
 	
-	public void checkInAppMessage(String assertMessage) throws WrongMessageException, IOException, InterruptedException, ElementNotFoundException {
+	public boolean selectElementInCombo(WebElement combo, String text) throws Exception {
+		try{
+			clickAButton(combo);
+			clickAButton(driver.findElement(By.xpath("//li[contains(text(),'"+text+"')]" )));
+			return true;
+		} catch (NullPointerException nEx){
+			throw new ElementNotFoundException(getMessageFromWebElement(combo)+" is not found",null);
+		} catch (org.openqa.selenium.NoSuchElementException nSEx){
+			return false;
+		}
+	}
+	
+	public void checkInAppMessage(String assertMessage) throws Exception {
 		swichToFirstFrame(driver);
 		waitUntilIsLoaded(inAppNotification);
 		String ErrorMessage = "InApp message Do not match > InApp<"+inAppNotification.getText()+"> Expected<"+assertMessage+">";
 		if(!inAppNotification.getText().equals(assertMessage)) throw new WrongMessageException(ErrorMessage, null);	
-		closeInAppNotification.click();
+		clickAButton(closeInAppNotification);
 	}
+	
 	public String getMessageFromWebElement(WebElement element){
 		String[] elementSplit = element.toString().split("-> ");
 		return (elementSplit.length > 0) ? 
 				(elementSplit[1].split("]").length > 0 ? 
 						elementSplit[1].split("]")[0] : elementSplit[1]) 
 				: element.toString(); 
+	}
+	
+	public void logout() throws Exception{
+		swichToFirstFrame(driver);
+		clickAButton(arrowImage);
+		clickAButton(singoutLink);
+		Sleeper.sleep(1000, driver);
+	}
+	
+	public WebElement findElementByText(String tagName, String text){
+		return driver.findElement(By.xpath("//"+tagName+"[contains(text(),'"+text+"')]" ));
 	}
 }

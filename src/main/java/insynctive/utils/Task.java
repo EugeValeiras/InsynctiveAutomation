@@ -1,5 +1,7 @@
 package insynctive.utils;
 
+import insynctive.pages.insynctive.exception.ConfigurationException;
+
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;

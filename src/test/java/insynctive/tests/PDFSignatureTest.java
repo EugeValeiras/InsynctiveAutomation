@@ -3,9 +3,9 @@ package insynctive.tests;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.MyTasksPage;
-import insynctive.utils.InsynctiveProperties;
 import insynctive.utils.Sleeper;
-import insynctive.utils.TestEnvironment;
+import insynctive.utils.data.TestEnvironment;
+import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.lang.reflect.Method;
 
@@ -19,7 +19,7 @@ public class PDFSignatureTest extends TestMachine {
 	
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
-		properties = InsynctiveProperties.getAllProperties(driver);
+		properties = InsynctivePropertiesReader.getAllProperties(driver);
 		this.sessionName = "PDF Signature";
 	}
 

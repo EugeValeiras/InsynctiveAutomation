@@ -2,6 +2,7 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
+import insynctive.utils.Checklist;
 import insynctive.utils.PersonData;
 import insynctive.utils.Sleeper;
 
@@ -33,6 +34,8 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	WebElement emailAssert;
 	@FindBy(id = "loadingSpinner")
 	WebElement loadingSpinner;
+	@FindBy(id = "lTasks")
+	private WebElement tasksLink;
 	
 	/* ADD Person */
 	@FindBy(id = "addperson_firstname")
@@ -96,9 +99,9 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 		setTextInField(titleTextBox, personData.getTitleOfEmployee());
 		setTextInField(departmentTextBox, personData.getDepartamentOfEmployee());
 		setTextInField(emailTextBox, personData.getEmail());
-		openPersonFileCheckBox.click();
+		clickAButton(openPersonFileCheckBox);
 		Sleeper.sleep(3500, driver);
-		saveNewEmployeeButton.click();
+		clickAButton(saveNewEmployeeButton);
 		//TODO To the correct message [<User> added [admin/agent/employee]  <Person Name>]
 		String assertMessage = loginUserFullName.getText()+" added employee "+personData.getName()+" "+personData.getLastName();
 		checkInAppMessage(assertMessage); 
@@ -106,7 +109,7 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 
 	private void openCreatePersonFrame() throws Exception {
 		waitPageIsLoad();
-		addPersonButton.click();
+		clickAButton(addPersonButton);
 		waitAddPersonIsLoad();
 	}
 	
@@ -114,24 +117,24 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 		waitUntilInvitePanelIsLoad();
 		setTextInField(inviteEmailField, personData.getEmail());
 		Sleeper.sleep(3500, driver);
-		sendInviteButton.click();
+		clickAButton(sendInviteButton);
 		
 		String assertMessage = "Invitation to Sign up was sent to "+personData.getName()+" "+personData.getLastName();
 		checkInAppMessage(assertMessage);
 	}
 
-	public void openPersonFile(String personName) throws Throwable {
+	public void openPersonFile(String personName) throws Exception {
 		waitPageIsLoad(); 
 		emailSearch.sendKeys(personName);
 		waitUntilnotVisibility(loadingSpinner);
 		Sleeper.sleep(8000,driver);
 		waitUntilIsLoaded(personLink);
-		personLink.click();
+		clickAButton(personLink);
 	}
 	
 	public void importPersons() throws Exception{
 		waitUntilIsLoaded(importPersonButton);
-		importPersonButton.click();
+		clickAButton(importPersonButton);
 		
 		ImportPersonPage importPersonPage = new ImportPersonPage(driver, enviroment);
 		importPersonPage.importPersons();
@@ -171,7 +174,7 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 				&& personFIleIframe.isDisplayed();
 	}
 	
-	public boolean checkIfPersonIsCreated(PersonData personData) throws Throwable {
+	public boolean checkIfPersonIsCreated(PersonData personData) throws Exception {
 			PersonFilePage personFile = new PersonFilePage(driver, enviroment);
 			personFile.waitPageIsLoad();
 			return personFile.isThisPerson(personData);
@@ -179,5 +182,15 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 
 	public boolean isPersonFileOpened() {
 		return personFileTitle.getText().equals("Person");
+	}
+
+	public void goToTasks() throws Exception{
+		clickAButton(tasksLink);
+		Sleeper.sleep(3000, driver);
+	}
+
+	
+	public boolean isTaskAssign(Checklist checklist) {
+		return isElementPresent(findElementByText("a", checklist.getProcess().get(0).getTaskName()));
 	}
 }

@@ -1,10 +1,10 @@
 package insynctive.pages.insynctive;
 
-import insynctive.market.App;
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
-import insynctive.utils.ConfigurationException;
-import insynctive.utils.InsynctiveProperties;
+import insynctive.pages.insynctive.exception.ConfigurationException;
+import insynctive.utils.data.App;
+import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 public class MarketPage extends Page implements PageInterface {
 
 	JavascriptExecutor jsExecutor;
-	InsynctiveProperties properties;
+	InsynctivePropertiesReader properties;
 	
 	/* Market */
 	@FindBy(id = "ASPxImageSlider1")
@@ -51,7 +51,7 @@ public class MarketPage extends Page implements PageInterface {
 
 	public MarketPage(WebDriver driver) throws ConfigurationException {
 		super(driver);
-		properties = InsynctiveProperties.getAllAccountsProperties();
+		properties = InsynctivePropertiesReader.getAllAccountsProperties();
 		jsExecutor = (JavascriptExecutor) driver;
 		this.PAGE_URL = "http://appsmarket.insynctive.com/";
 		this.PAGE_TITLE = "Home Page";
