@@ -10,7 +10,14 @@
 	"titleOfEmployee":"QA"
 	"departamentOfEmployee":"Quality Departament"
 	"primaryPhone":"2015555554"
-	"emergencyContact":""
+	"emergencyContact":
+		{
+			"name":"Bojan Petrovski"
+			"relationShip":"colleague"
+			"email":"bpetrovski@insynctive.com"
+			"phone":"38922461333"
+		}
+	
 	"ssn":"111223333"
 	"USAddress" :{
 		"street":"5th Street"

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
+@SuppressWarnings("unused")
 public class LoginPage extends Page implements PageInterface{
 	
 	/* Account of test */
@@ -43,6 +44,7 @@ public class LoginPage extends Page implements PageInterface{
 
     /* Actions **/
     public void login(String email, String password) throws Exception {
+    	loginUsernameField.clear();
        	setTextInField(loginUsernameField, email);
        	setText_PassField(password);
        	clickAButton(loginButton);

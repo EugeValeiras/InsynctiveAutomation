@@ -28,6 +28,8 @@ public class PersonData {
 			this.status = status;
 		}
 	}
+
+	private static final String JSONObject = null;
 	
 	// PROPERTIES PATH
 	private String DEFAULT_FILE = "personFileData.json";
@@ -44,7 +46,7 @@ public class PersonData {
 	private String titleOfEmployee;
 	private String departamentOfEmployee;
 	private String primaryPhone;
-	private String emergencyContact;
+	private EmergencyContact emergencyContact;
 	private USAddress usAddress;
 	private Dependent Dependents;
 	private String searchEmail;
@@ -94,7 +96,11 @@ public class PersonData {
 			titleOfEmployee = (String)person.get("titleOfEmployee");
 			departamentOfEmployee = (String)person.get("departamentOfEmployee");
 			primaryPhone = (String)person.get("primaryPhone");
-			emergencyContact = (String)person.get("emergencyContact");
+
+			JSONObject emg = (JSONObject) person.get("emergencyContact");
+			emergencyContact = new EmergencyContact((String) emg.get("name"),
+					(String) emg.get("relationShip"),
+					(String) emg.get("email"), (String) emg.get("phone"));
 			
 			JSONObject jsonUSAddres = (JSONObject)person.get("USAddress");
 			usAddress = new USAddress();
@@ -185,11 +191,11 @@ public class PersonData {
 		this.primaryPhone = primaryPhone;
 	}
 
-	public String getEmergencyContact() {
+	public EmergencyContact getEmergencyContact() {
 		return emergencyContact;
 	}
 
-	public void setEmergencyContact(String emergencyContact) {
+	public void setEmergencyContact(EmergencyContact emergencyContact) {
 		this.emergencyContact = emergencyContact;
 	}
 

@@ -5,6 +5,7 @@ import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
 import insynctive.pages.insynctive.PersonFilePage;
 import insynctive.utils.Debugger;
+import insynctive.utils.EmergencyContact;
 import insynctive.utils.PersonData;
 import insynctive.utils.data.TestEnvironment;
 
@@ -62,6 +63,62 @@ public class PersonFileTest extends TestMachine {
 			assertTrue(result);
 		} catch(Exception ex){
 			failTest("Open Person File", ex, isSaucelabs);
+			assertTrue(false);
+		}
+	}
+	
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	public void addEmergencyContact(TestEnvironment testEnvironment) throws Exception{
+		try{
+			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
+			EmergencyContact emg = person.getEmergencyContact();
+			personFilePage.addEmergencyContact(emg.getName(), emg.getRelationship(), emg.getPhone(), emg.getEmail());
+			
+			boolean result = personFilePage.isEmergencyContactAdded(emg);
+			Debugger.log("Add Emergency Contact => "+result, isSaucelabs);
+			setResult(result, "Add Emergency Contact");
+			assertTrue(result);
+		}catch (Exception ex){ 
+			failTest("Add Emergency Contact", ex, isSaucelabs);
+			assertTrue(false);
+		}
+	}
+	
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	public void changeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
+		try{
+			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
+			EmergencyContact emg = person.getEmergencyContact();
+			personFilePage.editEmergencyContact(emg.getName()+"Test", emg.getRelationship(), emg.getPhone(), emg.getEmail());
+			
+			String name = emg.getName();
+			emg.setName(emg.getName()+"Test");
+			
+			boolean result = personFilePage.isEmergencyContactAdded(emg);
+			emg.setName(name); //return the default name
+			
+			Debugger.log("Change Emergency Contact => "+result, isSaucelabs);
+			setResult(result, "Change Emergency Contact");
+			assertTrue(result);
+		}catch (Exception ex){ 
+			failTest("Change Emergency Contact", ex, isSaucelabs);
+			assertTrue(false);
+		}
+	}
+	
+	//in progress
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	public void removeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
+		try{
+			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
+			personFilePage.removeLastEmergencyContact();
+		
+			boolean result = personFilePage.isEmergencyContactAdded(emg);
+			Debugger.log("Add Emergency Contact => "+result, isSaucelabs);
+			setResult(result, "Add Emergency Contact");
+			assertTrue(result);
+		}catch (Exception ex){ 
+			failTest("Add Emergency Contact", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
@@ -318,6 +375,8 @@ public class PersonFileTest extends TestMachine {
 			assertTrue(false);
 		}
 	}
+	
+	
 
 }
 
