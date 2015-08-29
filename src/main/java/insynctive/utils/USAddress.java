@@ -3,11 +3,13 @@ package insynctive.utils;
 public class USAddress {
 
 	private String street;
+	private String apt;
 	private String secondStreet;
 	private String city;
 	private String state;
 	private String zipCode;
 	private String county;
+	private String shortDescription;
 	private boolean sameAsHome;
 	public String getStreet() {
 		return street;
@@ -50,5 +52,17 @@ public class USAddress {
 	}
 	public void setSameAsHome(boolean sameAsHome) {
 		this.sameAsHome = sameAsHome;
+	}
+	public String getApt() {
+		return apt;
+	}
+	public void setApt(String apt) {
+		this.apt = apt;
+	}
+	public String getShortDescription() {
+		return shortDescription;
+	}
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 }

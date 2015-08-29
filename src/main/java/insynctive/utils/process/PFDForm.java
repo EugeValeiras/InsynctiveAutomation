@@ -1,5 +1,6 @@
 package insynctive.utils.process;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -11,7 +12,8 @@ public class PFDForm extends Process implements PageInterface {
 	@FindBy(css = "#searchAppsResult > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr > td > a")
 	public WebElement processLink;
 	
-	public PFDForm(WhenStart whenStart) {
+	public PFDForm(WhenStart whenStart, WebDriver driver) {
+		super(driver);
 		this.whenStart = whenStart;
 	}
 

@@ -2,6 +2,7 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
+import insynctive.pages.insynctive.exception.ElementNotFoundException;
 import insynctive.utils.Checklist;
 import insynctive.utils.PersonData;
 import insynctive.utils.Sleeper;
@@ -190,7 +191,11 @@ public class HomeForAgentsPage extends Page implements PageInterface {
 	}
 
 	
-	public boolean isTaskAssign(Checklist checklist) {
-		return isElementPresent(findElementByText("a", checklist.getProcess().get(0).getTaskName()));
+	public boolean isTaskAssign(Checklist checklist) throws ElementNotFoundException {
+		return isElementPresent(findElementByText("a", checklist.getProcess().get(0).taskName));
+	}
+
+	public void openTask(Checklist checklist) throws ElementNotFoundException {
+		findElementByText("a", checklist.getProcess().get(0).taskName).click();;
 	}
 }

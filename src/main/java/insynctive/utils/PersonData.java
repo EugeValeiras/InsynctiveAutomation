@@ -51,7 +51,7 @@ public class PersonData {
 	private Dependent Dependents;
 	private String searchEmail;
 	private String ssn;
-	
+
 	JSONParser parser = new JSONParser();
 
 	public PersonData(InsynctivePropertiesReader properties) {
@@ -253,6 +253,11 @@ public class PersonData {
 
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
+	}
+	
+	@Override
+	public String toString() {
+		return this.name + " "+this.lastName;
 	}
 
 }

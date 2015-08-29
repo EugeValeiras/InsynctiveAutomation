@@ -2,6 +2,7 @@ package insynctive.utils.process;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -17,16 +18,17 @@ public class W4 extends Process implements PageInterface {
 	@FindBy(id = "lnkChangeIsRequiredActiveEmployeeW2")
 	public WebElement chngeRequiredActiveEMployee;
 	
-	public String TaskName = "Fill in and sign W-4 Form";
 	public boolean needActiveEmployee;
 	
-	public W4(WhenStart whenStart, boolean needActiveEmployee) {
+	public W4(WhenStart whenStart, boolean needActiveEmployee, WebDriver driver) {
+		super(driver);
 		this.whenStart = whenStart;
 		this.needActiveEmployee = needActiveEmployee;
+		this.taskName = "Fill in and sign W-4 Form";
 	}
 
 	@Override
-	public void completeSteps() throws Exception {
+	public void completeStepsToCreate() throws Exception {
 		waitPageIsLoad();
 		swichToIframe(contentiframe);
 		if(needActiveEmployee) clickAButton(chngeRequiredActiveEMployee);

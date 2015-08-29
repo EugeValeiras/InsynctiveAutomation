@@ -2,12 +2,14 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
+import insynctive.pages.insynctive.exception.ElementNotFoundException;
 import insynctive.utils.Checklist;
 import insynctive.utils.Sleeper;
 import insynctive.utils.data.Employee;
 import insynctive.utils.process.I9;
 import insynctive.utils.process.Process;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -140,7 +142,7 @@ public class CheckListsPage extends Page implements PageInterface{
 		swichToIframe(startCheckListiFrame);
 		selectElementInCombo(chooseChecklist, "Test Process "+checklist.getName());
 		Sleeper.sleep(1000, driver);
-		setTextInCombo(choosePerson, employee.fullName);
+		setTextInCombo(choosePerson, employee.personData.toString());
 		Sleeper.sleep(1000, driver); 
 		clickAButton(startNewChecklist);
 		
@@ -178,10 +180,28 @@ public class CheckListsPage extends Page implements PageInterface{
 		Sleeper.sleep(3500, driver);
 		setTextInField(searchTemplate, newCheckListName);
 		waitUntilnotVisibility(loadingSpinner);
-		Sleeper.sleep(10000, driver);
-		clickAButton(deleteTemplate);
-		clickAButton(deleteFinalTemplate);
+		deleteChecklist(newCheckListName);
 		Sleeper.sleep(4500, driver);
 		createChecklist(checklist, false);
+	}
+
+	private void deleteChecklist(String newCheckListName) throws Exception {
+		int times = 1;
+		boolean elementIsNotClickeable = true;
+		WebElement deleteTask = null;
+		while(elementIsNotClickeable && (times <= 20)){
+			try{
+				Sleeper.sleep(1000, driver);
+				deleteTask = findElementByText("span", newCheckListName)
+						.findElement(By.xpath(".."))
+						.findElement(By.xpath(".."))
+						.findElement(By.xpath(".."))
+						.findElement(By.cssSelector("img.clickable"));
+				clickAButton(deleteTask);
+				clickAButton(deleteFinalTemplate);
+				elementIsNotClickeable = false;
+			} catch (Exception ex){times++;/*THE ELEMENT IS NOT FOUND*/}
+		}
+		if(deleteTask == null){throw new ElementNotFoundException("The Checklists "+newCheckListName+" is not found after"+ times +" segs wait", null);}
 	}
 }

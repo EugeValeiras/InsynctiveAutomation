@@ -83,7 +83,7 @@ public class TemplatePage extends Page implements PageInterface{
 			waitAddProcessPage();
 			Sleeper.sleep(4000, driver);
 			clickAButton(process.getElement());
-			process.completeSteps();
+			process.completeStepsToCreate();
 		}
 		Sleeper.sleep(4000, driver);
 	}

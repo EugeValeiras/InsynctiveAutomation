@@ -3,6 +3,7 @@ package insynctive.utils.process;
 import insynctive.pages.Page;
 import insynctive.pages.insynctive.exception.MethodNoImplementedException;
 import insynctive.utils.WhenStart;
+import insynctive.utils.data.Employee;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,12 +16,17 @@ public abstract class Process extends Page{
 	public WhenStart whenStart;
 	@FindBy(css = "TO OVERRIDE")
 	public 	WebElement processLink;
-	public String TaskName = "DEFAULT TASK NAME";
+	public String taskName = "DEFAULT TASK NAME";
+	public Employee employee;
 	
 	@FindBy(id = "contentframe")
 	WebElement contentiframe;
 	@FindBy(id = "nextButton")
 	WebElement nextButton;
+	
+	public Process(WebDriver driver){
+		super(driver);
+	}
 	
 	public WebElement getElement() throws Exception{
 		waitUntilIsLoaded(processLink);
@@ -39,11 +45,11 @@ public abstract class Process extends Page{
 		this.version = version;
 	}
 
-	public void completeSteps() throws Exception{
-		throw new MethodNoImplementedException("completeSteps no implemented");
+	public void completeStepsToCreate() throws Exception{
+		throw new MethodNoImplementedException("completeStepsToCreate no implemented");
 	}
 	
-	public String getTaskName() {
-		return TaskName;
+	public void completeSteps() throws Exception{
+		throw new MethodNoImplementedException("completeSteps no implemented");
 	}
 }

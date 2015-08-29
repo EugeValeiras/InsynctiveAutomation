@@ -13,6 +13,8 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 
+import com.sun.jna.platform.win32.WinUser.INPUT;
+
 public class InsynctivePropertiesReader {
 
 	//INSTANCE
@@ -48,6 +50,9 @@ public class InsynctivePropertiesReader {
 
 	// ChecklistList
 	private List<Checklist> checklists;
+
+	private boolean notification;
+	
 
 	public InsynctivePropertiesReader() throws ConfigurationException {
 		if (isInstance == null){
@@ -118,7 +123,9 @@ public class InsynctivePropertiesReader {
 
 			// Get all properties
 			enviroment = accountsProperties.getProperty("environment");
-
+			notification = Boolean.parseBoolean(accountsProperties.getProperty("notification"));
+			
+			
 			loginUsername = accountsProperties.getProperty("loginUsername");
 			loginPassword = accountsProperties.getProperty("loginPassword");
 
@@ -169,13 +176,31 @@ public class InsynctivePropertiesReader {
 				insynctiveProp.DEFAULT_ACCOUNTS_PROPERTIES);
 		accountsProperties.load(fileInput);
 
-		// Get all properties
 		insynctiveProp.saucelabs = accountsProperties.getProperty("saucelabs");
 		return Boolean.parseBoolean(insynctiveProp.saucelabs);
 
-	} catch (Exception ex) {
-		throw new ConfigurationException("Check config file => "+ ex.getMessage());
-	}}
+		} catch (Exception ex) {
+			throw new ConfigurationException("Check config file => "+ ex.getMessage());
+		}
+	}
+	
+	public static boolean isNotificationActive() throws ConfigurationException {try {
+		InsynctivePropertiesReader insynctiveProp;
+		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+		
+		// Open Properties Files
+		Properties accountsProperties = new Properties();
+		FileInputStream fileInput = new FileInputStream(
+				insynctiveProp.DEFAULT_ACCOUNTS_PROPERTIES);
+		accountsProperties.load(fileInput);
+
+		insynctiveProp.notification = Boolean.parseBoolean(accountsProperties.getProperty("saucelabs"));
+		return insynctiveProp.notification;
+
+		} catch (Exception ex) {
+			throw new ConfigurationException("Check config file => "+ ex.getMessage());
+		}
+	}
 
 	public void addAppToList(App app) {
 		apps.add(app);
@@ -277,5 +302,13 @@ public class InsynctivePropertiesReader {
 
 	public void setNewEmployeeDepartment(String newEmployeeDepartment) {
 		this.newEmployeeDepartment = newEmployeeDepartment;
+	}
+
+	public boolean isNotification() {
+		return notification;
+	}
+
+	public void setNotification(boolean notification) {
+		this.notification = notification;
 	}
 }
