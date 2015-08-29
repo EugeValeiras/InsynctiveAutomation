@@ -39,10 +39,11 @@ public class ChecklistsTest extends TestMachine {
 		this.sessionName = "Checklist Sanity Tests";
 	}
 	
-
-	@DataProvider(name = "hardCodedBrowsers", parallel = true)
+	@DataProvider(name = "hardCodedBrowsers", parallel = false)
 	public static Object[][] sauceBrowserDataProvider(Method testMethod) {
 		return new Object[][] { new Object[] { TestEnvironment.FIREFOX }
+//				{TestEnvironment.CHROME}, 
+//				{TestEnvironment.IE}
 		};
 	}
 	
@@ -51,15 +52,16 @@ public class ChecklistsTest extends TestMachine {
 		startTest(testEnvironment);
 		
 		Checklist checklist = new Checklist("I9 Template");
-		checklist.addProcess(new I9(WhenStart.ASAP));
 		Employee employee = Employee.W2_EMPLOYEE;
+		checklist.addProcess(new I9(WhenStart.ASAP, employee, driver));
 		
 		try{
-			HomeForAgentsPage homeForAgent = 
-					createAndAssignTask(checklist, employee);
+			HomeForAgentsPage homeForAgent = createAndAssignTask(checklist, employee);
 			
 			boolean result = homeForAgent.isTaskAssign(checklist);
-
+			homeForAgent.openTask(checklist);
+			checklist.getProcess().get(0).completeSteps();
+			
 			setResult(result, "Start I9 Checklist");
 			Debugger.log("asssignI9Task => "+result, isSaucelabs);
 			assertTrue(result);
@@ -74,7 +76,7 @@ public class ChecklistsTest extends TestMachine {
 		startTest(testEnvironment);
 		
 		Checklist checklist = new Checklist("W4 Template");
-		checklist.addProcess(new W4(WhenStart.ASAP, false));
+		checklist.addProcess(new W4(WhenStart.ASAP, false, driver));
 		Employee employee = Employee.W2_EMPLOYEE;
 		
 		try{
@@ -97,7 +99,7 @@ public class ChecklistsTest extends TestMachine {
 		startTest(testEnvironment);
 		
 		Checklist checklist = new Checklist("W4 Template");
-		checklist.addProcess(new W4(WhenStart.ASAP, false));
+		checklist.addProcess(new W4(WhenStart.ASAP, false, driver));
 		Employee employee = Employee.W2_EMPLOYEE;
 		
 		try{
@@ -120,7 +122,7 @@ public class ChecklistsTest extends TestMachine {
 		startTest(testEnvironment);
 		
 		Checklist checklist = new Checklist("Assignt Task Template");
-		checklist.addProcess(new AssignTask(WhenStart.ASAP, Employee.AGENT_OFFICER));
+		checklist.addProcess(new AssignTask(WhenStart.ASAP, Employee.AGENT_OFFICER, driver));
 		Employee employee = Employee.W2_EMPLOYEE;
 		
 		try{
@@ -138,7 +140,6 @@ public class ChecklistsTest extends TestMachine {
 		}
 	}
 
-	
 	//PRIVATE
 	private HomeForAgentsPage createAndAssignTask(Checklist checklist,
 			Employee employee) throws Exception, Throwable {
@@ -152,7 +153,7 @@ public class ChecklistsTest extends TestMachine {
 		checkListsPage.assignChecklist(checklist,employee,true);
 		
 		checkListsPage.logout();
-		loginAsEmployee(employee.email, employee.password);
+		loginAsEmployee(employee.personData.getEmail(), employee.password);
 		homeForAgent.goToTasks();
 		return homeForAgent;
 	}

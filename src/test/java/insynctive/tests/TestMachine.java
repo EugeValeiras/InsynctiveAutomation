@@ -55,8 +55,8 @@ public abstract class TestMachine {
 	private String slackChannel = "https://hooks.slack.com/services/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";
 
 	//CROSSBROWSING
-	String username = "eugenio.valeiras+2@gmail.com";
-	String password = "ue89b3349b1c2eef";
+	String username = "eugenio.valeiras+6@gmail.com";
+	String password = "u1546bdecde906a1";
 	
 	private String getJobURL() throws IOException, JSONException {
 		return getPublicVideoLinkOfJob();
@@ -173,7 +173,7 @@ public abstract class TestMachine {
 		if(InsynctivePropertiesReader.IsSauceLabs()){
 			makeCurlToChangeStatus();
 		}
-		sendSlack();
+		if(InsynctivePropertiesReader.isNotificationActive()) {sendSlack();}
 	}
 	
 	public JSONObject makeCurl(String url, String type) throws IOException, JSONException{

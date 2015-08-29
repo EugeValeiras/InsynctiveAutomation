@@ -45,10 +45,11 @@ public class PersonData {
 	private String departamentOfEmployee;
 	private String primaryPhone;
 	private String emergencyContact;
-	private USAddress usAddress;
-	private Dependent Dependents;
 	private String searchEmail;
 	private String ssn;
+
+	private USAddress usAddress;
+	private Dependent Dependents;
 	
 	JSONParser parser = new JSONParser();
 
@@ -247,6 +248,11 @@ public class PersonData {
 
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
+	}
+	
+	@Override
+	public String toString() {
+		return this.name + " "+this.lastName;
 	}
 
 }

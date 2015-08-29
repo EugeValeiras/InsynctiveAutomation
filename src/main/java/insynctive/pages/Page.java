@@ -13,10 +13,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import com.sun.jna.LastErrorException;
 
 public class Page {
 
@@ -53,6 +56,7 @@ public class Page {
     
     public Page(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public void swichToIframe(WebElement iframe) throws IOException, InterruptedException, ElementNotFoundException{
@@ -237,7 +241,7 @@ public class Page {
 	public boolean selectElementInCombo(WebElement combo, String text) throws Exception {
 		try{
 			clickAButton(combo);
-			clickAButton(driver.findElement(By.xpath("//li[contains(text(),'"+text+"')]" )));
+			(driver.findElement(By.xpath("//li[contains(text(),'"+text+"')]" ))).click();
 			return true;
 		} catch (NullPointerException nEx){
 			throw new ElementNotFoundException(getMessageFromWebElement(combo)+" is not found",null);
@@ -252,6 +256,21 @@ public class Page {
 		String ErrorMessage = "InApp message Do not match > InApp<"+inAppNotification.getText()+"> Expected<"+assertMessage+">";
 		if(!inAppNotification.getText().equals(assertMessage)) throw new WrongMessageException(ErrorMessage, null);	
 		clickAButton(closeInAppNotification);
+	}
+	
+	public WebElement findElementByText(String tagName, String text) throws ElementNotFoundException{
+		WebElement element = null;
+		int times = 1;
+		boolean notFound = true;
+		while(times <= 20 && notFound)
+			try{
+				element = driver.findElement(By.xpath("//"+tagName+"[contains(text(),'"+text+"')]" ));
+				notFound = false;
+			} catch(Exception ex) {
+				times++;
+			}
+		if(element == null){throw new ElementNotFoundException(getMessageFromWebElement(element)+" is not found", null);}
+		return element;
 	}
 	
 	public String getMessageFromWebElement(WebElement element){
@@ -269,7 +288,13 @@ public class Page {
 		Sleeper.sleep(1000, driver);
 	}
 	
-	public WebElement findElementByText(String tagName, String text){
-		return driver.findElement(By.xpath("//"+tagName+"[contains(text(),'"+text+"')]" ));
+	public boolean isElementTextEquals(WebElement element, String lastName) throws IOException, InterruptedException, ElementNotFoundException {
+		waitUntilIsLoaded(element);
+		return element.getText().equals(lastName);
+	}
+	
+	public boolean isElementValueEquals(WebElement element, String lastName) throws IOException, InterruptedException, ElementNotFoundException {
+		waitUntilIsLoaded(element);
+		return element.getAttribute("value").equals(lastName);
 	}
 }

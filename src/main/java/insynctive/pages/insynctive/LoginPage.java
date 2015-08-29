@@ -43,7 +43,7 @@ public class LoginPage extends Page implements PageInterface{
 
     /* Actions **/
     public void login(String email, String password) throws Exception {
-       	setTextInField(loginUsernameField, email);
+    	setTextInField(loginUsernameField, email);
        	setText_PassField(password);
        	clickAButton(loginButton);
     }

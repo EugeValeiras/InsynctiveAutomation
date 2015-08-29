@@ -2,6 +2,7 @@ package insynctive.utils.process;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -15,7 +16,6 @@ public class AssignTask extends Process implements PageInterface {
 
 	@FindBy(css = "#searchAppsResult > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td > a")
 	public WebElement processLink;
-	public String TaskName = "Assign Task";
 	public Employee processedEmployee;
 	public String instruction;
 	public String additionalInstruction;
@@ -31,7 +31,7 @@ public class AssignTask extends Process implements PageInterface {
 	@FindBy(id = "froalaEditor")
 	WebElement AdditionalInstructioniFrame;
 	@FindBy(id = "lName")
-	WebElement taskName;
+	WebElement taskNameElement;
 	@FindBy(id = "txtTaskInstructions")
 	WebElement taskInstuctions;
 	@FindBy(className = "froala-element")
@@ -39,18 +39,20 @@ public class AssignTask extends Process implements PageInterface {
 	@FindBy(id = "btnSave")
 	public WebElement saveTaskConfig;
 	
-	public AssignTask(WhenStart whenStart, Employee processedEmployee) {
+	public AssignTask(WhenStart whenStart, Employee processedEmployee, WebDriver driver) {
+		super(driver);
 		this.whenStart = whenStart;
 		this.processedEmployee = processedEmployee;
+		this.taskName = "Assign Task";
 	}
 	
 	@Override
-	public void completeSteps() throws Exception {
+	public void completeStepsToCreate() throws Exception {
 		waitPageIsLoad();
 		//Step 1
 		swichToIframe(contentiframe);
 		clickAButton(processedPersonLink);
-		clickAButton(findElementByText("td", processedEmployee.fullName));
+		clickAButton(findElementByText("td", processedEmployee.personData.toString()));
 		swichToFirstFrame(driver);
 		
 		//CONFIG TASK
