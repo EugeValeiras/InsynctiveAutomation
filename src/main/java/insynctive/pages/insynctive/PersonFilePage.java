@@ -569,7 +569,16 @@ public class PersonFilePage extends Page implements PageInterface {
 		return lastEmergencyContactName.getText().equals(emg.getName());
 
 	}
+	
+	public boolean isEmergencyContactRemoved(int count)
+			throws Exception {
+		Sleeper.sleep(5000, driver);
+		waitPageIsLoad();		
+		return this.getNumberOfEmergencyContacts() < count;
 
+	}
+	
+	
 	/* Waits Methods */
 	@Override
 	public void waitPageIsLoad() throws Exception {
@@ -609,6 +618,13 @@ public class PersonFilePage extends Page implements PageInterface {
 		waitUntilIsLoaded(emergencyContactEmail);
 		waitUntilIsLoaded(relationship);
 
+	}
+	/* Utilities */
+	public int getNumberOfEmergencyContacts () throws Exception
+	{
+		waitPageIsLoad();
+     	return driver.findElements(By.cssSelector("#content > div:nth-of-type(5) > div > div")).size();
+	
 	}
 
 	/* Private Methods */
@@ -698,6 +714,7 @@ public class PersonFilePage extends Page implements PageInterface {
 		waitUntilIsLoaded(startChecklistButton);
 		startChecklistButton.click();
 	}
+	
 
 	// TODO METHODS
 	@Override

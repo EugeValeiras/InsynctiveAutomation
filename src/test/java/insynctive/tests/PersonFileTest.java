@@ -67,61 +67,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void addEmergencyContact(TestEnvironment testEnvironment) throws Exception{
-		try{
-			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
-			EmergencyContact emg = person.getEmergencyContact();
-			personFilePage.addEmergencyContact(emg.getName(), emg.getRelationship(), emg.getPhone(), emg.getEmail());
-			
-			boolean result = personFilePage.isEmergencyContactAdded(emg);
-			Debugger.log("Add Emergency Contact => "+result, isSaucelabs);
-			setResult(result, "Add Emergency Contact");
-			assertTrue(result);
-		}catch (Exception ex){ 
-			failTest("Add Emergency Contact", ex, isSaucelabs);
-			assertTrue(false);
-		}
-	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
-		try{
-			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
-			EmergencyContact emg = person.getEmergencyContact();
-			personFilePage.editEmergencyContact(emg.getName()+"Test", emg.getRelationship(), emg.getPhone(), emg.getEmail());
-			
-			String name = emg.getName();
-			emg.setName(emg.getName()+"Test");
-			
-			boolean result = personFilePage.isEmergencyContactAdded(emg);
-			emg.setName(name); //return the default name
-			
-			Debugger.log("Change Emergency Contact => "+result, isSaucelabs);
-			setResult(result, "Change Emergency Contact");
-			assertTrue(result);
-		}catch (Exception ex){ 
-			failTest("Change Emergency Contact", ex, isSaucelabs);
-			assertTrue(false);
-		}
-	}
-	
-	//in progress
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void removeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
-		try{
-			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
-			personFilePage.removeLastEmergencyContact();
-		
-			boolean result = personFilePage.isEmergencyContactAdded(emg);
-			Debugger.log("Add Emergency Contact => "+result, isSaucelabs);
-			setResult(result, "Add Emergency Contact");
-			assertTrue(result);
-		}catch (Exception ex){ 
-			failTest("Add Emergency Contact", ex, isSaucelabs);
-			assertTrue(false);
-		}
-	}
 
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
 	public void changePrimaryEmail(TestEnvironment testEnvironment) throws Exception {
@@ -372,6 +318,63 @@ public class PersonFileTest extends TestMachine {
 			assertTrue(result);
 		}catch (Exception ex){ 
 			failTest("Add Social Security Number", ex, isSaucelabs);
+			assertTrue(false);
+		}
+	}
+	
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	public void addEmergencyContact(TestEnvironment testEnvironment) throws Exception{
+		try{
+			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
+			EmergencyContact emg = person.getEmergencyContact();
+			personFilePage.addEmergencyContact(emg.getName(), emg.getRelationship(), emg.getPhone(), emg.getEmail());
+			
+			boolean result = personFilePage.isEmergencyContactAdded(emg);
+			Debugger.log("Add Emergency Contact => "+result, isSaucelabs);
+			setResult(result, "Add Emergency Contact");
+			assertTrue(result);
+		}catch (Exception ex){ 
+			failTest("Add Emergency Contact", ex, isSaucelabs);
+			assertTrue(false);
+		}
+	}
+	
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	public void changeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
+		try{
+			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
+			EmergencyContact emg = person.getEmergencyContact();
+			personFilePage.editEmergencyContact(emg.getName()+"Test", emg.getRelationship(), emg.getPhone(), emg.getEmail());
+			
+			String name = emg.getName();
+			emg.setName(emg.getName()+"Test");
+			
+			boolean result = personFilePage.isEmergencyContactAdded(emg);
+			emg.setName(name); //return the default name
+			
+			Debugger.log("Change Emergency Contact => "+result, isSaucelabs);
+			setResult(result, "Change Emergency Contact");
+			assertTrue(result);
+		}catch (Exception ex){ 
+			failTest("Change Emergency Contact", ex, isSaucelabs);
+			assertTrue(false);
+		}
+	}
+	
+	
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	public void removeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
+		try{
+			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
+			int count = personFilePage.getNumberOfEmergencyContacts();
+			personFilePage.removeLastEmergencyContact();
+		
+			boolean result = personFilePage.isEmergencyContactRemoved(count);
+			Debugger.log("Remove Emergency Contact => "+result, isSaucelabs);
+			setResult(result, "Add Emergency Contact");
+			assertTrue(result);
+		}catch (Exception ex){ 
+			failTest("Remove Emergency Contact", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
