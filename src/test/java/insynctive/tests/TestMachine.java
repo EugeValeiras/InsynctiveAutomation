@@ -55,8 +55,8 @@ public abstract class TestMachine {
 	private String slackChannel = "https://hooks.slack.com/services/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";
 
 	//CROSSBROWSING
-	String username = "eugenio.valeiras+6@gmail.com";
-	String password = "u1546bdecde906a1";
+	String username = "eugenio.valeiras+7@gmail.com";
+	String password = "u2bceef692464aa4";
 	
 	private String getJobURL() throws IOException, JSONException {
 		return getPublicVideoLinkOfJob();
@@ -146,16 +146,18 @@ public abstract class TestMachine {
 	}
 
 	public void failTest(String testName,Exception ex, boolean isSaucelabs) throws Exception{
+		System.out.println(ex.getStackTrace()[0]);
+		System.out.println(ex.getStackTrace()[1]);
 		Throwable cause = ex.getCause();
 		String exMessage = ex.getMessage();
 		String nameAndCause = "";
 
 		if(cause != null){
-			nameAndCause = testName+" => " + cause.getMessage();
+			nameAndCause = testName+" => " + cause.getMessage()+" |  StackTrace => "+ex.getStackTrace().toString();
 		} else if(exMessage != null) {
-			nameAndCause = testName+" =>  "+exMessage;
+			nameAndCause = testName+" =>  "+exMessage +" |  StackTrace => "+ex.getStackTrace().toString();
 		} else {
-			nameAndCause = testName+" => "+ (ex != null ? ex : "EXCEPTION");
+			nameAndCause = testName+" => "+ (ex != null ? ex +" |  StackTrace => "+ex.getStackTrace().toString() : "EXCEPTION");
 		}
 		
 		Debugger.log(nameAndCause, isSaucelabs);

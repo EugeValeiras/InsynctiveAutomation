@@ -21,13 +21,13 @@ public class I9 extends Process implements PageInterface {
 	public WebElement processLink;
 	
 	/* Create Form */
-	//First Step
+	//Process Setting
 	@FindBy(id = "representativeKey")
 	WebElement companyRepresentative;
 	@FindBy(id = "btnYourselfRepresentative")
 	WebElement pickYourselt;
 	
-	//Second Step
+	//Start Conditions
 	@FindBy(id = "changeStartConditions")
 	WebElement changeStartCondition;
 	@FindBy(id = "immeditStartConditions")
@@ -135,36 +135,21 @@ public class I9 extends Process implements PageInterface {
 	@Override
 	public void completeSteps() throws Exception{
 		//Step 1
-		swichToFirstFrame(driver);
-		swichToIframe(taskiFrame);
-		checkIdFirstStepIsCompletedOk();
-		clickAButton(nextToSecondTaskButton);
-		Sleeper.sleep(4000, driver);
-		
+		completeStepOne();
 		//Step 2
-		addUsAddress();
-		clickAButton(nextToThirdStepTaskButton);
-		Sleeper.sleep(4000, driver);
-		
+		completeStepTwo();
 		//Step 3
-		setTextInField(ssnField, employee.personData.getSsn());
-		setTextInField(dateBirthField, employee.personData.getBirthDate());
-		clickAButton(nextToFourthButton);
-		Sleeper.sleep(4000, driver);
-		
+		completeStepThree();
 		//Step 4
-//		if(!isElementTextEquals(emailField, employee.personData.getEmail())){throw new Exception("The information autocompleted in the fourth Step is wrong");};
-		setTextInField(mobilePhoneField, employee.personData.getPrimaryPhone());
-		clickAButton(nextToFifthButton);
-		Sleeper.sleep(4000, driver);
-		
+		completeStepFourth();
 		//Step 5
-		clickAButton(prejuryField);
-		clickAButton(citizenOfTheUS);//select a citizen of the united states
-		clickAButton(nextToFinalStep);
-		Sleeper.sleep(6000, driver);
-
+		completeStepFifth();
 		//Final Step
+		completeFinalStep();
+	}
+
+	private void completeFinalStep() throws Exception,
+			ElementNotFoundException, IOException, InterruptedException {
 		checkIfAllInformationIsOk();
 //		swichToFirstFrame(driver);
 //		swichToIframe(taskiFrame);
@@ -175,6 +160,45 @@ public class I9 extends Process implements PageInterface {
 		setTextInField(signatureField, employee.personData.toString());
 		Sleeper.sleep(2000, driver);
 		clickAButton(submitForm);
+	}
+
+	private void completeStepFifth() throws Exception {
+		clickAButton(prejuryField);
+		clickAButton(citizenOfTheUS);//select a citizen of the united states
+		clickAButton(nextToFinalStep);
+		Sleeper.sleep(6000, driver);
+	}
+
+	private void completeStepFourth() throws ElementNotFoundException,
+			IOException, InterruptedException, Exception {
+		//		if(!isElementTextEquals(emailField, employee.personData.getEmail())){throw new Exception("The information autocompleted in the fourth Step is wrong");};
+				setTextInField(mobilePhoneField, employee.personData.getPrimaryPhone());
+				clickAButton(nextToFifthButton);
+				Sleeper.sleep(4000, driver);
+	}
+
+	private void completeStepThree() throws ElementNotFoundException,
+			IOException, InterruptedException, Exception {
+		setTextInField(ssnField, employee.personData.getSsn());
+		setTextInField(dateBirthField, employee.personData.getBirthDate());
+		clickAButton(nextToFourthButton);
+		Sleeper.sleep(4000, driver);
+	}
+
+	private void completeStepTwo() throws Exception, ElementNotFoundException,
+			IOException, InterruptedException {
+		addUsAddress();
+		clickAButton(nextToThirdStepTaskButton);
+		Sleeper.sleep(4000, driver);
+	}
+
+	private void completeStepOne() throws IOException, InterruptedException,
+			ElementNotFoundException, Exception {
+		swichToFirstFrame(driver);
+		swichToIframe(taskiFrame);
+		checkIdFirstStepIsCompletedOk();
+		clickAButton(nextToSecondTaskButton);
+		Sleeper.sleep(4000, driver);
 	}
 
 	private void checkIfAllInformationIsOk() {
@@ -207,7 +231,7 @@ public class I9 extends Process implements PageInterface {
 	}
 	
 	@Override
-	public void waitPageIsLoad() throws IOException, InterruptedException, ElementNotFoundException{
+	public void waitPageIsLoad() throws IOException, InterruptedException, ElementNotFoundException {
 		waitUntilIsLoaded(nextButton);
 		swichToIframe(contentiframe);
 		waitUntilIsLoaded(companyRepresentative);

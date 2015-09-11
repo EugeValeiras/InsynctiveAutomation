@@ -92,13 +92,13 @@ public class CheckListsPage extends Page implements PageInterface{
 		String newCheckListName = "Test Process "+checkList.getName();
 
 		goToChecklistTemplate();
-		Sleeper.sleep(1000, driver);
+		Sleeper.sleep(1500, driver);
 		waitUntilIsLoaded(addTemplateBtn);
 		clickAButton(addTemplateBtn);
 		
-		Sleeper.sleep(1000, driver);
+		Sleeper.sleep(2000, driver);
 		setTextInField(checkListNameField, newCheckListName);
-		Sleeper.sleep(3000, driver);
+		Sleeper.sleep(1500, driver);
 		clickAButton(saveNewTemplate);
 		Sleeper.sleep(5000, driver);
 		waitUntilNameIsVisible(firstTemplateSpan, newCheckListName);
@@ -133,6 +133,7 @@ public class CheckListsPage extends Page implements PageInterface{
 		swichToFirstFrame(driver);
 		clickAButton(btnStartChecklist);
 		swichToIframe(startCheckListiFrame);
+		Sleeper.sleep(1500, driver);
 		boolean checklistExist = selectElementInCombo(chooseChecklist, "Test Process "+checklist.getName());
 		Sleeper.sleep(1000, driver);
 		if(restartChecklist){
@@ -175,11 +176,11 @@ public class CheckListsPage extends Page implements PageInterface{
 	
 	private void deleteThenCreate(Checklist checklist) throws Throwable {
 		String newCheckListName = "Test Process "+checklist.getName();
-		loadPage();//THIS IS BECAUSE JS IS FULLY
+		loadPage();//THIS IS BECAUSE JS IS FULLY TODO
 		goToChecklistTemplate();
 		Sleeper.sleep(3500, driver);
 		setTextInField(searchTemplate, newCheckListName);
-		waitUntilnotVisibility(loadingSpinner);
+		Sleeper.sleep(2000, driver);
 		deleteChecklist(newCheckListName);
 		Sleeper.sleep(4500, driver);
 		createChecklist(checklist, false);

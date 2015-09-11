@@ -16,10 +16,19 @@ public class Task {
 	private String detail;
 	private String basicTaskInstruction;
 	private String additionalInstruction;
+	private boolean sign = false;
+	private boolean fill = false;
 	static JSONParser parser = new JSONParser();
 
 	
-	public Task() throws ConfigurationException {
+	public Task(String detail, String basicTaskInstruction, String additionalInstruction) throws ConfigurationException {
+		this.detail = detail;
+		this.basicTaskInstruction = basicTaskInstruction;
+		this.additionalInstruction = additionalInstruction;
+	}
+	
+	public Task(){
+		
 	}
 	
 	public static List<Task> getTasks() throws ConfigurationException{
@@ -49,19 +58,48 @@ public class Task {
 	public String getDetail() {
 		return detail;
 	}
-	public void setDetail(String detail) {
+	public Task setDetail(String detail) {
 		this.detail = detail;
+		return this;
 	}
 	public String getBasicTaskInstruction() {
 		return basicTaskInstruction;
 	}
-	public void setBasicTaskInstruction(String basicTaskInstruction) {
+	public Task setBasicTaskInstruction(String basicTaskInstruction) {
 		this.basicTaskInstruction = basicTaskInstruction;
+		return this;
 	}
 	public String getAdditionalInstruction() {
 		return additionalInstruction;
 	}
-	public void setAdditionalInstruction(String additionalInstruction) {
+	public Task setAdditionalInstruction(String additionalInstruction) {
 		this.additionalInstruction = additionalInstruction;
+		return this;
+	}
+
+	public boolean isFill() {
+		return fill;
+	}
+
+	public void setFill(boolean fill) {
+		this.fill = fill;
+	}
+
+	public boolean isSign() {
+		return sign;
+	}
+
+	public void setSign(boolean sign) {
+		this.sign = sign;
+	}
+	
+	public Task sign(){
+		this.sign = true;
+		return this;
+	}
+	
+	public Task fill(){
+		this.fill = true;
+		return this;
 	}
 }

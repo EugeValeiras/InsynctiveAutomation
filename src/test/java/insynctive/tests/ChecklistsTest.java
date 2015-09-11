@@ -9,11 +9,13 @@ import insynctive.pages.insynctive.exception.ConfigurationException;
 import insynctive.utils.Checklist;
 import insynctive.utils.Debugger;
 import insynctive.utils.PersonData;
+import insynctive.utils.Task;
 import insynctive.utils.WhenStart;
 import insynctive.utils.data.Employee;
 import insynctive.utils.data.TestEnvironment;
 import insynctive.utils.process.AssignTask;
 import insynctive.utils.process.I9;
+import insynctive.utils.process.PDFForm;
 import insynctive.utils.process.W4;
 import insynctive.utils.reader.InsynctivePropertiesReader;
 
@@ -59,14 +61,36 @@ public class ChecklistsTest extends TestMachine {
 			HomeForAgentsPage homeForAgent = createAndAssignTask(checklist, employee);
 			
 			boolean result = homeForAgent.isTaskAssign(checklist);
-			homeForAgent.openTask(checklist);
-			checklist.getProcess().get(0).completeSteps();
 			
 			setResult(result, "Start I9 Checklist");
 			Debugger.log("asssignI9Task => "+result, isSaucelabs);
 			assertTrue(result);
 		} catch (Exception ex){
 			failTest("Start I9 Checklist", ex, isSaucelabs);
+			assertTrue(false);
+		}
+	}
+	
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="startCheckListI9")
+	public void completeCheckListI9(TestEnvironment testEnvironment) throws Throwable {
+
+		Checklist checklist = new Checklist("I9 Template");
+		Employee employee = Employee.W2_EMPLOYEE;
+		checklist.addProcess(new I9(WhenStart.ASAP, employee, driver));
+		HomeForAgentsPage homeForAgent = createAndAssignTask(checklist, employee);
+		
+		try{
+		homeForAgent.openTask(checklist);
+		checklist.getProcess().get(0).completeSteps();
+			
+		boolean result = true;
+			
+		setResult(result, "Complete I9 Checklist");
+		Debugger.log("completeCheckListI9 => "+result, isSaucelabs);
+		assertTrue(result);
+		
+		} catch (Exception ex){
+			failTest("Complete I9 Checklist", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
@@ -94,13 +118,15 @@ public class ChecklistsTest extends TestMachine {
 		}
 	}
 	
-//	@Test(dataProvider = "hardCodedBrowsers")
+	@Test(dataProvider = "hardCodedBrowsers")
 	public void startCheckListPDF(TestEnvironment testEnvironment) throws Throwable {
 		startTest(testEnvironment);
 		
-		Checklist checklist = new Checklist("W4 Template");
-		checklist.addProcess(new W4(WhenStart.ASAP, false, driver));
+		Checklist checklist = new Checklist("PDF Template");
 		Employee employee = Employee.W2_EMPLOYEE;
+		Task task = new Task();
+		task.setBasicTaskInstruction("Fill And Sign the PDF").sign().fill();
+		checklist.addProcess(new PDFForm(WhenStart.ASAP, employee, task, driver));
 		
 		try{
 			HomeForAgentsPage homeForAgent = 
@@ -108,11 +134,11 @@ public class ChecklistsTest extends TestMachine {
 			
 			boolean result = homeForAgent.isTaskAssign(checklist);
 
-			setResult(result, "Start W4 Checklist");
+			setResult(result, "Start PDF Checklist");
 			Debugger.log("asssignW4Task => "+result, isSaucelabs);
 			assertTrue(result);
 		} catch (Exception ex){
-			failTest("Start W4 Checklist", ex, isSaucelabs);
+			failTest("Start PDF Checklist", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
