@@ -1,11 +1,31 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test Suite" verbose="1" >
+	<test name="changePrimaryEmail">
+	  <classes>
+	    <class name="insynctive.tests.PersonFileTest">
+	      <methods>
+	        <include name="loginTest" />
+	        <include name="openPersonFile" />
+	        <!-- <include name="addEmergencyContact" /> -->
+	        <!-- <include name="changeEmergencyContact" /> -->
+	        <!-- <include name="changeGender" /> -->
+	        <!-- <include name="changeMaritalStatus" /> -->
+	        <!-- <include name="changeName" /> -->
+	        <!-- <include name="changePrimaryEmail" /> -->
+	        <!-- <include name="removeEmergencyContact" /> -->
+	        <!-- <include name="addPhoneNumber" /> -->
+	        <!-- <include name="addTitle" /> -->
+	        <!-- <include name="changeName2" /> -->
+	        <!-- <include name="asssignTask" /> -->
+	        <!-- <include name="changeBirthDate" /> -->
+	        <!-- <include name="addUSAddress" /> -->
+	        <!-- <include name="addSocialSecurityNumber" /> -->
+	        <!-- <include name="startChecklist" /> -->
+	        
+	        <!-- <include name="removeUSAddress" /> -->
 
-<suite name="Sample Test Suite" verbose="1" parallel="methods" thread-count="6">
-	
-	<test name="Change Primary Email" ><classes><class name="insynctive.tests.PersonFileTest"><methods>
-		<include name="loginTest" />
-	    <include name="openPersonFile" />
-	    <include name="changeBirthDate" />
-	</methods></class></classes></test>
-	
-</suite>     
+	      </methods>
+	    </class>
+	  </classes>
+	</test>
+</suite>

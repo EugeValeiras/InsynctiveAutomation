@@ -7,6 +7,7 @@ import insynctive.pages.insynctive.PersonFilePage;
 import insynctive.utils.Debugger;
 import insynctive.utils.EmergencyContact;
 import insynctive.utils.PersonData;
+import insynctive.utils.Wait;
 import insynctive.utils.data.TestEnvironment;
 
 import java.io.IOException;
@@ -67,7 +68,6 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	
 
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
 	public void changePrimaryEmail(TestEnvironment testEnvironment) throws Exception {
@@ -111,7 +111,7 @@ public class PersonFileTest extends TestMachine {
 			
 			personFilePage.changeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
 			
-			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), true);
+			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), Wait.WAIT);
 			Debugger.log("changeName => "+result, isSaucelabs);
 			setResult(result, "change name 1");
 			assertTrue(result);
@@ -129,7 +129,7 @@ public class PersonFileTest extends TestMachine {
 			
 			personFilePage.changeNameIntoTitle(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
 			
-			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), true);
+			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), Wait.WAIT);
 			Debugger.log("changeName2 =>"+result, isSaucelabs);
 			setResult(result, "change name 2");
 			assertTrue(result);
@@ -360,7 +360,6 @@ public class PersonFileTest extends TestMachine {
 			assertTrue(false);
 		}
 	}
-	
 	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
 	public void removeEmergencyContact(TestEnvironment testEnvironment) throws Exception{

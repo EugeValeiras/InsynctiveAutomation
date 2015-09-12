@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="140178" started-at="2015-08-21T19:53:46Z" finished-at="2015-08-21T19:56:06Z">
+  <suite name="Test Suite" duration-ms="87190" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:36:42Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="140178" started-at="2015-08-21T19:53:46Z" finished-at="2015-08-21T19:56:06Z">
-      <class name="insynctive.tests.CreatePersonTest">
-        <test-method status="PASS" signature="tearUp()" name="tearUp" is-config="true" duration-ms="78" started-at="2015-08-21T19:53:46Z" finished-at="2015-08-21T19:53:46Z">
+    <test name="changePrimaryEmail" duration-ms="87190" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:36:42Z">
+      <class name="insynctive.tests.PersonFileTest">
+        <test-method status="PASS" signature="tearUp()" name="tearUp" is-config="true" duration-ms="126" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:35:15Z">
         </test-method>
-        <test-method status="PASS" signature="loginTest(insynctive.utils.TestEnvironment, org.testng.ITestContext)" name="loginTest" duration-ms="30852" started-at="2015-08-21T19:53:46Z" finished-at="2015-08-21T19:54:17Z">
+        <test-method status="PASS" signature="loginTest(insynctive.utils.data.TestEnvironment)" name="loginTest" duration-ms="24840" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:35:40Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Safari 8 | iPadAir]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[org.testng.TestRunner@7e84a12f]]>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
               </value>
             </param>
           </params>
         </test-method>
-        <test-method status="PASS" signature="createPersonTest(insynctive.utils.TestEnvironment)" name="createPersonTest" duration-ms="108257" started-at="2015-08-21T19:54:17Z" depends-on-methods="insynctive.tests.CreatePersonTest.loginTest" finished-at="2015-08-21T19:56:05Z">
+        <test-method status="PASS" signature="openPersonFile(insynctive.utils.data.TestEnvironment)" name="openPersonFile" duration-ms="8703" started-at="2015-09-12T14:35:40Z" depends-on-methods="insynctive.tests.PersonFileTest.loginTest" finished-at="2015-09-12T14:35:49Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Safari 8 | iPadAir]]>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
               </value>
             </param>
           </params>
         </test-method>
-        <test-method status="PASS" signature="teardown()" name="teardown" is-config="true" duration-ms="2" started-at="2015-08-21T19:56:06Z" finished-at="2015-08-21T19:56:06Z">
+        <test-method status="PASS" signature="startChecklist(insynctive.utils.data.TestEnvironment)" name="startChecklist" duration-ms="52682" started-at="2015-09-12T14:35:49Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-09-12T14:36:41Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="teardown()" name="teardown" is-config="true" duration-ms="1" started-at="2015-09-12T14:36:42Z" finished-at="2015-09-12T14:36:42Z">
         </test-method>
       </class>
     </test>

@@ -134,14 +134,14 @@ public class CheckListsPage extends Page implements PageInterface{
 		clickAButton(btnStartChecklist);
 		swichToIframe(startCheckListiFrame);
 		Sleeper.sleep(1500, driver);
-		boolean checklistExist = selectElementInCombo(chooseChecklist, "Test Process "+checklist.getName());
+		boolean checklistExist = selectElementInComboLi(chooseChecklist, "Test Process "+checklist.getName());
 		Sleeper.sleep(1000, driver);
 		if(restartChecklist){
 			if(!checklistExist) createChecklist(checklist,true); else deleteThenCreate(checklist);
 		}
 		clickAButton(btnStartChecklist);
 		swichToIframe(startCheckListiFrame);
-		selectElementInCombo(chooseChecklist, "Test Process "+checklist.getName());
+		selectElementInComboLi(chooseChecklist, "Test Process "+checklist.getName());
 		Sleeper.sleep(1000, driver);
 		setTextInCombo(choosePerson, employee.personData.toString());
 		Sleeper.sleep(1000, driver); 

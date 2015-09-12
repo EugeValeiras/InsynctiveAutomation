@@ -238,10 +238,18 @@ public class Page {
 		}
 	}
 	
-	public boolean selectElementInCombo(WebElement combo, String text) throws Exception {
+	public boolean selectElementInComboLi(WebElement combo, String text) throws Exception{
+		return selectElementInCombo(combo, text, "li");
+	}
+	
+	public boolean selectElementInComboOption(WebElement combo, String text) throws Exception{
+		return selectElementInCombo(combo, text, "option");
+	}
+	
+	public boolean selectElementInCombo(WebElement combo, String text, String typeOfContainer) throws Exception {
 		try{
 			clickAButton(combo);
-			(driver.findElement(By.xpath("//li[contains(text(),'"+text+"')]" ))).click();
+			clickAButton((driver.findElement(By.xpath("//"+typeOfContainer+"[contains(text(),'"+text+"')]" ))));
 			return true;
 		} catch (NullPointerException nEx){
 			throw new ElementNotFoundException(getMessageFromWebElement(combo)+" is not found",null);
