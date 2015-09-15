@@ -6,43 +6,51 @@
 	<groupId>insynctive</groupId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Insynctive Data Builder</name>
+	<name>Insynctive Automated Tests</name>
 	<description>
-    	ADD data to an Account.
+    	Automated Tests
     </description>
+	<properties>
+		<selenium.version>2.45.0</selenium.version>
+		<testNG-Version>6.9.4</testNG-Version>
+		<junit-Version>4.11</junit-Version>
+	</properties>
 	<dependencies>
-
-		<!-- REST API -->
-		<dependency>
-			<groupId>com.saucelabs</groupId>
-			<artifactId>saucerest</artifactId>
-			<version>1.0.17</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.saucelabs</groupId>
-			<artifactId>sauce_testng</artifactId>
-			<version>2.1.18</version>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>net.oauth.core</groupId>
 			<artifactId>oauth</artifactId>
 			<version>20100527</version>
 		</dependency>
+
+		<!-- TESTNG -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.1.1</version>
+			<version>${testNG-Version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JUNIT -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-Version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit-dep</artifactId>
+			<version>4.10</version>
+		</dependency>
+
+		<!-- SELENIUM -->
+		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>2.46.0</version>
-			<scope>test</scope>
+			<version>${selenium.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -59,10 +67,16 @@
 
 		<!-- JSON READER -->
 		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20141113</version>
+		</dependency>
+		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
+			<version>1.1</version>
 		</dependency>
+
 
 	</dependencies>
 
@@ -72,32 +86,22 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.12.4</version>
+				<version>2.18.1</version>
 				<configuration>
-					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<forkCount>0</forkCount>
+					<suiteXmlFiles>
+						<suiteXmlFile>testRun.xml</suiteXmlFile>
+					</suiteXmlFiles>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>saucelabs-repository</id>
-			<url>http://repository-saucelabs.forge.cloudbees.com/release</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 </project>

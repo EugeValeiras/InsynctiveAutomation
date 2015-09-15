@@ -1,5 +1,6 @@
 package insynctive.tests;
 
+import static org.junit.Assert.assertTrue;
 import insynctive.pages.insynctive.MarketPage;
 import insynctive.pages.insynctive.exception.ConfigurationException;
 import insynctive.utils.data.App;
@@ -7,8 +8,6 @@ import insynctive.utils.data.TestEnvironment;
 import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.lang.reflect.Method;
-
-import junit.framework.Assert;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -21,7 +20,7 @@ public class InstallAppTest extends TestMachine {
 	
 	@AfterClass(alwaysRun = true)
 	public void teardown() throws ConfigurationException {
-		if(InsynctivePropertiesReader.IsSauceLabs()){
+		if(InsynctivePropertiesReader.IsRemote()){
 			this.driver.quit();
 		}
 	}
@@ -30,7 +29,7 @@ public class InstallAppTest extends TestMachine {
 	public void tearUp() throws Exception {
 		properties = InsynctivePropertiesReader.getAllProperties(driver);
 		this.sessionName = "Install Apps";
-		isSaucelabs = InsynctivePropertiesReader.IsSauceLabs();
+		isSaucelabs = InsynctivePropertiesReader.IsRemote();
 	}
 	
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)
@@ -53,7 +52,7 @@ public class InstallAppTest extends TestMachine {
 					properties.getLoginUsername(), 
 					properties.getLoginPassword());
 			
-			Assert.assertTrue(marketPage.isAppInstallSuccessfully());
+			assertTrue(marketPage.isAppInstallSuccessfully());
 		}
 		
 	}

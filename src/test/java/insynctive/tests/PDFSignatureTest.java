@@ -1,5 +1,6 @@
 package insynctive.tests;
 
+import static org.junit.Assert.assertTrue;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.MyTasksPage;
@@ -8,8 +9,6 @@ import insynctive.utils.data.TestEnvironment;
 import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.lang.reflect.Method;
-
-import junit.framework.Assert;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -47,7 +46,7 @@ public class PDFSignatureTest extends TestMachine {
 				myTasksPage.loadPage();
 				myTasksPage.openJustNowTask();
 				
-				Assert.assertTrue(myTasksPage.SingPDF());
+				assertTrue(myTasksPage.SingPDF());
 		}
 		
 	}

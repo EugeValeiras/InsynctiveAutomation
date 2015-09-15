@@ -1,6 +1,6 @@
 package insynctive.tests;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
 import insynctive.pages.insynctive.PersonFilePage;
@@ -10,13 +10,12 @@ import insynctive.utils.PersonData;
 import insynctive.utils.Wait;
 import insynctive.utils.data.TestEnvironment;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
+ 
 
 public class PersonFileTest extends TestMachine {
 
@@ -27,7 +26,7 @@ public class PersonFileTest extends TestMachine {
 	public void tearUp() throws Exception {
 		super.tearUp();
 		person = new PersonData(properties.getRunID());
-		this.sessionName = "Person File Test";
+		this.sessionName = "Person File Test ("+ person.getEmail()+")";
 	}
 	
 	@DataProvider(name = "hardCodedBrowsers", parallel = true)
@@ -52,24 +51,44 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
+//	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="loginTest")
+//	public void openPersonFile(TestEnvironment testEnvironment) throws Exception {
+//		try{
+//			HomeForAgentsPage homePage = new HomeForAgentsPage(driver, properties.getEnviroment());
+//			homePage.createPersonTest(person.getSearchEmail());
+//			
+//			boolean result = homePage.isPersonFileOpened();
+//			Debugger.log("createPersonTest => "+result, isSaucelabs);
+//			setResult(result, "Open Person File");
+//			assertTrue(result);
+//		} catch(Exception ex){
+//			failTest("Open Person File", ex, isSaucelabs);
+//			assertTrue(false);
+//		}
+//	}
+	
 	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="loginTest")
-	public void openPersonFile(TestEnvironment testEnvironment) throws Exception {
+	public void createPersonTest(TestEnvironment testEnvironment) throws Throwable {
 		try{
 			HomeForAgentsPage homePage = new HomeForAgentsPage(driver, properties.getEnviroment());
-			homePage.openPersonFile(person.getSearchEmail());
 			
-			boolean result = homePage.isPersonFileOpened();
-			Debugger.log("openPersonFile => "+result, isSaucelabs);
-			setResult(result, "Open Person File");
+			person.setName(person.getName() + " " + properties.getRunID());
+			homePage.createPersonCheckingInviteSS(person);
+			homePage.sendInviteEmail(person);
+			
+			boolean result = homePage.checkIfPersonIsCreated(person);
+			
+			setResult(result, "Create Person");
+			Debugger.log("createPerson => "+result, isSaucelabs);
 			assertTrue(result);
-		} catch(Exception ex){
-			failTest("Open Person File", ex, isSaucelabs);
+		}catch (Exception ex){ 
+			failTest("Create Person", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
 
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void changePrimaryEmail(TestEnvironment testEnvironment) throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -85,7 +104,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void changeMaritalStatus(TestEnvironment testEnvironment)
 			throws Exception {
 		try{
@@ -103,7 +122,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void changeName(TestEnvironment testEnvironment)
 			throws Exception {
 		try{
@@ -111,35 +130,35 @@ public class PersonFileTest extends TestMachine {
 			
 			personFilePage.changeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
 			
-			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), Wait.WAIT);
+			boolean result = personFilePage.isChangeName(person, Wait.WAIT);
 			Debugger.log("changeName => "+result, isSaucelabs);
-			setResult(result, "change name 1");
+			setResult(result, "Change name 1");
 			assertTrue(result);
 		} catch (Exception ex){
-			failTest("change name 1", ex, isSaucelabs);
+			failTest("C hange name 1", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void changeName2(TestEnvironment testEnvironment)
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
+	public void aaaachangeName2(TestEnvironment testEnvironment)
 			throws Exception {
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
 			personFilePage.changeNameIntoTitle(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName());
 			
-			boolean result = personFilePage.isChangeName(person.getName(), person.getLastName(), person.getMiddleName(), person.getMaidenName(), Wait.WAIT);
+			boolean result = personFilePage.isChangeName(person, Wait.WAIT);
 			Debugger.log("changeName2 =>"+result, isSaucelabs);
-			setResult(result, "change name 2");
+			setResult(result, "Change name 2");
 			assertTrue(result);
 		} catch(Exception ex){
-			failTest("change name 2", ex, isSaucelabs);
+			failTest("Change name 2", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void changeGender(TestEnvironment testEnvironment)
 			throws Exception {
 		try{
@@ -157,7 +176,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void changeBirthDate(TestEnvironment testEnvironment)
 			throws Exception {
 		try{
@@ -175,7 +194,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void addTitle(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -193,7 +212,7 @@ public class PersonFileTest extends TestMachine {
 	}
 
 	/**
-	 * @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	 * @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void hasNotDependents(TestEnvironment testEnvironment) throws IOException, InterruptedException, ConfigurationException{
 		setResult(false, "Add Has Not Dependents");
 		PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -206,14 +225,14 @@ public class PersonFileTest extends TestMachine {
 		assertTrue(result);
 	} */
 
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void addPhoneNumber(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
-			personFilePage.addPhoneNumber(person.getPrimaryPhone());
-			
-			boolean result = personFilePage.isAddPhoneNumber(person.getPrimaryPhone());
+			personFilePage.addPhoneNumber(person.getPrimaryPhone(), properties.getRunID());
+
+			boolean result = personFilePage.isAddPhoneNumber(person.getPrimaryPhone(), properties.getRunID());
 			Debugger.log("addPhoneNumber =>"+result, isSaucelabs);
 			setResult(result, "Add Phone Number");
 			assertTrue(result);
@@ -222,7 +241,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void addUSAddress(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -231,10 +250,10 @@ public class PersonFileTest extends TestMachine {
 			
 			boolean result = personFilePage.isAddUSAddress(person.getUSAddress());
 			Debugger.log("addUSAddress => "+result, isSaucelabs);
-			setResult(result, "add US Address");
+			setResult(result, "Add US Address");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("add US Address", ex, isSaucelabs);
+			failTest("Add US Address", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
@@ -247,15 +266,15 @@ public class PersonFileTest extends TestMachine {
 
 			boolean result = personFilePage.isRemoveUsAddress(person.getUSAddress());
 			Debugger.log("removeUSAddress => "+result, isSaucelabs);
-			setResult(result, "remove US Address");
+			setResult(result, "Remove US Address");
 			assertTrue(result);
 		}catch (Exception ex){ 
-			failTest("remove US Address", ex, isSaucelabs);
+			failTest("Remove US Address", ex, isSaucelabs);
 			assertTrue(false);
 		}
 	}
 	
-	/** @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	/** @Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void updateUSAddress(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -271,8 +290,8 @@ public class PersonFileTest extends TestMachine {
 		}
 	} */
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
-	public void asssignTask(TestEnvironment testEnvironment) throws Exception{
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
+	public void assignTask(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
@@ -288,7 +307,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void startChecklist(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -296,7 +315,7 @@ public class PersonFileTest extends TestMachine {
 			personFilePage.assignChecklist();
 			
 			boolean result = personFilePage.isChecklistAssigned();
-			Debugger.log("asssignTask => "+result, isSaucelabs);
+			Debugger.log("startChecklist => "+result, isSaucelabs);
 			setResult(result, "Start Checklist");
 			assertTrue(result);
 		}catch (Exception ex){ 
@@ -305,14 +324,14 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void addSocialSecurityNumber(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
 			
-			personFilePage.addSocialSecurityNumber(person.getSsn());
+			personFilePage.addSocialSecurityNumber(person.getSsn(), properties.getRunID());
 			
-			boolean result = personFilePage.isSocialSecurityNumberAdded(person.getSsn());
+			boolean result = personFilePage.isSocialSecurityNumberAdded(person.getSsn(), properties.getRunID());
 			Debugger.log("Add Social Security Number => "+result, isSaucelabs);
 			setResult(result, "Add Social Security Number");
 			assertTrue(result);
@@ -322,7 +341,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="createPersonTest")
 	public void addEmergencyContact(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -339,7 +358,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="addEmergencyContact")
 	public void changeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());
@@ -361,7 +380,7 @@ public class PersonFileTest extends TestMachine {
 		}
 	}
 	
-	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="openPersonFile")
+	@Test(dataProvider = "hardCodedBrowsers", dependsOnMethods="changeEmergencyContact")
 	public void removeEmergencyContact(TestEnvironment testEnvironment) throws Exception{
 		try{
 			PersonFilePage personFilePage = new PersonFilePage(driver, properties.getEnviroment());

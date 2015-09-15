@@ -1,11 +1,11 @@
 package insynctive.utils;
 
 import insynctive.pages.insynctive.exception.ConfigurationException;
+import insynctive.pages.insynctive.exception.MethodNoImplementedException;
 import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.io.FileReader;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -29,8 +29,6 @@ public class PersonData {
 		}
 	}
 
-	private static final String JSONObject = null;
-	
 	// PROPERTIES PATH
 	private String DEFAULT_FILE = "personFileData.json";
 
@@ -54,7 +52,7 @@ public class PersonData {
 
 	JSONParser parser = new JSONParser();
 
-	public PersonData(InsynctivePropertiesReader properties) {
+	public PersonData(InsynctivePropertiesReader properties) throws MethodNoImplementedException {
 		this.name = properties.getNewEmployeeName();
 		this.lastName = properties.getNewEmployeeLastName();
 		this.email = properties.getNewEmployeeEmail();
@@ -112,7 +110,7 @@ public class PersonData {
 			usAddress.setCounty((String)jsonUSAddres.get("county"));
 			usAddress.setSameAsHome((Boolean)jsonUSAddres.get("sameAsHome"));
 			
-			JSONArray jsonDependents = (JSONArray) person.get("Dependents");
+//			JSONArray jsonDependents = (JSONArray) person.get("Dependents");
 			
 		} catch(Exception ex) {
 			throw new ConfigurationException("Fail reading (String)person configuration ====> "+ ex.getMessage());

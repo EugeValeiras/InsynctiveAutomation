@@ -1,9 +1,618 @@
+<!DOCTYPE html>
+
 <html>
-<head><title>Test results</title><link href="./testng.css" rel="stylesheet" type="text/css" />
-<link href="./my-testng.css" rel="stylesheet" type="text/css" />
-</head><body>
-<h2><p align='center'>Test results</p></h2>
-<table border='1' width='100%' class='main-page'><tr><th>Suite</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>testng.xml</th></tr>
-<tr align='center' class='invocation-passed'><td><em>Total</em></td><td><em>3</em></td><td><em>0</em></td><td><em>0</em></td><td>&nbsp;</td></tr>
-<tr align='center' class='invocation-passed'><td><a href='Test Suite/index.html'>Test Suite</a></td>
-<td>3</td><td>0</td><td>0</td><td><a href='Test Suite/testng.xml.html'>Link</a></td></tr></table></body></html>
+  <head>
+  <title>TestNG reports</title>
+
+    <link type="text/css" href="testng-reports.css" rel="stylesheet" />  
+    <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="testng-reports.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      var suiteTableInitFunctions = new Array();
+      var suiteTableData = new Array();
+    </script>
+    <!--
+      <script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+     -->
+  </head>
+
+  <body>
+    <div class="top-banner-root">
+      <span class="top-banner-title-font">Test results</span>
+      <br/>
+      <span class="top-banner-font-1">1 suite</span>
+    </div> <!-- top-banner-root -->
+    <div class="navigator-root">
+      <div class="navigator-suite-header">
+        <span>All suites</span>
+        <a href="#" class="collapse-all-link" title="Collapse/expand all the suites">
+          <img class="collapse-all-icon" src="collapseall.gif">
+          </img> <!-- collapse-all-icon -->
+        </a> <!-- collapse-all-link -->
+      </div> <!-- navigator-suite-header -->
+      <div class="suite">
+        <div class="rounded-window">
+          <div class="suite-header light-rounded-window-top">
+            <a href="#" class="navigator-link" panel-name="suite-Test_Suite">
+              <span class="suite-name border-passed">Test Suite</span>
+            </a> <!-- navigator-link -->
+          </div> <!-- suite-header light-rounded-window-top -->
+          <div class="navigator-suite-content">
+            <div class="suite-section-title">
+              <span>Info</span>
+            </div> <!-- suite-section-title -->
+            <div class="suite-section-content">
+              <ul>
+                <li>
+                  <a href="#" class="navigator-link " panel-name="test-xml-Test_Suite">
+                    <span>C:\Users\Eugenio\Desktop\InsynctiveAutomation\testRun.xml</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" class="navigator-link " panel-name="testlist-Test_Suite">
+                    <span class="test-stats">1 test</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" class="navigator-link " panel-name="group-Test_Suite">
+                    <span>0 groups</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" class="navigator-link " panel-name="times-Test_Suite">
+                    <span>Times</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" class="navigator-link " panel-name="reporter-Test_Suite">
+                    <span>Reporter output</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" class="navigator-link " panel-name="ignored-methods-Test_Suite">
+                    <span>Ignored methods</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" class="navigator-link " panel-name="chronological-Test_Suite">
+                    <span>Chronological view</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+              </ul>
+            </div> <!-- suite-section-content -->
+            <div class="result-section">
+              <div class="suite-section-title">
+                <span>Results</span>
+              </div> <!-- suite-section-title -->
+              <div class="suite-section-content">
+                <ul>
+                  <li>
+                    <span class="method-stats">18 methods,   18 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Test_Suite" class="hide-methods passed suite-Test_Suite"> (hide)</a> <!-- hide-methods passed suite-Test_Suite -->
+                      <a href="#" panel-name="suite-Test_Suite" class="show-methods passed suite-Test_Suite"> (show)</a> <!-- show-methods passed suite-Test_Suite -->
+                    </span>
+                    <div class="method-list-content passed suite-Test_Suite">
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="aaaachangeName2(Chrome 44 | Windows 7 64bits)">aaaachangeName2(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="addEmergencyContact(Chrome 44 | Windows 7 64bits)">addEmergencyContact(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="addPhoneNumber(Chrome 44 | Windows 7 64bits)">addPhoneNumber(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="addSocialSecurityNumber(Chrome 44 | Windows 7 64bits)">addSocialSecurityNumber(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="addTitle(Chrome 44 | Windows 7 64bits)">addTitle(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="addUSAddress(Chrome 44 | Windows 7 64bits)">addUSAddress(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="assignTask(Chrome 44 | Windows 7 64bits)">assignTask(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="changeBirthDate(Chrome 44 | Windows 7 64bits)">changeBirthDate(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="changeEmergencyContact(Chrome 44 | Windows 7 64bits)">changeEmergencyContact(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="changeGender(Chrome 44 | Windows 7 64bits)">changeGender(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="changeMaritalStatus(Chrome 44 | Windows 7 64bits)">changeMaritalStatus(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="changeName(Chrome 44 | Windows 7 64bits)">changeName(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="changePrimaryEmail(Chrome 44 | Windows 7 64bits)">changePrimaryEmail(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="createPersonTest(Chrome 44 | Windows 7 64bits)">createPersonTest(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="loginTest(Chrome 44 | Windows 7 64bits)">loginTest(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="removeEmergencyContact(Chrome 44 | Windows 7 64bits)">removeEmergencyContact(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="removeUSAddress(Chrome 44 | Windows 7 64bits)">removeUSAddress(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Test_Suite" title="insynctive.tests.PersonFileTest" hash-for-method="startChecklist(Chrome 44 | Windows 7 64bits)">startChecklist(Chrome 44 | Windows 7 64bits)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-Test_Suite -->
+                  </li>
+                </ul>
+              </div> <!-- suite-section-content -->
+            </div> <!-- result-section -->
+          </div> <!-- navigator-suite-content -->
+        </div> <!-- rounded-window -->
+      </div> <!-- suite -->
+    </div> <!-- navigator-root -->
+    <div class="wrapper">
+      <div class="main-panel-root">
+        <div panel-name="suite-Test_Suite" class="panel Test_Suite">
+          <div class="suite-Test_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">insynctive.tests.PersonFileTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="aaaachangeName2(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- aaaachangeName2(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">aaaachangeName2</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="addEmergencyContact(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- addEmergencyContact(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">addEmergencyContact</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="addPhoneNumber(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- addPhoneNumber(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">addPhoneNumber</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="addSocialSecurityNumber(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- addSocialSecurityNumber(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">addSocialSecurityNumber</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="addTitle(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- addTitle(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">addTitle</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="addUSAddress(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- addUSAddress(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">addUSAddress</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="assignTask(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- assignTask(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">assignTask</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="changeBirthDate(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- changeBirthDate(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">changeBirthDate</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="changeEmergencyContact(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- changeEmergencyContact(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">changeEmergencyContact</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="changeGender(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- changeGender(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">changeGender</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="changeMaritalStatus(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- changeMaritalStatus(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">changeMaritalStatus</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="changeName(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- changeName(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">changeName</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="changePrimaryEmail(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- changePrimaryEmail(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">changePrimaryEmail</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="createPersonTest(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- createPersonTest(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">createPersonTest</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="loginTest(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- loginTest(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">loginTest</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="removeEmergencyContact(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- removeEmergencyContact(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">removeEmergencyContact</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="removeUSAddress(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- removeUSAddress(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">removeUSAddress</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="startChecklist(Chrome 44 | Windows 7 64bits)">
+                  </a> <!-- startChecklist(Chrome 44 | Windows 7 64bits) -->
+                  <span class="method-name">startChecklist</span>
+                  <span class="parameters">(Chrome 44 | Windows 7 64bits)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Test_Suite-class-passed -->
+        </div> <!-- panel Test_Suite -->
+        <div panel-name="test-xml-Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">C:\Users\Eugenio\Desktop\InsynctiveAutomation\testRun.xml</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE suite SYSTEM &quot;http://testng.org/testng-1.0.dtd&quot;&gt;
+&lt;suite name=&quot;Test Suite&quot;&gt;
+  &lt;test name=&quot;Person File Test&quot;&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;insynctive.tests.PersonFileTest&quot;&gt;
+        &lt;methods&gt;
+          &lt;include name=&quot;loginTest&quot;/&gt;
+          &lt;include name=&quot;createPersonTest&quot;/&gt;
+          &lt;include name=&quot;aaaachangeName2&quot;/&gt;
+          &lt;include name=&quot;addTitle&quot;/&gt;
+          &lt;include name=&quot;changeName&quot;/&gt;
+          &lt;include name=&quot;changeMaritalStatus&quot;/&gt;
+          &lt;include name=&quot;changeBirthDate&quot;/&gt;
+          &lt;include name=&quot;changeGender&quot;/&gt;
+          &lt;include name=&quot;addSocialSecurityNumber&quot;/&gt;
+          &lt;include name=&quot;addPhoneNumber&quot;/&gt;
+          &lt;include name=&quot;changePrimaryEmail&quot;/&gt;
+          &lt;include name=&quot;addEmergencyContact&quot;/&gt;
+          &lt;include name=&quot;changeEmergencyContact&quot;/&gt;
+          &lt;include name=&quot;removeEmergencyContact&quot;/&gt;
+          &lt;include name=&quot;addUSAddress&quot;/&gt;
+          &lt;include name=&quot;removeUSAddress&quot;/&gt;
+          &lt;include name=&quot;assignTask&quot;/&gt;
+          &lt;include name=&quot;startChecklist&quot;/&gt;
+        &lt;/methods&gt;
+      &lt;/class&gt; &lt;!-- insynctive.tests.PersonFileTest --&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Person File Test --&gt;
+&lt;/suite&gt; &lt;!-- Test Suite --&gt;
+            </pre>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="testlist-Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Tests for Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <ul>
+              <li>
+                <span class="test-name">Person File Test (1 class)</span>
+              </li>
+            </ul>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="group-Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Groups for Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="times-Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Times for Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="times-div">
+              <script type="text/javascript">
+suiteTableInitFunctions.push('tableData_Test_Suite');
+function tableData_Test_Suite() {
+var data = new google.visualization.DataTable();
+data.addColumn('number', 'Number');
+data.addColumn('string', 'Method');
+data.addColumn('string', 'Class');
+data.addColumn('number', 'Time (ms)');
+data.addRows(18);
+data.setCell(0, 0, 0)
+data.setCell(0, 1, 'createPersonTest')
+data.setCell(0, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(0, 3, 67487);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'startChecklist')
+data.setCell(1, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(1, 3, 44552);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'changeName')
+data.setCell(2, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(2, 3, 39011);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'assignTask')
+data.setCell(3, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(3, 3, 37292);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'loginTest')
+data.setCell(4, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(4, 3, 34547);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'aaaachangeName2')
+data.setCell(5, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(5, 3, 32461);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'changeEmergencyContact')
+data.setCell(6, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(6, 3, 28799);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'addUSAddress')
+data.setCell(7, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(7, 3, 26794);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'changePrimaryEmail')
+data.setCell(8, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(8, 3, 26697);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'addPhoneNumber')
+data.setCell(9, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(9, 3, 24367);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'removeEmergencyContact')
+data.setCell(10, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(10, 3, 23130);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'addEmergencyContact')
+data.setCell(11, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(11, 3, 22525);
+data.setCell(12, 0, 12)
+data.setCell(12, 1, 'addTitle')
+data.setCell(12, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(12, 3, 20602);
+data.setCell(13, 0, 13)
+data.setCell(13, 1, 'removeUSAddress')
+data.setCell(13, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(13, 3, 19798);
+data.setCell(14, 0, 14)
+data.setCell(14, 1, 'changeBirthDate')
+data.setCell(14, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(14, 3, 18388);
+data.setCell(15, 0, 15)
+data.setCell(15, 1, 'addSocialSecurityNumber')
+data.setCell(15, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(15, 3, 17945);
+data.setCell(16, 0, 16)
+data.setCell(16, 1, 'changeMaritalStatus')
+data.setCell(16, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(16, 3, 13374);
+data.setCell(17, 0, 17)
+data.setCell(17, 1, 'changeGender')
+data.setCell(17, 2, 'insynctive.tests.PersonFileTest')
+data.setCell(17, 3, 9239);
+window.suiteTableData['Test_Suite']= { tableData: data, tableDiv: 'times-div-Test_Suite'}
+return data;
+}
+              </script>
+              <span class="suite-total-time">Total running time: 8 minutes</span>
+              <div id="times-div-Test_Suite">
+              </div> <!-- times-div-Test_Suite -->
+            </div> <!-- times-div -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="reporter-Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Reporter output for Test Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="ignored-methods-Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">0 ignored methods</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="chronological-Test_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Methods in chronological order</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="chronological-class">
+              <div class="chronological-class-name">insynctive.tests.PersonFileTest</div> <!-- chronological-class-name -->
+              <div class="configuration-class before">
+                <span class="method-name">tearUp</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-class before -->
+              <div class="test-method">
+                <span class="method-name">loginTest(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">129 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">createPersonTest(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">34688 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">aaaachangeName2(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">102218 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">addTitle(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">134683 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">changeName(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">155294 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">changeMaritalStatus(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">194311 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">changeBirthDate(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">207693 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">changeGender(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">226086 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">addSocialSecurityNumber(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">235332 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">addPhoneNumber(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">253288 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">changePrimaryEmail(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">277673 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">addEmergencyContact(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">304374 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">addUSAddress(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">326907 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">assignTask(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">353709 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">startChecklist(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">391006 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">changeEmergencyContact(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">435566 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">removeUSAddress(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">464382 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">removeEmergencyContact(Chrome 44 | Windows 7 64bits)</span>
+                <span class="method-start">484187 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-class after">
+                <span class="method-name">teardown</span>
+                <span class="method-start">507320 ms</span>
+              </div> <!-- configuration-class after -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+      </div> <!-- main-panel-root -->
+    </div> <!-- wrapper -->
+  </body>
+</html>

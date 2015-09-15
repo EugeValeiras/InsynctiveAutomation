@@ -5,17 +5,12 @@ import insynctive.utils.data.TestEnvironment;
 import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.lang.reflect.Method;
-
-import junit.framework.Assert;
+import static org.junit.Assert.assertTrue;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import com.saucelabs.testng.SauceOnDemandTestListener;
-
-@Listeners({ SauceOnDemandTestListener.class })
 public class OpenEnrollmentTest extends TestMachine {
 
 	//	@AfterClass(alwaysRun = true)
@@ -45,7 +40,7 @@ public class OpenEnrollmentTest extends TestMachine {
 		OpenEnrollmentPage openEnrollmentPage = new OpenEnrollmentPage(driver, properties.getEnviroment());
 		openEnrollmentPage.waitPageIsLoad();
 
-		Assert.assertTrue(openEnrollmentPage.startUpdateInfo());
+		assertTrue(openEnrollmentPage.startUpdateInfo());
 	}
 	
 	

@@ -2,7 +2,6 @@ package insynctive.tests;
 
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
-import insynctive.pages.insynctive.PersonFilePage;
 import insynctive.pages.insynctive.exception.ConfigurationException;
 import insynctive.utils.Debugger;
 import insynctive.utils.data.TestEnvironment;
@@ -55,8 +54,8 @@ public abstract class TestMachine {
 	private String slackChannel = "https://hooks.slack.com/services/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";
 
 	//CROSSBROWSING
-	String username = "eugenio.valeiras+7@gmail.com";
-	String password = "u2bceef692464aa4";
+	String username = "eugenio.valeiras+8@gmail.com";
+	String password = "ue0639059e6c8f00";
 	
 	private String getJobURL() throws IOException, JSONException {
 		return getPublicVideoLinkOfJob();
@@ -74,12 +73,12 @@ public abstract class TestMachine {
 	@BeforeClass(alwaysRun = true)
 	public void tearUp() throws Exception {
 		properties = InsynctivePropertiesReader.getAllAccountsProperties();
-		isSaucelabs = InsynctivePropertiesReader.IsSauceLabs();
+		isSaucelabs = InsynctivePropertiesReader.IsRemote();
 	}
 	
 	@AfterClass(alwaysRun = true)
 	public void teardown() throws ConfigurationException, MalformedURLException, IOException, JSONException {
-		if(InsynctivePropertiesReader.IsSauceLabs()){
+		if(InsynctivePropertiesReader.IsRemote()){
 			this.driver.quit();
 		}
 		setFinalResult();
@@ -109,7 +108,7 @@ public abstract class TestMachine {
 	}
 
 	public void startTest(TestEnvironment testEnvironment) throws MalformedURLException, ConfigurationException {
-		if (InsynctivePropertiesReader.IsSauceLabs()) {
+		if (InsynctivePropertiesReader.IsRemote()) {
 			driver = createDriver(testEnvironment);
 		} else {
 			FirefoxProfile firefoxProfile = new FirefoxProfile();
@@ -146,18 +145,22 @@ public abstract class TestMachine {
 	}
 
 	public void failTest(String testName,Exception ex, boolean isSaucelabs) throws Exception{
-		System.out.println(ex.getStackTrace()[0]);
+		System.out.println(ex.getStackTrace()[4]);
+		System.out.println(ex.getStackTrace()[3]);
+		System.out.println(ex.getStackTrace()[2]);
 		System.out.println(ex.getStackTrace()[1]);
+		System.out.println(ex.getStackTrace()[0]);
+		
 		Throwable cause = ex.getCause();
 		String exMessage = ex.getMessage();
 		String nameAndCause = "";
 
 		if(cause != null){
-			nameAndCause = testName+" => " + cause.getMessage()+" |  StackTrace => "+ex.getStackTrace().toString();
+			nameAndCause = testName+"Cause Message: => " + cause.getMessage();
 		} else if(exMessage != null) {
-			nameAndCause = testName+" =>  "+exMessage +" |  StackTrace => "+ex.getStackTrace().toString();
+			nameAndCause = testName+" Exception Message =>  "+exMessage;
 		} else {
-			nameAndCause = testName+" => "+ (ex != null ? ex +" |  StackTrace => "+ex.getStackTrace().toString() : "EXCEPTION");
+			nameAndCause = testName+" => "+ (ex != null ? ex : "EXCEPTION");
 		}
 		
 		Debugger.log(nameAndCause, isSaucelabs);
@@ -172,7 +175,7 @@ public abstract class TestMachine {
 	}
 
 	public void setFinalResult() throws ConfigurationException, MalformedURLException, IOException, JSONException {
-		if(InsynctivePropertiesReader.IsSauceLabs()){
+		if(InsynctivePropertiesReader.IsRemote()){
 			makeCurlToChangeStatus();
 		}
 		if(InsynctivePropertiesReader.isNotificationActive()) {sendSlack();}
@@ -233,15 +236,16 @@ public abstract class TestMachine {
 		payload.put("channel", "#automatedtestsresults");
 		
 		JSONArray attachments = new JSONArray();
-		JSONObject attachment = new JSONObject();
+		JSONObject attachment = new JSONObject(); 
 		attachment.put("fallback", "Status of test: "+generalStatus);
-		attachment.put("pretext", jobID == null ? "Local Test" : "<"+getJobURL()+"|Watch test video here>");
+		attachment.put("pretext", (jobID == null ? "Local Test" : "<"+getJobURL()+"|Watch test video here>")+" | Environment: "+properties.getEnviroment());
 		attachment.put("color", generalStatus ? "#00CE00" : "#FC000D"); //AA3939
 		
 		JSONArray fields = new JSONArray();
 		JSONObject field = new JSONObject();
 		field.put("title", sessionName);
-		field.put("value", (generalStatus ? "PASS" : "FAIL")+" => "+getStatusMessageOfTests(tags));
+		System.out.println(getStatusMessageOfTests(tags));
+		field.put("value", (generalStatus ? "PASS" : "FAIL")+" = \n"+getStatusMessageOfTests(tags));
 		field.put("short", false);
 		fields.add(field);
 		attachment.put("fields", fields);
@@ -268,7 +272,7 @@ public abstract class TestMachine {
 		String results = "";
 		if (testsStatus.size() != 0){
 			for(int index = 0 ; index < testsStatus.size()-1 ; index++){
-				results += (testsStatus.get(index) + " | ");
+				results += (testsStatus.get(index) + " \n ");
 			}
 			results += testsStatus.get(testsStatus.size()-1);
 		}

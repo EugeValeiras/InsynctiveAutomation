@@ -1,6 +1,6 @@
 package insynctive.tests;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 import insynctive.pages.insynctive.HomeForAgentsPage;
 import insynctive.pages.insynctive.LoginPage;
 import insynctive.utils.Debugger;
@@ -9,17 +9,11 @@ import insynctive.utils.data.TestEnvironment;
 
 import java.lang.reflect.Method;
 
-import junit.framework.Assert;
-
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import com.saucelabs.testng.SauceOnDemandTestListener;
-
-@Listeners({ SauceOnDemandTestListener.class })
 public class CreatePersonTest extends TestMachine {
 
 	PersonData person;
@@ -70,7 +64,7 @@ public class CreatePersonTest extends TestMachine {
 			
 			setResult(result, "Create Person");
 			Debugger.log("createPerson => "+result, isSaucelabs);
-			Assert.assertTrue(result);
+			assertTrue(result);
 		}catch (Exception ex){ 
 			failTest("Create Person", ex, isSaucelabs);
 			assertTrue(false);
@@ -87,6 +81,6 @@ public class CreatePersonTest extends TestMachine {
 //		resetPasswordPage.loadPage();
 //		resetPasswordPage.changePassword(properties.getNewEmployeePassword());
 //		
-//		Assert.assertTrue(resetPasswordPage.checkIfEmployeePasswordWasChange());
+//		assertTrue(resetPasswordPage.checkIfEmployeePasswordWasChange());
 //	}
 }

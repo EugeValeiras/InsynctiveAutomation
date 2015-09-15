@@ -13,12 +13,10 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 
-import com.sun.jna.platform.win32.WinUser.INPUT;
-
 public class InsynctivePropertiesReader {
 
 	//INSTANCE
-	private static InsynctivePropertiesReader isInstance;
+	private static InsynctivePropertiesReader isRemote;
 	
 	// PROPERTIES PATH
 	private String DEFAULT_ACCOUNTS_PROPERTIES = "accounts.properties";
@@ -31,7 +29,7 @@ public class InsynctivePropertiesReader {
 
 	// ACCOUNTS PROPERTIES
 	private String enviroment;
-	private String saucelabs;
+	private String remote;
 	
 	private String loginUsername;
 	private String loginPassword;
@@ -55,16 +53,16 @@ public class InsynctivePropertiesReader {
 	
 
 	public InsynctivePropertiesReader() throws ConfigurationException {
-		if (isInstance == null){
+		if (isRemote == null){
 			getRunIDAndAutoIncrement();
-			isInstance = this;
+			isRemote = this;
 		}
 	}
 
 	public static InsynctivePropertiesReader getAllProperties(WebDriver driver)
 			throws ConfigurationException {
 		InsynctivePropertiesReader insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+		insynctiveProp = (isRemote == null) ? new InsynctivePropertiesReader() : isRemote;
 			insynctiveProp = new InsynctivePropertiesReader();
 		try {
 			insynctiveProp.addAccountsProperties();
@@ -80,14 +78,14 @@ public class InsynctivePropertiesReader {
 	public static InsynctivePropertiesReader getAllAccountsProperties()
 			throws ConfigurationException {
 		InsynctivePropertiesReader insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+		insynctiveProp = (isRemote == null) ? new InsynctivePropertiesReader() : isRemote;
 		insynctiveProp.addAccountsProperties();
 		return insynctiveProp;
 	}
 
 	public static InsynctivePropertiesReader getAllApps() throws Exception {
 		InsynctivePropertiesReader insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+		insynctiveProp = (isRemote == null) ? new InsynctivePropertiesReader() : isRemote;
 		insynctiveProp.addApps();
 		return insynctiveProp;
 	}
@@ -95,7 +93,7 @@ public class InsynctivePropertiesReader {
 	public static InsynctivePropertiesReader getAllChecklist(WebDriver driver)
 			throws Exception {
 		InsynctivePropertiesReader insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+		insynctiveProp = (isRemote == null) ? new InsynctivePropertiesReader() : isRemote;
 		insynctiveProp.addCheckLists(driver);
 		return insynctiveProp;
 	}
@@ -129,15 +127,6 @@ public class InsynctivePropertiesReader {
 			loginUsername = accountsProperties.getProperty("loginUsername");
 			loginPassword = accountsProperties.getProperty("loginPassword");
 
-			newEmployeeName = accountsProperties.getProperty("newEmployeeName")+getRunID();
-			newEmployeeLastName = accountsProperties.getProperty("newEmployeeLastName");
-			String email = accountsProperties.getProperty("newEmployeeEmail");
-			newEmployeeEmail = email.split("@")[0] + "+" + runID + "@"+ email.split("@")[1];
-			newEmployeePassword = accountsProperties.getProperty("newEmployeePassword");
-			setNewEmployeeDepartment(accountsProperties.getProperty("newEmployeeDepartment"));
-			setNewEmployeeTitle(accountsProperties.getProperty("newEmployeeTitle"));
-			
-			
 			gmailPassword = accountsProperties.getProperty("gmailPassword");
 
 		} catch (Exception ex) {
@@ -166,9 +155,9 @@ public class InsynctivePropertiesReader {
 		}
 	}
 	
-	public static boolean IsSauceLabs() throws ConfigurationException {try {
+	public static boolean IsRemote() throws ConfigurationException {try {
 		InsynctivePropertiesReader insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+		insynctiveProp = (isRemote == null) ? new InsynctivePropertiesReader() : isRemote;
 		
 		// Open Properties Files
 		Properties accountsProperties = new Properties();
@@ -176,8 +165,8 @@ public class InsynctivePropertiesReader {
 				insynctiveProp.DEFAULT_ACCOUNTS_PROPERTIES);
 		accountsProperties.load(fileInput);
 
-		insynctiveProp.saucelabs = accountsProperties.getProperty("saucelabs");
-		return Boolean.parseBoolean(insynctiveProp.saucelabs);
+		insynctiveProp.remote = accountsProperties.getProperty("remote");
+		return Boolean.parseBoolean(insynctiveProp.remote);
 
 		} catch (Exception ex) {
 			throw new ConfigurationException("Check config file => "+ ex.getMessage());
@@ -186,7 +175,7 @@ public class InsynctivePropertiesReader {
 	
 	public static boolean isNotificationActive() throws ConfigurationException {try {
 		InsynctivePropertiesReader insynctiveProp;
-		insynctiveProp = (isInstance == null) ? new InsynctivePropertiesReader() : isInstance;
+		insynctiveProp = (isRemote == null) ? new InsynctivePropertiesReader() : isRemote;
 		
 		// Open Properties Files
 		Properties accountsProperties = new Properties();
@@ -194,7 +183,7 @@ public class InsynctivePropertiesReader {
 				insynctiveProp.DEFAULT_ACCOUNTS_PROPERTIES);
 		accountsProperties.load(fileInput);
 
-		insynctiveProp.notification = Boolean.parseBoolean(accountsProperties.getProperty("saucelabs"));
+		insynctiveProp.notification = Boolean.parseBoolean(accountsProperties.getProperty("notification"));
 		return insynctiveProp.notification;
 
 		} catch (Exception ex) {

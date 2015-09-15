@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite verbose="0" name="Failed suite [Test Suite]">
-  <test name="changePrimaryEmail(failed)" preserve-order="false">
+<suite name="Failed suite [Test Suite]">
+  <test name="Person File Test(failed)">
     <classes>
       <class name="insynctive.tests.PersonFileTest">
         <methods>
-          <include name="openPersonFile"/>
-          <include name="loginTest"/>
-          <include name="tearUp"/>
+          <include name="removeUSAddress"/>
+          <include name="addEmergencyContact" invocation-numbers="0"/>
+          <include name="createPersonTest"/>
+          <include name="removeEmergencyContact"/>
+          <include name="addUSAddress" invocation-numbers="0"/>
           <include name="teardown"/>
           <include name="startChecklist" invocation-numbers="0"/>
+          <include name="addSocialSecurityNumber" invocation-numbers="0"/>
+          <include name="assignTask" invocation-numbers="0"/>
+          <include name="addPhoneNumber" invocation-numbers="0"/>
+          <include name="changePrimaryEmail" invocation-numbers="0"/>
+          <include name="loginTest"/>
+          <include name="tearUp"/>
+          <include name="changeEmergencyContact"/>
         </methods>
-      </class>
+      </class> <!-- insynctive.tests.PersonFileTest -->
     </classes>
-  </test>
-</suite>
+  </test> <!-- Person File Test(failed) -->
+</suite> <!-- Failed suite [Test Suite] -->

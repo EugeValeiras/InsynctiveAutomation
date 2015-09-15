@@ -1,11 +1,5 @@
 package insynctive.utils.process;
 
-import java.io.IOException;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
 import insynctive.pages.PageInterface;
 import insynctive.pages.insynctive.exception.ElementNotFoundException;
 import insynctive.utils.Sleeper;
@@ -13,6 +7,12 @@ import insynctive.utils.Task;
 import insynctive.utils.UploadRobot;
 import insynctive.utils.WhenStart;
 import insynctive.utils.data.Employee;
+
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class PDFForm extends Process implements PageInterface {
 

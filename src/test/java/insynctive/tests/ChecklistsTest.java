@@ -1,11 +1,8 @@
 package insynctive.tests;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 import insynctive.pages.insynctive.CheckListsPage;
 import insynctive.pages.insynctive.HomeForAgentsPage;
-import insynctive.pages.insynctive.LoginPage;
-import insynctive.pages.insynctive.PersonFilePage;
-import insynctive.pages.insynctive.exception.ConfigurationException;
 import insynctive.utils.Checklist;
 import insynctive.utils.Debugger;
 import insynctive.utils.PersonData;
@@ -17,19 +14,13 @@ import insynctive.utils.process.AssignTask;
 import insynctive.utils.process.I9;
 import insynctive.utils.process.PDFForm;
 import insynctive.utils.process.W4;
-import insynctive.utils.reader.InsynctivePropertiesReader;
 
 import java.lang.reflect.Method;
 
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import com.saucelabs.testng.SauceOnDemandTestListener;
-
-@Listeners({ SauceOnDemandTestListener.class })
 public class ChecklistsTest extends TestMachine {
 
 	PersonData person;

@@ -2,12 +2,11 @@ package insynctive.pages.insynctive;
 
 import insynctive.pages.Page;
 import insynctive.pages.PageInterface;
-import insynctive.pages.insynctive.exception.MethodNoImplementedException;
+import insynctive.utils.Checklist;
 import insynctive.utils.EmergencyContact;
 import insynctive.utils.PersonData;
 import insynctive.utils.PersonData.Gender;
 import insynctive.utils.PersonData.MaritalStatus;
-import insynctive.utils.Checklist;
 import insynctive.utils.Sleeper;
 import insynctive.utils.Task;
 import insynctive.utils.USAddress;
@@ -21,7 +20,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-@SuppressWarnings("unused")
 public class PersonFilePage extends Page implements PageInterface {
 
 	String enviroment;
@@ -58,7 +56,7 @@ public class PersonFilePage extends Page implements PageInterface {
 	// iFrames
 	@FindBy(id = "tabFrame")
 	WebElement tabiFrame;
-	@FindBy(className = "header-name-popover")
+	@FindBy(css = ".header-name-popover")
 	WebElement editNameintoTitleiFrame;
 	@FindBy(className = "full-name-popover")
 	WebElement editNameiFrame;
@@ -158,6 +156,8 @@ public class PersonFilePage extends Page implements PageInterface {
 	WebElement addressSaved;
 
 	// Tasks
+	@FindBy(css = "#statusesListHeader > li:nth-child(1)")
+	WebElement personalTab;
 	@FindBy(css = "#statusesListHeader > li:nth-child(2)")
 	WebElement tasksTab;
 	@FindBy(css = "#btnAssignTask > span")
@@ -188,7 +188,7 @@ public class PersonFilePage extends Page implements PageInterface {
 	WebElement firstTaskLink;
 	@FindBy(id = "froalaEditor")
 	WebElement AdditionalInstructioniFrame;
-	@FindBy(id = "saveSSN")
+	@FindBy(id = "ssnBtn")
 	WebElement ssnInsert;
 	@FindBy(id = "ssn-input")
 	WebElement ssnTextField;
@@ -273,11 +273,9 @@ public class PersonFilePage extends Page implements PageInterface {
 		clickAButton(birthDateLink);
 		swichToIframe(birthDateiFrame);
 		waitUntilnotVisibility(loadingSpinner);
-		selectElementInComboOption(monthInput, getMonth(birthParts[0]));
-		selectElementInComboOption(dayInput, getDay(birthParts[1]));
-		selectElementInComboOption(yearInput, birthParts[2]);
-		// TODO REMOVE THIS SLEEPER
-		Sleeper.sleep(5000, driver);
+		selectElementInDefaultCombo(monthInput, getMonth(birthParts[0]));
+		selectElementInDefaultCombo(dayInput, getDay(birthParts[1]));
+		selectElementInDefaultCombo(yearInput, birthParts[2]);
 		clickAButton(saveChangeBirthDate);
 	}
 
@@ -322,7 +320,7 @@ public class PersonFilePage extends Page implements PageInterface {
 		clickAButton(hasNotDependentsLink);
 	}
 
-	public void addPhoneNumber(String phoneNumber) throws Exception {
+	public void addPhoneNumber(String phoneNumber, String runID) throws Exception {
 		waitPageIsLoad();
 		clickAButton(addPhoneNumberLink);
 		swichToIframe(editPhoneNumberiFrame);
@@ -330,10 +328,16 @@ public class PersonFilePage extends Page implements PageInterface {
 		clickAButton(addPhoneNumberLink2);
 		waitUntilIsLoaded(addPhoneNumberInput);
 		waitUntilIsLoaded(buttonAddPhone);
-		setTextInField(addPhoneNumberInput, phoneNumber);
+		setTextInField(addPhoneNumberInput, getPhoneNumber(phoneNumber, runID));
 		clickAButton(buttonAddPhone);
 		waitUntilIsLoaded(deletePhoneNumber);
 		clickAButton(saveChangeAddPhoneNumber);
+	}
+
+	private String getPhoneNumber(String phoneNumber, String runID) {
+		String phoneNumberRet = "";
+		phoneNumberRet = phoneNumber.substring(0,phoneNumber.length()-runID.length());
+		return phoneNumberRet+runID;
 	}
 
 	public void addUsAddress(USAddress usAddress) throws Exception {
@@ -345,7 +349,6 @@ public class PersonFilePage extends Page implements PageInterface {
 		clickAButton(saveAddressButton);
 		waitPageIsLoad();
 		waitUntilIsLoaded(addressSaved);
-		System.out.println(addressSaved.getText());
 	}
 
 	public void removeUsAddress(USAddress usAddress) throws Exception {
@@ -394,16 +397,22 @@ public class PersonFilePage extends Page implements PageInterface {
 		setTextInCombo(checkListsCombo, Checklist.getCheckListToAssign()
 				.getName());
 		clickAButton(assignChecklistButton);
-		Sleeper.sleep(4000, driver);
+		Sleeper.sleep(8000, driver);
 	}
 
-	public void addSocialSecurityNumber(String ssnNumber) throws Exception {
+	public void addSocialSecurityNumber(String ssnNumber, String runID) throws Exception {
 		waitPageIsLoad();
 		clickAButton(addSocialSecurityNumber);
 		swichToIframe(socialSecurtyiFrame);
 		clickAButton(ssnInsert);
-		setTextInField(ssnTextField, ssnNumber);
+		setTextInField(ssnTextField, getSSN(ssnNumber, runID));
 		clickAButton(saveSsn);
+	}
+	
+	private String getSSN(String ssn, String runID) {
+		String ssnRet = "";
+		ssnRet = ssn.substring(0,ssn.length()-runID.length());
+		return ssnRet+runID;
 	}
 
 	public void addEmergencyContact(String name, String relationship,
@@ -456,25 +465,40 @@ public class PersonFilePage extends Page implements PageInterface {
 		return primaryEmailLink.getText().equals(email);
 	}
 
-	public boolean isChangeName(String name, String lastName,
-			String middlename, String maidenName, Wait wait)
+	public boolean isChangeName(PersonData personData, Wait wait)
 			throws Exception {
 		if (wait.isWait())
 			Sleeper.sleep(18000, driver);
 		waitPageIsLoad();
 
-		String assertFullName = (name != null && middlename != null) ? name
-				+ " " + middlename : name;
-		assertFullName += (maidenName != null) ? " (" + maidenName + ") " : " ";
-		assertFullName += lastName;
+		String assertFullName = (personData.getName() != null && personData.getMiddleName() != null) ? personData.getName()
+				+ " " + personData.getMiddleName(): personData.getName();
+		assertFullName += (personData.getMaidenName() != null) ? " (" + personData.getMaidenName() + ") " : " ";
+		assertFullName += personData.getLastName();
 		waitUntilIsLoaded(fullNameLink);
 		boolean fullNameAssert = fullNameLink.getText().equals(assertFullName);
 
 		swichToFirstFrame(driver);
-		String assertTitleName = name + " " + lastName;
+		String assertTitleName = personData.getName()+ " " + personData.getLastName();
 		boolean titleNameAssert = nameLink.getText().equals(assertTitleName);
 
 		return fullNameAssert && titleNameAssert;
+	}
+	
+	public boolean isChangePeronDetailBeforeCreatePerson(PersonData personData, Wait wait)
+			throws Exception {
+		if (wait.isWait())
+			Sleeper.sleep(18000, driver);
+		waitPageIsLoad();
+		
+		String assertTitleName = personData.getName()+ " " + personData.getLastName();
+				waitUntilIsLoaded(fullNameLink);
+				boolean fullNameAssert = fullNameLink.getText().equals(assertTitleName);
+				
+				swichToFirstFrame(driver);
+				boolean titleNameAssert = nameLink.getText().equals(assertTitleName);
+				
+				return fullNameAssert && titleNameAssert;
 	}
 
 	public boolean isChangeGender(Gender genderType) throws Exception {
@@ -505,13 +529,14 @@ public class PersonFilePage extends Page implements PageInterface {
 		return hasNotDependentsLabel.getText().equals("Has no dependents");
 	}
 
-	public boolean isAddPhoneNumber(String phoneNumber) throws Exception {
+	public boolean isAddPhoneNumber(String phoneNumber, String runID) throws Exception {
 		Sleeper.sleep(10000, driver);
 		waitPageIsLoad();
 		waitUntilnotVisibility(loadingSpinner);
-		String assertNumber = "(" + phoneNumber.substring(0, 3) + ") "
-				+ phoneNumber.substring(3, 6) + "-"
-				+ phoneNumber.substring(6, 10);
+		String phoneNumberFinal = getPhoneNumber(phoneNumber, runID);
+		String assertNumber = "(" + phoneNumberFinal.substring(0, 3) + ") "
+				+ phoneNumberFinal.substring(3, 6) + "-"
+				+ phoneNumberFinal.substring(6, 10);
 		return mobilePhoneNumber.getText().equals(assertNumber);
 	}
 
@@ -524,9 +549,9 @@ public class PersonFilePage extends Page implements PageInterface {
 		Sleeper.sleep(5000, driver);
 		waitPageIsLoad();
 		String[] birthDateSplit = birthDate.split("/");
-		String birtDateAssert = getMonth(birthDateSplit[0])  + "-" + birthDateSplit[1]
+		String birthDateAssert = getShortMonth(birthDateSplit[0])  + "-" + birthDateSplit[1]
 			 + "-" + birthDateSplit[2];
-		return birthDateLink.getText().equals(birtDateAssert);
+		return birthDateLink.getText().equals(birthDateAssert);
 	}
 
 	public boolean isTaskAssigned() throws Exception {
@@ -541,26 +566,30 @@ public class PersonFilePage extends Page implements PageInterface {
 	}
 
 	public boolean isChecklistAssigned() throws Exception {
+		Sleeper.sleep(3000, driver);
 		waitUntilnotVisibility(loadingSpinner);
 		swichToFirstFrame(driver);
 		clickAButton(tasksTab);
 		swichToIframe(tabiFrame);
 		clickAButton(runningChecklist);
 		waitUntilIsLoaded(firstChecklist);
-		return firstChecklist.getText().equals(
-				Checklist.getCheckListToAssign().getName());
+		boolean result  =  firstChecklist.getText().equals(Checklist.getCheckListToAssign().getName());
+		swichToFirstFrame(driver);
+		clickAButton(personalTab);
+		return result;
 	}
 
 	public boolean isRemoveUsAddress(USAddress usAddress) {
+		Sleeper.sleep(4000, driver);
 		return searchAddress(usAddress) == null;
 	}
 
-	public boolean isSocialSecurityNumberAdded(String ssnNumber)
+	public boolean isSocialSecurityNumberAdded(String ssnNumber, String runID)
 			throws Exception {
 		Sleeper.sleep(5000, driver);
 		waitPageIsLoad();
 		return addSocialSecurityNumber.getText().substring(7, 11)
-				.equals(ssnNumber.substring(5, 9));
+				.equals(getSSN(ssnNumber, runID).substring(5, 9));
 	}
 
 	public boolean isEmergencyContactAdded(EmergencyContact emg)
@@ -673,6 +702,38 @@ public class PersonFilePage extends Page implements PageInterface {
 	private String getMonth(String number) {
 		switch (Integer.parseInt(number)) {
 		case 1:
+			return "January";
+		case 2:
+			return "February";
+		case 3:
+			return "March";
+		case 4:
+			return "April";
+		case 5:
+			return "May";
+		case 6:
+			return "June";
+		case 7:
+			return "July";
+		case 8:
+			return "August";
+		case 9:
+			return "September";
+		case 10:
+			return "October";
+		case 11:
+			return "November";
+		case 12:
+			return "December";
+
+		default:
+			return "ERROR";
+		}
+	}
+
+	private String getShortMonth(String number) {
+		switch (Integer.parseInt(number)) {
+		case 1:
 			return "Jan";
 		case 2:
 			return "Feb";
@@ -701,7 +762,6 @@ public class PersonFilePage extends Page implements PageInterface {
 			return "ERROR";
 		}
 	}
-
 	private boolean isTheSameAddress(WebElement address, USAddress usAddress) {
 		return address.getText().contains(usAddress.getCity())
 				&& address.getText().contains(usAddress.getCounty())
@@ -720,6 +780,7 @@ public class PersonFilePage extends Page implements PageInterface {
 	}
 
 	private void clickOnStartChecklist() throws Exception {
+		Sleeper.sleep(3000, driver);
 		waitUntilIsLoaded(startChecklistButton);
 		clickAButton(startChecklistButton);
 	}
@@ -744,9 +805,7 @@ public class PersonFilePage extends Page implements PageInterface {
 	public boolean isThisPerson(PersonData personData) throws Exception {
 		boolean changeTitle = isChangeTitle(personData.getTitleOfEmployee(),
 				personData.getDepartamentOfEmployee());
-		boolean changeFullName = isChangeName(personData.getName(),
-				personData.getLastName(), personData.getMiddleName(),
-				personData.getMaidenName(), Wait.NOWAIT);
+		boolean changeFullName = isChangePeronDetailBeforeCreatePerson(personData, Wait.NOWAIT);
 
 		return changeTitle && changeFullName;
 	}

@@ -1,14 +1,12 @@
 package insynctive.utils;
 
 import insynctive.pages.insynctive.exception.ConfigurationException;
-import insynctive.utils.data.Employee;
 import insynctive.utils.process.Process;
 
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 

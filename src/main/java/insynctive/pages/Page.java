@@ -1,5 +1,7 @@
 package insynctive.pages;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import insynctive.pages.insynctive.exception.ElementIsAllwaysVisibleException;
 import insynctive.pages.insynctive.exception.ElementNotFoundException;
 import insynctive.pages.insynctive.exception.WrongMessageException;
@@ -17,9 +19,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
-import com.sun.jna.LastErrorException;
 
 public class Page {
 
@@ -97,19 +96,19 @@ public class Page {
         try{
         	element.clear();
         	element.sendKeys(text);
-        	Assert.assertEquals(element.getAttribute("value"), text);
+        	assertEquals(element.getAttribute("value"), text);
         } catch (NullPointerException nEx){
         	throw new ElementNotFoundException(getMessageFromWebElement(element)+" is NULL", null);
         }
     }
 
     public void assertElementText(WebElement element, String text) {
-        Assert.assertEquals(element.getAttribute("value"), text);
+        assertEquals(element.getAttribute("value"), text);
     }
 
     public void checkIfElementVisible(WebElement element) {
-        Assert.assertTrue(element.isDisplayed(), "element isn't found");
-    }
+        assertTrue("element isn't found", element.isDisplayed());
+    } 
 
     public String getDriverTitle() {
         return driver.getTitle();
@@ -245,7 +244,11 @@ public class Page {
 	public boolean selectElementInComboOption(WebElement combo, String text) throws Exception{
 		return selectElementInCombo(combo, text, "option");
 	}
-	
+
+	public boolean selectElementInDefaultCombo(WebElement combo, String text){
+		new Select(combo).selectByVisibleText(text);
+		return true;
+	}
 	public boolean selectElementInCombo(WebElement combo, String text, String typeOfContainer) throws Exception {
 		try{
 			clickAButton(combo);

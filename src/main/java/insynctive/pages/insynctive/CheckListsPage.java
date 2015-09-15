@@ -6,8 +6,6 @@ import insynctive.pages.insynctive.exception.ElementNotFoundException;
 import insynctive.utils.Checklist;
 import insynctive.utils.Sleeper;
 import insynctive.utils.data.Employee;
-import insynctive.utils.process.I9;
-import insynctive.utils.process.Process;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

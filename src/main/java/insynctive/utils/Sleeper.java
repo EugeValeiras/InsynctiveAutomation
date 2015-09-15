@@ -9,7 +9,7 @@ public class Sleeper {
 	
 	public static void sleep(int time, WebDriver driver){
 		try{
-			if(InsynctivePropertiesReader.IsSauceLabs()){
+			if(InsynctivePropertiesReader.IsRemote()){
 				synchronized (driver){ driver.wait(time);}
 			} else {
 				Thread.sleep(time); //This is for LOCAL

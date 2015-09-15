@@ -2,11 +2,12 @@ package insynctive.utils;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
 import org.openqa.selenium.WebDriver;
-import java.awt.datatransfer.*;
-import java.awt.Toolkit;
 
 public class UploadRobot {
 

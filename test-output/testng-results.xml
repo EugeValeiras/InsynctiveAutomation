@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="3" passed="3">
+<testng-results skipped="0" failed="0" total="18" passed="18">
   <reporter-output>
   </reporter-output>
-  <suite name="Test Suite" duration-ms="87190" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:36:42Z">
+  <suite name="Test Suite" duration-ms="693113" started-at="2015-09-15T19:38:44Z" finished-at="2015-09-15T19:50:17Z">
     <groups>
     </groups>
-    <test name="changePrimaryEmail" duration-ms="87190" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:36:42Z">
+    <test name="Person File Test" duration-ms="693113" started-at="2015-09-15T19:38:44Z" finished-at="2015-09-15T19:50:17Z">
       <class name="insynctive.tests.PersonFileTest">
-        <test-method status="PASS" signature="tearUp()" name="tearUp" is-config="true" duration-ms="126" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:35:15Z">
-        </test-method>
-        <test-method status="PASS" signature="loginTest(insynctive.utils.data.TestEnvironment)" name="loginTest" duration-ms="24840" started-at="2015-09-12T14:35:15Z" finished-at="2015-09-12T14:35:40Z">
+        <test-method status="PASS" signature="tearUp()[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="tearUp" is-config="true" duration-ms="100" started-at="2015-09-15T16:38:44Z" finished-at="2015-09-15T16:38:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearUp -->
+        <test-method status="PASS" signature="loginTest(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="loginTest" duration-ms="34547" started-at="2015-09-15T16:38:44Z" data-provider="hardCodedBrowsers" finished-at="2015-09-15T16:39:18Z">
           <params>
             <param index="0">
               <value>
@@ -17,8 +19,10 @@
               </value>
             </param>
           </params>
-        </test-method>
-        <test-method status="PASS" signature="openPersonFile(insynctive.utils.data.TestEnvironment)" name="openPersonFile" duration-ms="8703" started-at="2015-09-12T14:35:40Z" depends-on-methods="insynctive.tests.PersonFileTest.loginTest" finished-at="2015-09-12T14:35:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginTest -->
+        <test-method status="PASS" signature="createPersonTest(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="createPersonTest" duration-ms="67487" started-at="2015-09-15T16:39:18Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.loginTest" finished-at="2015-09-15T16:40:26Z">
           <params>
             <param index="0">
               <value>
@@ -26,8 +30,10 @@
               </value>
             </param>
           </params>
-        </test-method>
-        <test-method status="PASS" signature="startChecklist(insynctive.utils.data.TestEnvironment)" name="startChecklist" duration-ms="52682" started-at="2015-09-12T14:35:49Z" depends-on-methods="insynctive.tests.PersonFileTest.openPersonFile" finished-at="2015-09-12T14:36:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createPersonTest -->
+        <test-method status="PASS" signature="aaaachangeName2(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="aaaachangeName2" duration-ms="32461" started-at="2015-09-15T16:40:26Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:40:58Z">
           <params>
             <param index="0">
               <value>
@@ -35,10 +41,179 @@
               </value>
             </param>
           </params>
-        </test-method>
-        <test-method status="PASS" signature="teardown()" name="teardown" is-config="true" duration-ms="1" started-at="2015-09-12T14:36:42Z" finished-at="2015-09-12T14:36:42Z">
-        </test-method>
-      </class>
-    </test>
-  </suite>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- aaaachangeName2 -->
+        <test-method status="PASS" signature="addTitle(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="addTitle" duration-ms="20602" started-at="2015-09-15T16:40:58Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:41:19Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addTitle -->
+        <test-method status="PASS" signature="changeName(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="changeName" duration-ms="39011" started-at="2015-09-15T16:41:19Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:41:58Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- changeName -->
+        <test-method status="PASS" signature="changeMaritalStatus(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="changeMaritalStatus" duration-ms="13374" started-at="2015-09-15T16:41:58Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:42:11Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- changeMaritalStatus -->
+        <test-method status="PASS" signature="changeBirthDate(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="changeBirthDate" duration-ms="18388" started-at="2015-09-15T16:42:11Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:42:30Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- changeBirthDate -->
+        <test-method status="PASS" signature="changeGender(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="changeGender" duration-ms="9239" started-at="2015-09-15T16:42:30Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:42:39Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- changeGender -->
+        <test-method status="PASS" signature="addSocialSecurityNumber(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="addSocialSecurityNumber" duration-ms="17945" started-at="2015-09-15T16:42:39Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:42:57Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addSocialSecurityNumber -->
+        <test-method status="PASS" signature="addPhoneNumber(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="addPhoneNumber" duration-ms="24367" started-at="2015-09-15T16:42:57Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:43:21Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addPhoneNumber -->
+        <test-method status="PASS" signature="changePrimaryEmail(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="changePrimaryEmail" duration-ms="26697" started-at="2015-09-15T16:43:21Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:43:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- changePrimaryEmail -->
+        <test-method status="PASS" signature="addEmergencyContact(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="addEmergencyContact" duration-ms="22525" started-at="2015-09-15T16:43:48Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:44:11Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addEmergencyContact -->
+        <test-method status="PASS" signature="addUSAddress(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="addUSAddress" duration-ms="26794" started-at="2015-09-15T16:44:11Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:44:37Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addUSAddress -->
+        <test-method status="PASS" signature="assignTask(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="assignTask" duration-ms="37292" started-at="2015-09-15T16:44:37Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:45:15Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- assignTask -->
+        <test-method status="PASS" signature="startChecklist(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="startChecklist" duration-ms="44552" started-at="2015-09-15T16:45:15Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.createPersonTest" finished-at="2015-09-15T16:45:59Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- startChecklist -->
+        <test-method status="PASS" signature="changeEmergencyContact(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="changeEmergencyContact" duration-ms="28799" started-at="2015-09-15T16:45:59Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.addEmergencyContact" finished-at="2015-09-15T16:46:28Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- changeEmergencyContact -->
+        <test-method status="PASS" signature="removeUSAddress(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="removeUSAddress" duration-ms="19798" started-at="2015-09-15T16:46:28Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.addUSAddress" finished-at="2015-09-15T16:46:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- removeUSAddress -->
+        <test-method status="PASS" signature="removeEmergencyContact(insynctive.utils.data.TestEnvironment)[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="removeEmergencyContact" duration-ms="23130" started-at="2015-09-15T16:46:48Z" data-provider="hardCodedBrowsers" depends-on-methods="insynctive.tests.PersonFileTest.changeEmergencyContact" finished-at="2015-09-15T16:47:11Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome 44 | Windows 7 64bits]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- removeEmergencyContact -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:insynctive.tests.PersonFileTest@2ea6137]" name="teardown" is-config="true" duration-ms="185768" started-at="2015-09-15T16:47:11Z" finished-at="2015-09-15T16:50:17Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- insynctive.tests.PersonFileTest -->
+    </test> <!-- Person File Test -->
+  </suite> <!-- Test Suite -->
 </testng-results>
